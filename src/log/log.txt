@@ -1,0 +1,1012 @@
+[2024-04-16T12:03:40.011Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.054Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.055Z] licenze richieste da :7414165698 # 12 
+[2024-04-16T12:03:40.062Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.064Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:03:40.064Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:03:40.065Z] licenze trovate : - >KNM E-Terminal :  0 
+[2024-04-16T12:03:40.070Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.072Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:03:40.072Z] licenze trovate : - >KNM Pro :  0 
+[2024-04-16T12:03:40.072Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:03:40.079Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.081Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:03:40.081Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:03:40.081Z] licenze trovate : - >SW MNT E-Terminal +3Year :  0 
+[2024-04-16T12:03:40.086Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.087Z] Licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-16T12:03:40.087Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-16T12:03:40.087Z] licenze trovate : - >SW MNT Pro +3Year :  0 
+[2024-04-16T12:03:40.091Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.093Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:03:40.094Z] licenze trovate : - >SW MNT E-Terminal +3Year :  0 
+[2024-04-16T12:03:40.094Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:03:40.099Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.100Z] Licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-16T12:03:40.100Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-16T12:03:40.101Z] licenze trovate : - >SW MNT Pro +3Year :  0 
+[2024-04-16T12:03:40.106Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.108Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:03:40.108Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:03:40.109Z] licenze trovate : - >SW MNT E-Terminal +3Year :  0 
+[2024-04-16T12:03:40.114Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.116Z] Licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-16T12:03:40.117Z] licenze trovate : - >SW MNT Pro +3Year :  0 
+[2024-04-16T12:03:40.116Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-16T12:03:40.121Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.123Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:03:40.124Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:03:40.124Z] licenze trovate : - >KNM E-Terminal :  0 
+[2024-04-16T12:03:40.130Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.131Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:03:40.132Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:03:40.132Z] licenze trovate : - >KNM Pro :  0 
+[2024-04-16T12:03:40.136Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.137Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:03:40.138Z] licenze trovate : - >KNM E-Terminal :  0 
+[2024-04-16T12:03:40.138Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:03:40.142Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.143Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:03:40.144Z] licenze trovate : - >KNM Pro :  0 
+[2024-04-16T12:03:40.144Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:03:40.150Z] richiesta effettuata con successo 200 
+[2024-04-16T12:03:40.151Z] pack:  [] 
+[2024-04-16T12:03:40.151Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.519Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.534Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.535Z] licenze richieste da :7414165698 # 12 
+[2024-04-16T12:06:06.544Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.546Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:06:06.547Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:06:06.554Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.556Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:06:06.557Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:06:06.563Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.565Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:06:06.565Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:06:06.571Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.573Z] Licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-16T12:06:06.574Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-16T12:06:06.591Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.592Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-16T12:06:06.593Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-16T12:06:06.597Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.599Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:06:06.599Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:06:06.604Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.607Z] Licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-16T12:06:06.608Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-16T12:06:06.618Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.620Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-16T12:06:06.620Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-16T12:06:06.627Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.628Z] Licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-16T12:06:06.628Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-16T12:06:06.632Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.633Z] Licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-16T12:06:06.634Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-16T12:06:06.639Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.640Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:06:06.641Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:06:06.645Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.647Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:06:06.647Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:06:06.652Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.655Z] Licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-16T12:06:06.655Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-16T12:06:06.660Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.661Z] Licenza di tipo: KNM Pro -->  0 
+[2024-04-16T12:06:06.662Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-16T12:06:06.666Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.668Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-16T12:06:06.668Z] richiesta creazione file excle 7414165698-- 2 
+[2024-04-16T12:06:06.680Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:06.734Z] File Excel creato con successo: "C:\\OrdiniDaSap\\orders\\output.xlsx" 
+[2024-04-16T12:06:06.756Z] richiesta effettuata con successo 200 
+[2024-04-16T12:06:52.303Z] richiesta effettuata con successo 200 
+[2024-04-16T12:38:34.909Z] richiesta effettuata con successo 200 
+[2024-04-16T12:38:34.914Z] richiesta effettuata con successo 200 
+[2024-04-17T10:08:57.491Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:23.852Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.334Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.371Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.377Z] licenze richieste da :7414165698 # 12 
+[2024-04-17T13:15:47.400Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.404Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-17T13:15:47.405Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-17T13:15:47.418Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.421Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-17T13:15:47.422Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-17T13:15:47.442Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.445Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-17T13:15:47.445Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-17T13:15:47.455Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.467Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-17T13:15:47.468Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-17T13:15:47.500Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.518Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-17T13:15:47.521Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-17T13:15:47.566Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.572Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-17T13:15:47.572Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-17T13:15:47.580Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.596Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-17T13:15:47.598Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-17T13:15:47.658Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.660Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-17T13:15:47.660Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-17T13:15:47.666Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.667Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-17T13:15:47.667Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-17T13:15:47.741Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.756Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-17T13:15:47.758Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-17T13:15:47.795Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.806Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-17T13:15:47.809Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-17T13:15:47.846Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.867Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-17T13:15:47.870Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-17T13:15:47.922Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.937Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-17T13:15:47.935Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-17T13:15:47.982Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:47.997Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-17T13:15:48.005Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-17T13:15:48.060Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:48.073Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-17T13:15:48.231Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:48.076Z] richiesta creazione file excle 7414165698-- 2 
+[2024-04-17T13:15:48.569Z] richiesta effettuata con successo 200 
+[2024-04-17T13:15:49.083Z] File Excel creato con successo: "C:\\OrdiniDaSap\\orders\\output.xlsx" 
+[2024-04-18T10:19:43.471Z] ENOENT: no such file or directory, open 'C:\projects\knm-api\src\attachment\sample.pdf' 500 
+[2024-04-18T10:27:12.970Z] Request failed with status code 401 500 
+[2024-04-18T11:59:46.367Z] Request failed with status code 401 500 
+[2024-04-18T12:06:32.020Z] Request failed with status code 401 500 
+[2024-04-19T10:31:00.848Z] richiesta effettuata con successo 200 
+[2024-04-19T10:33:38.758Z] Errore durante la richiesta ordini: {"code":"ERR_INVALID_URL","input":"http://localhost::3000/orders/sales","base":"http://localhost"} 
+[2024-04-19T10:33:38.767Z] richiesta effettuata con successo 200 
+[2024-04-19T10:33:56.440Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.314Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.379Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.382Z] licenze richieste da :7414165698 # 12 
+[2024-04-19T10:37:56.462Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.465Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:37:56.465Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:37:56.478Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.481Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:37:56.481Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:37:56.501Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.504Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:37:56.505Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:37:56.514Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.518Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-19T10:37:56.517Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:37:56.543Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.546Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-19T10:37:56.547Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-19T10:37:56.556Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.559Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:37:56.560Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:37:56.571Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.576Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:37:56.577Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-19T10:37:56.595Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.598Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-19T10:37:56.598Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-19T10:37:56.611Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.614Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:37:56.613Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:37:56.620Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.622Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-19T10:37:56.623Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-19T10:37:56.632Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.634Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:37:56.634Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:37:56.647Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.649Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:37:56.649Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:37:56.657Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.660Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:37:56.660Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:37:56.675Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.677Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:37:56.678Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:37:56.687Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.690Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-19T10:37:56.690Z] richiesta creazione file excle 7414165698-- 2 
+[2024-04-19T10:37:56.709Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.751Z] richiesta effettuata con successo 200 
+[2024-04-19T10:37:56.837Z] File Excel creato con successo: "undefinedoutput.xlsx" 
+[2024-04-19T10:51:42.856Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.884Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.887Z] licenze richieste da :7414165698 # 12 
+[2024-04-19T10:51:42.899Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.901Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:51:42.902Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:51:42.913Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.915Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:51:42.916Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:51:42.939Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.943Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:51:42.944Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:51:42.959Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:42.961Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:51:42.962Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-19T10:51:43.020Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.023Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-19T10:51:43.024Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-19T10:51:43.033Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.035Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:51:43.036Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:51:43.047Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.050Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:51:43.051Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-19T10:51:43.074Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.078Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-19T10:51:43.079Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-19T10:51:43.088Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.092Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:51:43.093Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:51:43.100Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.103Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-19T10:51:43.102Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-19T10:51:43.112Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.114Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:51:43.115Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:51:43.123Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.126Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:51:43.126Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:51:43.133Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.135Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:51:43.136Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:51:43.146Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.148Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:51:43.149Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:51:43.158Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.160Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-19T10:51:43.160Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-19T10:51:43.185Z] richiesta effettuata con successo 200 
+[2024-04-19T10:51:43.268Z] File Excel creato con successo: "undefined7414165698.xlsx" 
+[2024-04-19T10:54:55.483Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.513Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.515Z] licenze richieste da :7414165698 # 12 
+[2024-04-19T10:54:55.530Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.532Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:54:55.533Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:54:55.545Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.547Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:54:55.547Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:54:55.563Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.565Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:54:55.566Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:54:55.581Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.584Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:54:55.585Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-19T10:54:55.617Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.620Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-19T10:54:55.621Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-19T10:54:55.635Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.638Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:54:55.639Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:54:55.658Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.665Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:54:55.666Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-19T10:54:55.698Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.701Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-19T10:54:55.702Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-19T10:54:55.711Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.714Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:54:55.715Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:54:55.722Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.724Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-19T10:54:55.725Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-19T10:54:55.732Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.735Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:54:55.735Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:54:55.742Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.743Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:54:55.744Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:54:55.750Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.753Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:54:55.753Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:54:55.760Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.762Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:54:55.762Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:54:55.769Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.772Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-19T10:54:55.772Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-19T10:54:55.798Z] richiesta effettuata con successo 200 
+[2024-04-19T10:54:55.864Z] File Excel creato con successo: "undefined7414165698.xlsx" 
+[2024-04-19T10:56:18.262Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.283Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.286Z] licenze richieste da :7414165698 # 12 
+[2024-04-19T10:56:18.296Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.298Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:56:18.299Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:56:18.316Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.319Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:56:18.320Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:56:18.341Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.343Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:56:18.344Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:56:18.354Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.357Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:56:18.357Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-19T10:56:18.405Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.407Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-19T10:56:18.408Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-19T10:56:18.431Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.436Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:56:18.437Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:56:18.454Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.457Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-19T10:56:18.458Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-19T10:56:18.514Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.520Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-19T10:56:18.522Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-19T10:56:18.538Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.541Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-19T10:56:18.542Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-19T10:56:18.548Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.551Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-19T10:56:18.552Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-19T10:56:18.565Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.572Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:56:18.573Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:56:18.585Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.588Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:56:18.589Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:56:18.595Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.597Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-19T10:56:18.597Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-19T10:56:18.604Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.607Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-19T10:56:18.608Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-19T10:56:18.615Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.617Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-19T10:56:18.618Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-19T10:56:18.637Z] richiesta effettuata con successo 200 
+[2024-04-19T10:56:18.683Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T07:45:49.000Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.598Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.612Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.614Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T07:46:58.619Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.622Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T07:46:58.623Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T07:46:58.631Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.633Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T07:46:58.633Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T07:46:58.640Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.643Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T07:46:58.643Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T07:46:58.649Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.651Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T07:46:58.650Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T07:46:58.668Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.669Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T07:46:58.670Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T07:46:58.676Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.678Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T07:46:58.678Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T07:46:58.683Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.684Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T07:46:58.685Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T07:46:58.697Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.698Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T07:46:58.698Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T07:46:58.702Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.703Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T07:46:58.703Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T07:46:58.709Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.710Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T07:46:58.711Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T07:46:58.715Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.716Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T07:46:58.716Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T07:46:58.720Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.721Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T07:46:58.721Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T07:46:58.727Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.728Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T07:46:58.729Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T07:46:58.732Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.733Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T07:46:58.733Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T07:46:58.738Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.740Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T07:46:58.741Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T07:46:58.753Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.769Z] richiesta effettuata con successo 200 
+[2024-04-22T07:46:58.874Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T07:46:59.129Z] Request failed with status code 401 500 
+[2024-04-22T08:08:04.316Z] Request failed with status code 401 500 
+[2024-04-22T08:18:10.885Z] Request failed with status code 401 500 
+[2024-04-22T08:25:39.014Z] Request failed with status code 401 500 
+[2024-04-22T08:53:35.305Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.319Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.321Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T08:53:35.329Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.330Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T08:53:35.330Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T08:53:35.337Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.339Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T08:53:35.338Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T08:53:35.344Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.345Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T08:53:35.345Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T08:53:35.351Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.353Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T08:53:35.353Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T08:53:35.368Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.369Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T08:53:35.369Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T08:53:35.373Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.375Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T08:53:35.375Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T08:53:35.380Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.382Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T08:53:35.382Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T08:53:35.392Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.393Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T08:53:35.393Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T08:53:35.398Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.400Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T08:53:35.400Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T08:53:35.405Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.406Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T08:53:35.406Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T08:53:35.409Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.410Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T08:53:35.411Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T08:53:35.414Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.416Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T08:53:35.416Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T08:53:35.421Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.422Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T08:53:35.423Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T08:53:35.427Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.428Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T08:53:35.428Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T08:53:35.433Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.435Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T08:53:35.435Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T08:53:35.445Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.465Z] richiesta effettuata con successo 200 
+[2024-04-22T08:53:35.589Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T09:12:20.291Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.306Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.307Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T09:12:20.314Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.315Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:12:20.316Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:12:20.322Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.325Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:12:20.325Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:12:20.332Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.334Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:12:20.334Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:12:20.342Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.343Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:12:20.344Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T09:12:20.390Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.392Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T09:12:20.392Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T09:12:20.398Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.400Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:12:20.399Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:12:20.408Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.411Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T09:12:20.411Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:12:20.421Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.425Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T09:12:20.425Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T09:12:20.429Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.431Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:12:20.431Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:12:20.434Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.436Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T09:12:20.436Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T09:12:20.442Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.444Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:12:20.444Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:12:20.448Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.449Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:12:20.449Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:12:20.454Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.456Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:12:20.456Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:12:20.462Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.464Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:12:20.464Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:12:20.469Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.471Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T09:12:20.472Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T09:12:20.485Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.507Z] richiesta effettuata con successo 200 
+[2024-04-22T09:12:20.569Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T09:14:27.341Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.356Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.357Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T09:14:27.362Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.364Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:14:27.364Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:14:27.370Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.373Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:14:27.373Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:14:27.378Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.380Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:14:27.379Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:14:27.384Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.387Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:14:27.387Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T09:14:27.399Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.400Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T09:14:27.400Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T09:14:27.407Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.408Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:14:27.409Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:14:27.413Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.414Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:14:27.415Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T09:14:27.426Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.427Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T09:14:27.427Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T09:14:27.431Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.433Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:14:27.434Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:14:27.439Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.441Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T09:14:27.441Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T09:14:27.444Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.446Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:14:27.446Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:14:27.450Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.453Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:14:27.453Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:14:27.458Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.459Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:14:27.459Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:14:27.463Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.465Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:14:27.465Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:14:27.472Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.474Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T09:14:27.473Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T09:14:27.496Z] richiesta effettuata con successo 200 
+[2024-04-22T09:14:27.554Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T09:14:28.412Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.725Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.774Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.780Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T09:23:30.803Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.809Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:23:30.811Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:23:30.832Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.837Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:23:30.838Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:23:30.858Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.865Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:23:30.867Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:23:30.884Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.895Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T09:23:30.892Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:23:30.962Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.963Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T09:23:30.963Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T09:23:30.973Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.974Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:23:30.975Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:23:30.981Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:30.985Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T09:23:30.986Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T09:23:31.015Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.018Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T09:23:31.019Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T09:23:31.027Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.029Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T09:23:31.030Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T09:23:31.036Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.039Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T09:23:31.040Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T09:23:31.046Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.048Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:23:31.049Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:23:31.056Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.058Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:23:31.059Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:23:31.066Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.068Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T09:23:31.068Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T09:23:31.073Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.076Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T09:23:31.076Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T09:23:31.083Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.085Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T09:23:31.085Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T09:23:31.247Z] richiesta effettuata con successo 200 
+[2024-04-22T09:23:31.551Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T09:23:32.291Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:25.210Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:25.219Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:38.999Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.037Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.044Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T12:56:39.058Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.063Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T12:56:39.064Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T12:56:39.075Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.080Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T12:56:39.080Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T12:56:39.094Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.096Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T12:56:39.097Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T12:56:39.104Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.106Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T12:56:39.106Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T12:56:39.128Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.130Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T12:56:39.130Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T12:56:39.160Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.189Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T12:56:39.177Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T12:56:39.222Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.232Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T12:56:39.237Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T12:56:39.301Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.305Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T12:56:39.306Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T12:56:39.327Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.329Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T12:56:39.330Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T12:56:39.345Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.348Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T12:56:39.348Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T12:56:39.359Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T12:56:39.357Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.359Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T12:56:39.366Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.368Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T12:56:39.368Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T12:56:39.375Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.379Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T12:56:39.380Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T12:56:39.386Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.387Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T12:56:39.388Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T12:56:39.398Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.400Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T12:56:39.400Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T12:56:39.518Z] richiesta effettuata con successo 200 
+[2024-04-22T12:56:39.779Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T12:56:40.437Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.552Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.568Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.570Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T13:03:06.578Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.579Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:03:06.580Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:03:06.586Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.588Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:03:06.588Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:03:06.595Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.597Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:03:06.599Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:03:06.647Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.650Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T13:03:06.650Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:03:06.670Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.673Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T13:03:06.672Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T13:03:06.678Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.680Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:03:06.680Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:03:06.687Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.690Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T13:03:06.690Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:03:06.702Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.705Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T13:03:06.705Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T13:03:06.710Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.711Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:03:06.712Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:03:06.717Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.720Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T13:03:06.720Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T13:03:06.725Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.726Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:03:06.727Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:03:06.731Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.732Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:03:06.733Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:03:06.738Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.741Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:03:06.740Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:03:06.746Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.747Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:03:06.747Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:03:06.754Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.755Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T13:03:06.756Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T13:03:06.782Z] richiesta effettuata con successo 200 
+[2024-04-22T13:03:06.851Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T13:03:07.502Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.738Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.754Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.756Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T13:30:53.761Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.764Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:30:53.765Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:30:53.770Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.771Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:30:53.772Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:30:53.778Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.780Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:30:53.781Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:30:53.788Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.790Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T13:30:53.790Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:30:53.834Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.846Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T13:30:53.851Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T13:30:53.880Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.882Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:30:53.882Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:30:53.889Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.891Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:30:53.891Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T13:30:53.904Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.906Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T13:30:53.906Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T13:30:53.911Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.914Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:30:53.913Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:30:53.917Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.918Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T13:30:53.919Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T13:30:53.923Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.924Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:30:53.924Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:30:53.930Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.931Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:30:53.931Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:30:53.935Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.937Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:30:53.937Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:30:53.941Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.942Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:30:53.942Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:30:53.949Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:53.950Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T13:30:53.950Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T13:30:53.978Z] richiesta effettuata con successo 200 
+[2024-04-22T13:30:54.071Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T13:30:55.088Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.742Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.768Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.770Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T13:44:19.798Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.801Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:44:19.801Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:44:19.815Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.817Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:44:19.818Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:44:19.830Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.832Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:44:19.832Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:44:19.839Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.842Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:44:19.843Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T13:44:19.862Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.863Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T13:44:19.864Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T13:44:19.871Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.873Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:44:19.873Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:44:19.878Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.880Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T13:44:19.880Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T13:44:19.916Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.938Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T13:44:19.940Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T13:44:19.946Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.948Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T13:44:19.948Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T13:44:19.954Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.956Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T13:44:19.956Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T13:44:19.960Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.962Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:44:19.962Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:44:19.966Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.968Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:44:19.968Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:44:19.974Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.975Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T13:44:19.975Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T13:44:19.979Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.980Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T13:44:19.981Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T13:44:19.989Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:19.990Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T13:44:19.990Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T13:44:20.023Z] richiesta effettuata con successo 200 
+[2024-04-22T13:44:20.090Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T13:44:21.202Z] richiesta effettuata con successo 200 
+[2024-04-22T14:54:56.717Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.185Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.222Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.225Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T15:13:25.236Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.239Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:13:25.239Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:13:25.267Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.270Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:13:25.272Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:13:25.284Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.287Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:13:25.287Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:13:25.299Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.301Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T15:13:25.302Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T15:13:25.337Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.339Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T15:13:25.340Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T15:13:25.351Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.353Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:13:25.354Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:13:25.364Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.368Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T15:13:25.368Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T15:13:25.403Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.419Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T15:13:25.430Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T15:13:25.440Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.445Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:13:25.446Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:13:25.453Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.455Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T15:13:25.455Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T15:13:25.464Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.467Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:13:25.466Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:13:25.480Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.482Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:13:25.482Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:13:25.488Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.490Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:13:25.490Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:13:25.497Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.500Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:13:25.501Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:13:25.514Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.516Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T15:13:25.517Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T15:13:25.586Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:25.834Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T15:13:26.752Z] richiesta effettuata con successo 200 
+[2024-04-22T15:13:26.834Z] Errore durante la chiamata API per la chiave 500052A85-C3024001693-90A81941: {"message":"Request failed with status code 404","name":"AxiosError","stack":"AxiosError: Request failed with status code 404\n    at settle (C:\\projects\\knm-api\\node_modules\\axios\\lib\\core\\settle.js:19:12)\n    at IncomingMessage.handleStreamEnd (C:\\projects\\knm-api\\node_modules\\axios\\lib\\adapters\\http.js:589:11)\n    at IncomingMessage.emit (node:events:527:35)\n    at IncomingMessage.emit (node:domain:488:12)\n    at endReadableNT (node:internal/streams/readable:1589:12)\n    at processTicksAndRejections (node:internal/process/task_queues:82:21)\n    at Axios.request (C:\\projects\\knm-api\\node_modules\\axios\\lib\\core\\Axios.js:45:41)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","config":{"transitional":{"silentJSONParsing":true,"forcedJSONParsing":true,"clarifyTimeoutError":false},"adapter":["xhr","http"],"transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1,"maxBodyLength":-1,"env":{},"headers":{"Accept":"application/json, text/plain, */*","User-Agent":"axios/1.6.8","Accept-Encoding":"gzip, compress, deflate, br"},"method":"get","url":"http://localhost:3000/license/sended/500052A85-C3024001693-90A81941/inviato"},"code":"ERR_BAD_REQUEST","status":404} 
+[2024-04-22T15:13:26.919Z] Errore durante la chiamata API per la chiave 500052A86-C3024001693-96490D8D: {"message":"Request failed with status code 404","name":"AxiosError","stack":"AxiosError: Request failed with status code 404\n    at settle (C:\\projects\\knm-api\\node_modules\\axios\\lib\\core\\settle.js:19:12)\n    at IncomingMessage.handleStreamEnd (C:\\projects\\knm-api\\node_modules\\axios\\lib\\adapters\\http.js:589:11)\n    at IncomingMessage.emit (node:events:527:35)\n    at IncomingMessage.emit (node:domain:488:12)\n    at endReadableNT (node:internal/streams/readable:1589:12)\n    at processTicksAndRejections (node:internal/process/task_queues:82:21)\n    at Axios.request (C:\\projects\\knm-api\\node_modules\\axios\\lib\\core\\Axios.js:45:41)\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","config":{"transitional":{"silentJSONParsing":true,"forcedJSONParsing":true,"clarifyTimeoutError":false},"adapter":["xhr","http"],"transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1,"maxBodyLength":-1,"env":{},"headers":{"Accept":"application/json, text/plain, */*","User-Agent":"axios/1.6.8","Accept-Encoding":"gzip, compress, deflate, br"},"method":"get","url":"http://localhost:3000/license/sended/500052A86-C3024001693-96490D8D/inviato"},"code":"ERR_BAD_REQUEST","status":404} 
+[2024-04-22T15:16:31.234Z] richiesta effettuata con successo 200 
+[2024-04-22T15:16:31.239Z] richiesta effettuata con successo 200 
+[2024-04-22T15:16:48.914Z] richiesta effettuata con successo 200 
+[2024-04-22T15:16:48.919Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.668Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.716Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.721Z] licenze richieste da :7414165698 # 12 
+[2024-04-22T15:17:12.748Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.757Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:17:12.759Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:17:12.784Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.789Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:17:12.791Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:17:12.811Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.819Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:17:12.820Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:17:12.840Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.843Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T15:17:12.843Z]  - Richiesta della licenza booked 7414165698--000011--500052A85-C3024001693-90A81941-- "SW MNT Pro +3Year" 
+[2024-04-22T15:17:12.894Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.909Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000011-500052A85-C3024001693-90A81941-[object Object]" 
+[2024-04-22T15:17:12.909Z] licenze trovate : - >SW MNT Pro +3Year :  1 
+[2024-04-22T15:17:12.927Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.937Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:17:12.938Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:17:12.949Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:12.954Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  - 
+[2024-04-22T15:17:12.955Z]  - Richiesta della licenza booked 7414165698--000021--500052A86-C3024001693-96490D8D-- "SW MNT Pro +3Year" 
+[2024-04-22T15:17:13.013Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.025Z] licenze trovate : - >SW MNT Pro +3Year :  2 
+[2024-04-22T15:17:13.022Z] reserverdLicense- prenotazione della licenza fatta : "7414165698- 000021-500052A86-C3024001693-96490D8D-[object Object]" 
+[2024-04-22T15:17:13.037Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.041Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT E-Terminal +3Year" 
+[2024-04-22T15:17:13.040Z] ricerca: licenza di tipo: SW MNT E-Terminal +3Year -->  0 
+[2024-04-22T15:17:13.057Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.060Z] ricerca: licenza di tipo: SW MNT Pro +3Year -->  0 
+[2024-04-22T15:17:13.061Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "SW MNT Pro +3Year" 
+[2024-04-22T15:17:13.075Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.080Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:17:13.081Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:17:13.095Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.098Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:17:13.097Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:17:13.110Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.113Z] ricerca: licenza di tipo: KNM E-Terminal -->  0 
+[2024-04-22T15:17:13.113Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM E-Terminal" 
+[2024-04-22T15:17:13.119Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.121Z] ricerca: licenza di tipo: KNM Pro -->  0 
+[2024-04-22T15:17:13.121Z] al momento non ci sono le licenze a disponibilità esaurita undefined tipo:  "KNM Pro" 
+[2024-04-22T15:17:13.152Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.156Z] pack:  [{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A85-C3024001693-90A81941","Sales_Doc":"7414165698","Item":"000011","stato":"prenotato"},{"Element":"SW MNT Pro +3Year","LICENSE_KEY":"500052A86-C3024001693-96490D8D","Sales_Doc":"7414165698","Item":"000021","stato":"prenotato"}] 
+[2024-04-22T15:17:13.158Z] richiesta creazione file excel 7414165698-- 2 
+[2024-04-22T15:17:13.280Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:13.519Z] File Excel creato con successo: "./src/attachment/7414165698.xlsx" 
+[2024-04-22T15:17:14.289Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:14.345Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:14.350Z] Chiamata API per la chiave 500052A85-C3024001693-90A81941 avvenuta con successo. Risposta: {"success":true,"data":{"FatherComponent":"874BV870LSNM05303","Element":"SW MNT Pro +3Year","KNM_ITEM":"KNM SW MNT Pro 1","LICENSE_KEY":"500052A85-C3024001693-90A81941","STATO":"inviato","Sales_Doc":"7414165698","Item":"000011","Timestamp":"2024-04-22T17:17:14.303Z"},"error":null} 
+[2024-04-22T15:17:14.417Z] richiesta effettuata con successo 200 
+[2024-04-22T15:17:14.422Z] Chiamata API per la chiave 500052A86-C3024001693-96490D8D avvenuta con successo. Risposta: {"success":true,"data":{"FatherComponent":"874BV870LSNM05303","Element":"SW MNT Pro +3Year","KNM_ITEM":"KNM SW MNT Pro 2","LICENSE_KEY":"500052A86-C3024001693-96490D8D","STATO":"inviato","Sales_Doc":"7414165698","Item":"000021","Timestamp":"2024-04-22T17:17:14.373Z"},"error":null} 
+[2024-04-22T15:22:58.545Z] richiesta effettuata con successo 200 
+[2024-04-22T15:38:41.812Z] richiesta effettuata con successo 200 
+[2024-04-22T17:05:01.790Z] richiesta effettuata con successo 200 
+[2024-04-22T17:05:01.796Z] richiesta effettuata con successo 200 
+[2024-04-22T17:06:09.693Z] richiesta effettuata con successo 200 
+[2024-04-22T17:06:09.701Z] richiesta effettuata con successo 200 
+[2024-04-22T17:06:09.758Z] richiesta effettuata con successo 200 
+[2024-04-22T17:08:26.970Z] richiesta effettuata con successo 200 
+[2024-04-22T17:08:26.978Z] richiesta effettuata con successo 200 
+[2024-04-22T17:08:27.047Z] richiesta effettuata con successo 200 
+[2024-04-22T17:10:30.578Z] richiesta effettuata con successo 200 
+[2024-04-22T17:10:30.590Z] richiesta effettuata con successo 200 
+[2024-04-22T17:10:30.658Z] richiesta effettuata con successo 200 
+[2024-04-23T09:12:45.907Z] richiesta effettuata con successo 200 
+[2024-04-23T09:12:45.921Z] richiesta effettuata con successo 200 
+[2024-04-23T09:12:46.050Z] richiesta effettuata con successo 200 
+[2024-04-23T09:13:47.534Z] richiesta effettuata con successo 200 
+[2024-04-23T09:13:47.540Z] richiesta effettuata con successo 200 
+[2024-04-23T09:13:47.641Z] richiesta effettuata con successo 200 
+[2024-04-23T09:17:41.294Z] richiesta effettuata con successo 200 
+[2024-04-23T09:17:41.302Z] richiesta effettuata con successo 200 
+[2024-04-23T09:17:41.428Z] richiesta effettuata con successo 200 
+[2024-04-23T09:43:57.503Z] richiesta effettuata con successo 200 
+[2024-04-23T09:43:57.510Z] richiesta effettuata con successo 200 
+[2024-04-23T09:43:57.630Z] richiesta effettuata con successo 200 
+[2024-04-23T09:46:41.089Z] richiesta effettuata con successo 200 
+[2024-04-23T09:46:41.095Z] richiesta effettuata con successo 200 
+[2024-04-23T09:46:41.177Z] richiesta effettuata con successo 200 
+[2024-04-23T09:46:41.404Z] File Excel creato con successo: "./src/attachment/SalesDocWithoutemai.xlsx" 
+[2024-04-23T09:48:11.534Z] richiesta effettuata con successo 200 
+[2024-04-23T12:30:23.157Z] richiesta effettuata con successo 200 
+[2024-04-23T12:30:23.164Z] richiesta effettuata con successo 200 
+[2024-04-23T12:30:23.303Z] richiesta effettuata con successo 200 
+[2024-04-23T12:30:23.451Z] File Excel creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:15:08.029Z] richiesta effettuata con successo 200 
+[2024-04-23T13:15:08.037Z] richiesta effettuata con successo 200 
+[2024-04-23T13:15:08.196Z] richiesta effettuata con successo 200 
+[2024-04-23T13:15:08.500Z] File Excel creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:21:43.203Z] richiesta effettuata con successo 200 
+[2024-04-23T13:21:43.210Z] richiesta effettuata con successo 200 
+[2024-04-23T13:21:43.284Z] richiesta effettuata con successo 200 
+[2024-04-23T13:21:43.411Z] File Excel creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:38:23.416Z] richiesta effettuata con successo 200 
+[2024-04-23T13:38:23.422Z] richiesta effettuata con successo 200 
+[2024-04-23T13:38:23.511Z] richiesta effettuata con successo 200 
+[2024-04-23T13:38:23.642Z] File Excel creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:41:29.700Z] richiesta effettuata con successo 200 
+[2024-04-23T13:41:29.707Z] richiesta effettuata con successo 200 
+[2024-04-23T13:41:29.847Z] richiesta effettuata con successo 200 
+[2024-04-23T13:41:29.895Z] File Excel creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:44:36.621Z] richiesta effettuata con successo 200 
+[2024-04-23T13:44:36.628Z] richiesta effettuata con successo 200 
+[2024-04-23T13:44:36.710Z] richiesta effettuata con successo 200 
+[2024-04-23T13:44:36.767Z] File Excel customer senza email creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-23T13:49:16.190Z] richiesta effettuata con successo 200 
+[2024-04-23T13:49:16.208Z] richiesta effettuata con successo 200 
+[2024-04-23T13:49:16.368Z] richiesta effettuata con successo 200 
+[2024-04-23T13:49:16.584Z] File Excel customer senza email creato con successo: "./src/attachment/SalesDoc-Without-email.xlsx" 
+[2024-04-24T14:33:28.582Z] richiesta effettuata con successo 200 
+[2024-04-24T15:39:39.292Z] richiesta effettuata con successo 200 
+[2024-04-24T15:39:42.797Z] richiesta effettuata con successo 200 
+[2024-04-24T15:47:02.533Z] richiesta effettuata con successo 200 
+[2024-05-06T09:49:01.080Z] richiesta effettuata con successo 200 
