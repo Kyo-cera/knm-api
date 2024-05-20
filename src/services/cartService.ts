@@ -159,12 +159,13 @@ async function getEmailCustomer(salesDoc: string): Promise<boolean> {
 
         const emailData: EmailData = {
             recipient: 'knm-licenses@dit.kyocera.com',
-            subject: 'invio licenza KNM',
-            emailBody: '<p>in allegato le licenze da spedire a</p> ',
+            subject: 'Licenze KNM ',
+            emailBody: '<p>Gentile cliente,\n <br/> Come da richiesta le licenze per i dispositivi Knm  sono in allegato <br/>  \ncordiali saluti.<br/>  \nSupport Kyocera.\n </p> ',
             attachment: `${fileExcel}`
         };
 
         const sendsuccess = await sendEmail(emailData);
+        console.log('sendsuccess: ',sendsuccess);
 
         return  sendsuccess;
     } catch (error) {
