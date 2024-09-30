@@ -3,7 +3,7 @@ import { ConnectionPool } from 'mssql';
 const dbConfig = {
     server: 'localhost',
     user: 'apps',
-    password: 'Kyo171276!',
+    password: 'Kyo2024!',
     database: 'LKDISPATCH',
     options: {
         encrypt: false // Impostare su true se si utilizza una connessione crittografata
