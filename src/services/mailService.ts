@@ -9,22 +9,22 @@ class mailService{
     }
 
     async getAllEmailCustomers(): Promise<e_mail[]> {
-        const email = await db.query(`SELECT * FROM email WHERE type_email = 'customers'`);
+        const email = await db.query(`SELECT * FROM email WHERE type_email = 'Emailcustomers'`);
         return email as e_mail[];
     }
 
     async getAllEmailAdmin(): Promise<e_mail[]> {
-        const email = await db.query(`SELECT * FROM email WHERE type_email = 'admin'`);
+        const email = await db.query(`SELECT * FROM email WHERE type_email = 'Emailadmin'`);
         return email as e_mail[];
     }
 
     async getFirstCustomerEmail(): Promise<e_mail | null> {
-        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'customers' ORDER BY id ASC`);
+        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'Emailcustomers' ORDER BY id ASC`);
         return email[0] || null;
     }
 
     async getFirstAdminEmail(): Promise<e_mail | null> {
-        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'admin' ORDER BY id ASC`);
+        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'Emailadmin' ORDER BY id ASC`);
         return email[0] || null;
     }
 
@@ -35,7 +35,7 @@ class mailService{
             body = '${updatedEmail.body}', 
             type_email = '${updatedEmail.type_email}', 
             updated_at = GETDATE() 
-            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'customers' ORDER BY id ASC)`);
+            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'Emailcustomers' ORDER BY id ASC)`);
         return this.getFirstCustomerEmail();
     }
 
@@ -46,7 +46,7 @@ class mailService{
             body = '${updatedEmail.body}', 
             type_email = '${updatedEmail.type_email}', 
             updated_at = GETDATE() 
-            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'admin' ORDER BY id ASC)`);
+            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'Emailadmin' ORDER BY id ASC)`);
         return this.getFirstAdminEmail();
     }
 

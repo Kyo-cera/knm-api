@@ -8,7 +8,7 @@ emailRoutes.get('/allCustomers', emailController.getAllEmailCustomers);
 emailRoutes.get('/allAdmin', emailController.getAllEmailAdmin);
 emailRoutes.get('/getFirstCustomer', emailController.getFirstCustomerEmail);
 emailRoutes.get('/getFirstAdmin', emailController.getFirstAdminEmail);
-emailRoutes.put('/first-customer', emailController.updateFirstCustomerEmail);
-emailRoutes.put('/first-admin', emailController.updateFirstAdminEmail);
+emailRoutes.post('/first-Emailcustomers', emailController.updateFirstCustomerEmail);
+emailRoutes.post('/first-Emailadmin', emailController.updateFirstAdminEmail);
 
 export default emailRoutes;
