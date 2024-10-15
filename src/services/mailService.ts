@@ -1,4 +1,5 @@
 import { e_mail } from '../models/e-mail';
+import { IResult } from 'mssql';
 import db from '../database/database';
 
 class mailService{
@@ -8,48 +9,61 @@ class mailService{
         return email as e_mail[];
     }
 
-    async getAllEmailCustomers(): Promise<e_mail[]> {
-        const email = await db.query(`SELECT * FROM email WHERE type_email = 'Emailcustomers'`);
-        return email as e_mail[];
+    async getEmailByType(tipo:string): Promise<e_mail | null> {
+        const email = await db.query(`SELECT * FROM email WHERE type_email = '${tipo}'`);
+        if (Array.isArray(email) && email.length > 0) {
+            return email[0] as e_mail;
+        }
+        return null;
     }
 
-    async getAllEmailAdmin(): Promise<e_mail[]> {
-        const email = await db.query(`SELECT * FROM email WHERE type_email = 'Emailadmin'`);
-        return email as e_mail[];
+    async getEmailById(id:number): Promise<e_mail | null> {
+        const email = await db.query(`SELECT * FROM email WHERE id = '${id}'`);
+        if (Array.isArray(email) && email.length > 0) {
+            return email[0] as e_mail;
+        }
+        return null;
     }
 
-    async getFirstCustomerEmail(): Promise<e_mail | null> {
-        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'Emailcustomers' ORDER BY id ASC`);
-        return email[0] || null;
+    async postMail(data: e_mail): Promise<void> {
+        try {
+            const result = await db.query(`
+                INSERT INTO [dbo].[email] 
+                ([email], [subject], [body], [type_email], [updated_at]) 
+                VALUES 
+                ('${data.email}', '${data.subject}', '${data.body}', '${data.type_email}', GETDATE())
+            `);
+        } catch (error) {
+            console.error('Errore durante l\'inserimento della email:', error);
+        }
     }
 
-    async getFirstAdminEmail(): Promise<e_mail | null> {
-        const email = await db.query(`SELECT TOP 1 * FROM email WHERE type_email = 'Emailadmin' ORDER BY id ASC`);
-        return email[0] || null;
+    async updateByID(data: e_mail, id: number): Promise<void> {
+        try {
+            const result = await db.query(`
+                SELECT TOP 1 * FROM [dbo].[email] WHERE [id] = ${id}
+            `);
+            
+            if (result.length > 0) {
+                await db.query(`
+                    UPDATE [dbo].[email]
+                    SET 
+                        [email] = '${data.email}', 
+                        [subject] = '${data.subject}', 
+                        [body] = '${data.body}', 
+                        [updated_at] = GETDATE()
+                    WHERE [id] = ${id}
+                `);
+            } else {
+                console.log(`Email with ID ${id} not found. No update performed.`);
+            }
+        } catch (error) {
+            console.error('Errore durante l\'aggiornamento dell\'email:', error);
+            throw error; 
+        }
+    
     }
-
-    async updateFirstCustomerEmail(updatedEmail: e_mail): Promise<e_mail | null> {
-        await db.query(`UPDATE email SET 
-            email = '${updatedEmail.email}', 
-            subject = '${updatedEmail.subject}', 
-            body = '${updatedEmail.body}', 
-            type_email = '${updatedEmail.type_email}', 
-            updated_at = GETDATE() 
-            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'Emailcustomers' ORDER BY id ASC)`);
-        return this.getFirstCustomerEmail();
-    }
-
-    async updateFirstAdminEmail(updatedEmail: e_mail): Promise<e_mail | null> {
-        await db.query(`UPDATE email SET 
-            email = '${updatedEmail.email}', 
-            subject = '${updatedEmail.subject}', 
-            body = '${updatedEmail.body}', 
-            type_email = '${updatedEmail.type_email}', 
-            updated_at = GETDATE() 
-            WHERE id = (SELECT TOP 1 id FROM email WHERE type_email = 'Emailadmin' ORDER BY id ASC)`);
-        return this.getFirstAdminEmail();
-    }
-
+    
 
 }
 

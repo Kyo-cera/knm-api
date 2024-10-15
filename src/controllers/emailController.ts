@@ -14,77 +14,52 @@ class emailController{
         }
     }
 
-    async getAllEmailCustomers(req: Request, res: Response){
+    async getEmailByType(req: Request, res: Response){
         try{
-            const email = await mailService.getAllEmailCustomers();
+            const tipo = String(req.params['tipo']);
+            console.log('tipo ' + tipo);
+            const email = await mailService.getEmailByType(tipo);
             sendSuccess(res, email);
         }catch(error: any){
             sendError(res, error.message);
         }
     }
 
-    async getAllEmailAdmin(req: Request, res: Response){
+    async getEmailById(req: Request, res: Response){
         try{
-            const email = await mailService.getAllEmailAdmin();
+            const id = Number(req.params['id']);
+            const email = await mailService.getEmailById(id);
             sendSuccess(res, email);
         }catch(error: any){
             sendError(res, error.message);
         }
     }
 
-    async getFirstCustomerEmail(req: Request, res: Response) {
-        try {
-            const email = await mailService.getFirstCustomerEmail();
-            if (email) {
-                sendSuccess(res, email);
-            } else {
-                sendError(res, 'No customer email found');
+    async postEmail(req: Request, res: Response): Promise<void>{
+            const data: e_mail = req.body;
+            try {
+                await mailService.postMail(data); 
+                res.status(201).send({ message: 'Email caricata con successo' }); 
+            } catch (error) {
+                console.error('Errore durante l\'inserimento della email:', error);
+                res.status(500).send({ error: 'Errore durante l\'inserimento dell\'email' }); 
             }
-        } catch (error: any) {
-            sendError(res, error.message);
-        }
+        
     }
 
-    async getFirstAdminEmail(req: Request, res: Response) {
+    async updateByID(req: Request, res: Response): Promise<void> {
+        const id = Number(req.params['id']);
+        const data: e_mail = req.body;
+    
         try {
-            const email = await mailService.getFirstAdminEmail();
-            if (email) {
-                sendSuccess(res, email);
-            } else {
-                sendError(res, 'No admin email found');
-            }
-        } catch (error: any) {
-            sendError(res, error.message);
+            await mailService.updateByID(data, id);
+            res.status(200).send({ message: 'Email aggiornata o creata con successo' }); 
+        } catch (error) {
+            console.error('Errore durante l\'upsert della email:', error);
+            res.status(500).send({ error: 'Errore durante l\'upsert dell\'email' }); 
         }
     }
-
-    async updateFirstCustomerEmail(req: Request, res: Response) {
-        try {
-            const updatedEmail: e_mail = req.body;
-            if (!updatedEmail.email || !updatedEmail.subject || !updatedEmail.body || !updatedEmail.type_email) {
-                return sendError(res, 'All fields are required.');
-            }
-            const email = await mailService.updateFirstCustomerEmail(updatedEmail);
-            sendSuccess(res, email);
-            console.log(req.body);
-        } catch (error: any) {
-            sendError(res, error.message);
-        }
-    }
-
-    async updateFirstAdminEmail(req: Request, res: Response) {
-        try {
-            const updatedEmail: e_mail = req.body;
-            if (!updatedEmail.email || !updatedEmail.subject || !updatedEmail.body || !updatedEmail.type_email) {
-                return sendError(res, 'All fields are required.');
-            }
-            const email = await mailService.updateFirstAdminEmail(updatedEmail);
-            sendSuccess(res, email);
-            console.log(req.body);
-        } catch (error: any) {
-            sendError(res, error.message);
-        }
-    }
+    
 
 
 
