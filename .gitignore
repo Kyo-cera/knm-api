@@ -8,4 +8,5 @@ src/services/productService.ts
 src/attachment/*
 src/log/*
 dist/*
-src/attachment/7414165698.xlsx
+
+.env
