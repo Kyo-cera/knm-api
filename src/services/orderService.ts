@@ -6,7 +6,7 @@ class OrderService {
         return orders as Order[];
     }
     async getAllSalesOrders(): Promise<Order[]> {
-        const sales = await db.query(`SELECT distinct a.Sales_Doc  FROM [LKDISPATCH].[dbo].[Orders] a  inner join [Ordini_con_Ordinanti] b on a.Sales_Doc = b.Sales_Doc   
+        const sales = await db.query(`SELECT distinct a.Sales_Doc, b.ODA  FROM [LKDISPATCH].[dbo].[Orders] a  inner join [Ordini_con_Ordinanti] b on a.Sales_Doc = b.Sales_Doc   
        where a.DlBl = '' and a.Sales_Doc+'-'+a.item not in (select distinct b.sales_doc+'-'+b.Item from Licenze b where b.sales_doc not in ('')) order by Sales_Doc asc `);
         return sales as Order[];
     }

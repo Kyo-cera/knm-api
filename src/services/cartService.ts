@@ -17,8 +17,11 @@ async function processSalesDoc(): Promise<void> {
             
             for (const item of items) {
                 const salesDoc = item.Sales_Doc;
+                const oda = item.ODA;
                 const cart = await callSalesDoc(salesDoc);
                 console.log('ORDINE PER :', salesDoc,' numero di licenze richieste: ',cart.length); // Test del documento di vendita
+                console.log('ODA PER :', oda);
+                console.log('item :', item);
     
           if (cart) {
                     const pack = await getPackLicense(salesDoc);
@@ -26,7 +29,7 @@ async function processSalesDoc(): Promise<void> {
                     // Continua con la logica successiva solo se il valore di cart è presente
                 if(pack.length > 0){
                    
-                    const emailSend = await getEmailCustomer(salesDoc);
+                    const emailSend = await getEmailCustomer(salesDoc, oda);
                     console.log('callSalesDoc: ordine da spedire:', pack.length); 
                     console.log('la email spedita con :', emailSend); 
                     if(emailSend){
@@ -148,7 +151,7 @@ async function getPackLicense(salesDoc: string): Promise<any> {
         throw error;
     }
 }
-async function getEmailCustomer(salesDoc: string): Promise<boolean> {
+async function getEmailCustomer(salesDoc: string, oda: string): Promise<boolean> {
     try {
         const resp = await axios.get(`${apiUrl}/license/email/${salesDoc}`);
         const email = resp.data;
@@ -157,13 +160,31 @@ async function getEmailCustomer(salesDoc: string): Promise<boolean> {
         
         console.log('email customer :', userEmail+'-attachement:'+fileExcel);
 
+        const customerResp = await axios.get(`http://localhost:3002/api/customer/${oda}`);
+        const customer = customerResp.data[0];
+
+        console.log('oda :', oda);
+        console.log('customer :', customer);
+
+        const EmailcustomersResp = await axios.get(`http://localhost:3002/api/email-type/Emailcustomers`);
+        const Emailcustomers = EmailcustomersResp.data.data.data;
+
+        console.log('Emailcustomers su  getEmailCustomer: ', Emailcustomers);
+
+        let subjectCust = '';
+        let bodyCust = '';
+        if (Emailcustomers && Emailcustomers.subject) {
+
+        subjectCust = Emailcustomers.subject
+        bodyCust = Emailcustomers.body
+        }
         const emailData: EmailData = {
-            recipient: 'knm-licenses@dit.kyocera.com',
-            subject: 'Licenze KNM ',
-            emailBody: '<p>Gentile cliente,\n <br/> Come da richiesta le licenze per i dispositivi Knm  sono in allegato <br/>  \ncordiali saluti.<br/>  \nSupport Kyocera.\n </p> ',
+            recipient: `${customer.Email}`,
+            subject: `${subjectCust}`,
+            emailBody: `<p>Gentile ${customer.Ordinante},\n <br/> ${bodyCust}</p>`,
             attachment: `${fileExcel}`
         };
-
+    
         const sendsuccess = await sendEmail(emailData);
         console.log('sendsuccess: ',sendsuccess);
 
