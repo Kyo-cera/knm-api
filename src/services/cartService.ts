@@ -178,10 +178,19 @@ async function getEmailCustomer(salesDoc: string, oda: string): Promise<boolean>
         subjectCust = Emailcustomers.subject
         bodyCust = Emailcustomers.body
         }
+
+        if (bodyCust.includes("cliente")) {
+            bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
+        }
+
+        // if (bodyCust.includes(".")) {
+        //     bodyCust = bodyCust.replace(".", `.<br>`);
+        // }
+
         const emailData: EmailData = {
             recipient: `${customer.Email}`,
             subject: `${subjectCust}`,
-            emailBody: `<p>Gentile ${customer.Ordinante},\n <br/> ${bodyCust}</p>`,
+            emailBody: `<p>${bodyCust}</p>`,
             attachment: `${fileExcel}`
         };
     
