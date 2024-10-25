@@ -160,13 +160,13 @@ async function getEmailCustomer(salesDoc: string, oda: string): Promise<boolean>
         
         console.log('email customer :', userEmail+'-attachement:'+fileExcel);
 
-        const customerResp = await axios.get(`http://localhost:3002/api/customer/${oda}`);
+        const customerResp = await axios.get(`${apiUrl}/customer/${oda}`);
         const customer = customerResp.data[0];
 
         console.log('oda :', oda);
         console.log('customer :', customer);
 
-        const EmailcustomersResp = await axios.get(`http://localhost:3002/api/email-type/Emailcustomers`);
+        const EmailcustomersResp = await axios.get(`${apiUrl}/email/byType/Emailcustomers`);
         const Emailcustomers = EmailcustomersResp.data.data.data;
 
         console.log('Emailcustomers su  getEmailCustomer: ', Emailcustomers);
