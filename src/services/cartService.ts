@@ -1,16 +1,20 @@
 import axios from 'axios';
 import { EmailData } from '../models/email';
 import { sendEmail } from '../utils/email';
+import { emailAdmin, getEmailCustomer } from './emailManagment'
 import { createExcelFileLicense, readLicenseKeysFromExcel } from '../utils/excel';
 import { writeToLog } from '../utils/writeLog';
 const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
 async function processSalesDoc(): Promise<void> {
     try {
           //   processCheckData(); // check data &  invio email con i clienti senza email
-        const response = await axios.get(`${apiUrl}/orders/sales`);
-        const items = response.data.data;   
-        if (items.length === 0) {
-       
+          const response = await axios.get(`${apiUrl}/orders/sales`);
+          const items = response.data.data;
+          console.log("items: ",items)
+
+          emailAdmin();
+
+       if (items.length === 0) {
             console.log('non ci sono ordini da spedire: ' + items.length);
             return items.length;
         }else{   
@@ -151,59 +155,9 @@ async function getPackLicense(salesDoc: string): Promise<any> {
         throw error;
     }
 }
-async function getEmailCustomer(salesDoc: string, oda: string): Promise<boolean> {
-    try {
-        const resp = await axios.get(`${apiUrl}/license/email/${salesDoc}`);
-        const email = resp.data;
-        const userEmail = email.data[0].email;
-        const fileExcel = `${salesDoc}.xlsx`;
-        
-        console.log('email customer :', userEmail+'-attachement:'+fileExcel);
 
-        const customerResp = await axios.get(`${apiUrl}/customer/${oda}`);
-        const customer = customerResp.data[0];
 
-        console.log('oda :', oda);
-        console.log('customer :', customer);
 
-        const EmailcustomersResp = await axios.get(`${apiUrl}/email/byType/Emailcustomers`);
-        const Emailcustomers = EmailcustomersResp.data.data.data;
-
-        console.log('Emailcustomers su  getEmailCustomer: ', Emailcustomers);
-
-        let subjectCust = '';
-        let bodyCust = '';
-        if (Emailcustomers && Emailcustomers.subject) {
-
-        subjectCust = Emailcustomers.subject
-        bodyCust = Emailcustomers.body
-        }
-
-        if (bodyCust.includes("cliente")) {
-            bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
-        }
-
-        // if (bodyCust.includes(".")) {
-        //     bodyCust = bodyCust.replace(".", `.<br>`);
-        // }
-
-        const emailData: EmailData = {
-            recipient: `${customer.Email}`,
-            subject: `${subjectCust}`,
-            emailBody: `<p>${bodyCust}</p>`,
-            attachment: `${fileExcel}`
-        };
-    
-        const sendsuccess = await sendEmail(emailData);
-        console.log('sendsuccess: ',sendsuccess);
-
-        return  sendsuccess;
-    } catch (error) {
-        writeToLog("Errore durante la ricerca dell'email: --" + salesDoc + "--", error);
-        console.error('Errore durante la ricerca dell\'email:', salesDoc, error);
-        throw error;
-    }
-}
 
 async function updateLicenseApi(key:string) {
     try {
