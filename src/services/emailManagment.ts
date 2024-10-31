@@ -88,7 +88,9 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
             let subjectCust = Emailcustomers.subject || '';
             let bodyCust = Emailcustomers.body || '';
-            let emailCust = Emailcustomers.email || '';
+            // let emailCust = Emailcustomers.email || '';
+            let emailCust = customer.Email || '';
+            console.log('emailCust: ', emailCust);
 
             if (bodyCust.includes("cliente")) {
                 bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
