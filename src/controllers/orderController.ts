@@ -13,6 +13,24 @@ class OrderController{
         }
     }
 
+    async importOrders(req: Request, res: Response){
+        try{
+            const response = await orderService.importOrders();
+            sendSuccess(res, response);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async getCheckCustomer(req: Request, res: Response){
+        try{
+            const response = await orderService.getCheckCustomer();
+            sendSuccess(res, response);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
     async getByIdOrders(req: Request, res: Response){
         try{
             const salesdoc = String(req.params['salesdoc']);
