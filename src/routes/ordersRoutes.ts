@@ -10,7 +10,7 @@ orderRouter.get('/salesCheckData', orderController.getSalesData);
 orderRouter.get('/listSalesDoc/:salesdoc', orderController.getOrderListxDoc);
 orderRouter.get('/cart', orderController.getOrdersList);
 orderRouter.get('/', orderController.getAllOrders);
-orderRouter.get('/:id', orderController.getAllOrders);
+orderRouter.get('/:salesdoc', orderController.getByIdOrders);
 
 /*
 orderRouter.post('/', orderController.getAllOrders); //

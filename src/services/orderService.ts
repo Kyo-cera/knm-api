@@ -10,6 +10,16 @@ class OrderService {
        where a.DlBl = '' and a.Sales_Doc+'-'+a.item not in (select distinct b.sales_doc+'-'+b.Item from Licenze b where b.sales_doc not in ('')) order by Sales_Doc asc `);
         return sales as Order[];
     }
+
+    async getOrderByItemSalesDoc(salesDoc:string): Promise<Order[] | null> {
+        console.log("salesDoc:", salesDoc)
+        const orders = await db.query(`SELECT * FROM Orders WHERE Sales_Doc = ${salesDoc}`);
+        if (Array.isArray(orders) && orders.length > 0) {
+            return orders;
+        }
+        return null;
+    }
+
     async getOrdersWithoutDestination(): Promise<Order[]> {
         const orderCheckAdress = await db.query(`  SELECT [Sales_Doc] ,[Nome_Cognome]+' / CF: '+[CF] 'Nome Cognome / CF:'   ,[email] ,[ODA] FROM [LKDISPATCH].[dbo].[Ordini_con_Ordinanti] where Nome_Cognome in ('') or email in ('') or oda in ('') 
         Union 
@@ -18,13 +28,6 @@ class OrderService {
         return orderCheckAdress as Order[];
     }
 
-    async getOrderByItemSalesDoc(item: number,salesDoc:number): Promise<Order | null> {
-        const orders = await db.query(`SELECT * FROM Orders WHERE id = @id`);
-        if (Array.isArray(orders) && orders.length > 0) {
-            return orders[0] as Order;
-        }
-        return null;
-    }
     //getgetCheckDibi
     async getCheckDibi(salesDoc: string, item: string, dibi: string): Promise<Order[]> {
         const orderCheckAdress = await db.query(`USE [LKDISPATCH];
