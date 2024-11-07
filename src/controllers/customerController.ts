@@ -41,5 +41,15 @@ class customerController{
         }
     }
 
+    async getCheckCustomer(req: Request, res: Response){
+        try{
+            const response = await customerService.getCheckCustomer();
+            sendSuccess(res, response);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+
 }
 export default new customerController();

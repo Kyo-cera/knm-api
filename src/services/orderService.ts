@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const fileName = 'C:\\files\\Consips2 licenses SO.xlsx'; // Assicurati che il percorso sia corretto
 const sheetName = '2) Consip2 licenses pivot';
-const urlApi = 'http://localhost:3003/api/';
+const urlApi = 'http://localhost:3005/';
 const sheetName2 = '1) Consip2 licenses';
 const col = 0;
 class OrderService {
@@ -65,17 +65,7 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
         return null;
     }
 
-    async getCheckCustomer(): Promise<string> {
-        try {
-            const query = `UPDATE o SET o.Sales_Doc = ord.Sales_Doc FROM [LKDISPATCH].[dbo].[ordinante] o JOIN [LKDISPATCH].[dbo].[Orders] ord 
-  ON o.ODA = ord.Purchase_order_nr WHERE o.Sales_Doc != ord.Sales_Doc`;
-            const results = db.query(query);
-          } catch (error) {
-            console.error(`Errore durante l'aggiornamento del salesDoc in table Ordinante nel database:`, error);
-            throw error;
-          }
-        return "getCheckCustomer fatta con successo";
-    }
+
 
 
 
@@ -109,7 +99,7 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
     
         try {
             await moveFileToProcessedFolder(fileName, path, fs);
-            const responseCheck = await axios.get(`http://localhost:3005/orders/import/orders/checkCustomer`);
+            const responseCheck = await axios.get(`${urlApi}/customer/import/checkCustomer`);
             console.log('----> checkcustomers', responseCheck.status);
         } catch (error) {
             console.error('Errore nello spostamento del file:', error);

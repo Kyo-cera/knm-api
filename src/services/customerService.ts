@@ -19,6 +19,18 @@ class customerService {
        const customer = this.getCustomerByItemOda(Number(data.ODA));
         return customer;
     }
+
+    async getCheckCustomer(): Promise<string> {
+        try {
+            const query = `UPDATE o SET o.Sales_Doc = ord.Sales_Doc FROM [LKDISPATCH].[dbo].[ordinante] o JOIN [LKDISPATCH].[dbo].[Orders] ord 
+  ON o.ODA = ord.Purchase_order_nr WHERE o.Sales_Doc != ord.Sales_Doc`;
+            const results = db.query(query);
+          } catch (error) {
+            console.error(`Errore durante l'aggiornamento del salesDoc in table Ordinante nel database:`, error);
+            throw error;
+          }
+        return "getCheckCustomer fatta con successo";
+    }
     
 
 }

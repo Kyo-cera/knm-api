@@ -6,7 +6,8 @@ const customersRouter = Router();
 
 customersRouter.get('/:id', customerController.getCustomerByItem);
 customersRouter.get('/', customerController.getAllCustomers);
-customersRouter.post('/',customerController.postCustomer);
+customersRouter.get('/', customerController.getAllCustomers);
+customersRouter.post('/import/checkCustomer',customerController.getCheckCustomer);
 /*
 orderRouter.get('/:id', orderController.getAllOrders);
 
