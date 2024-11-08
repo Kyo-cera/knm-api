@@ -7,7 +7,7 @@ const customersRouter = Router();
 customersRouter.get('/:id', customerController.getCustomerByItem);
 customersRouter.get('/', customerController.getAllCustomers);
 customersRouter.get('/', customerController.getAllCustomers);
-customersRouter.post('/import/checkCustomer',customerController.getCheckCustomer);
+customersRouter.get('/import/checkCustomer',customerController.getCheckCustomer);
 /*
 orderRouter.get('/:id', orderController.getAllOrders);
 
