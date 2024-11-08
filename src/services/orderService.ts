@@ -69,14 +69,14 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
 
 
 
-    async importOrders(): Promise<any> {
+    async importOrders(): Promise<Order[]> {
         console.log('ciao import orders')
         try {
             // Controlla se il file esiste
             await fs.access(fileName);
         } catch (error) {
             console.error(`Il file non esiste: ${fileName}`);
-            return; // Esci dalla funzione se il file non esiste
+            return []; // Esci dalla funzione se il file non esiste
         }
     
         const workbook = XLSX.readFile(fileName);
@@ -104,9 +104,11 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
         } catch (error) {
             console.error('Errore nello spostamento del file:', error);
         }
+
+        const ordini = this.getAllOrders();
        
       
-        return { message: "Funzione readExcelOrders invocata con successo", data };
+        return ordini;
     }
 
 }
