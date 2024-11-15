@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import licenseService from '../services/licenseService';
 import { sendError, sendSuccess } from '../utils/requestHandlers';
+import { License } from 'models/license';
 
 class LicenseController{
 
@@ -12,6 +13,18 @@ class LicenseController{
             sendError(res, error.message);
         }
     }
+
+    async postLicenza(req: Request, res: Response): Promise<void> {
+        const licenseData: License = req.body;
+        try {
+            const license = await licenseService.postLicenza(licenseData);
+            sendSuccess(res, license);
+        } catch (error: any) {
+            sendError(res, error.message);
+        }
+    }
+
+
 
     async getLicenseByItem(req: Request, res: Response){
         try{
@@ -91,6 +104,15 @@ async getEmailOrdering(req: Request, res: Response){
             sendError(res, error.message);
         }
     } 
+
+    async importLicenses(req: Request, res: Response){
+        try{
+            const license = await licenseService.importLicenses();
+            sendSuccess(res, license);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
 
   /* putLicenseSent
       async postProduct(req: Request, res: Response){
