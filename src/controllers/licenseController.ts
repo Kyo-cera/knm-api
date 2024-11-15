@@ -14,10 +14,10 @@ class LicenseController{
         }
     }
 
-    async postLicenza(req: Request, res: Response): Promise<void> {
+    async postLicence(req: Request, res: Response): Promise<void> {
         const licenseData: License = req.body;
         try {
-            const license = await licenseService.postLicenza(licenseData);
+            const license = await licenseService.postLicence(licenseData);
             sendSuccess(res, license);
         } catch (error: any) {
             sendError(res, error.message);

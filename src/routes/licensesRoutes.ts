@@ -4,7 +4,7 @@ import licenseController from "../controllers/licenseController";
 const licenseRouter = Router();
 
 licenseRouter.get('/:element', licenseController.getLicenseByItem);
-licenseRouter.post('/postLicenza', licenseController.postLicenza);
+licenseRouter.post('/postLicence', licenseController.postLicence);
 licenseRouter.put('/booking/:salesDoc/:item/:key/:stato', licenseController.putLicense);
 licenseRouter.put('/sended/:key/:stato', licenseController.putLicenseSended);
 licenseRouter.get('/pack/:salesDoc', licenseController.getLicensePack);

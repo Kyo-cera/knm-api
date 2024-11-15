@@ -21,7 +21,7 @@ class LicenseService {
         return license as License[];
     }
 
-    async postLicenza(licenseData: License): Promise<License[]> {
+    async postLicence(licenseData: License): Promise<License[]> {
         const {
             fatherComponent,
             element,
