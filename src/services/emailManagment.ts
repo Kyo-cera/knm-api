@@ -28,6 +28,9 @@ export const emailAdmin = async () => {
               console.log('customers:', customers);
           
               let customerWithSalesDoc = false;
+              let customerWithoutEmail = false;
+              let customerWithApostrofo = false;
+              let custEmail;
           
               if (customers && customers.length > 0) {
                   for (const customer of customers) {
@@ -35,14 +38,28 @@ export const emailAdmin = async () => {
                       if (customer.Sales_Doc === salesDoc) {
                           customerWithSalesDoc = true;
                           break; 
-                      }
+                      } else if (customer.Email.includes("'")) {
+                        customerWithApostrofo = true
+                        custEmail = customer.Email
+                    }
+                    
                   }
               }
+
+              if (customers && customers.length > 0) {
+                for (const customer of customers) {
+                    if (customer.Email === "" || customer.Email === null) {
+                        customerWithoutEmail = true;
+                        subjectAdmin = "Indirizzo email mancante"
+                        break; 
+                    }
+                }
+            }
           
-              if (!customerWithSalesDoc) {
+              if (!customerWithSalesDoc || customerWithoutEmail) {
                   const emailData: EmailData = {
                       recipient: `${emailAdmin}`,
-                      subject: `${subjectAdmin} - Sales Doc: ${salesDoc}`,
+                      subject: `${customerWithApostrofo ? `Indirizzo email ${custEmail} non valido` : subjectAdmin} - Sales Doc: ${salesDoc}`,
                       emailBody: `<p>${bodyAdmin}<br>Sales Doc: ${salesDoc}</p>`,
                       attachment: "SalesDoc-Without-email.xlsx"
                   };
@@ -97,7 +114,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             }
 
             const emailData: EmailData = {
-            recipient: emailCust,
+            recipient: `${emailCust}`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
