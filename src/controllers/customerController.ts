@@ -49,6 +49,15 @@ class customerController{
             sendError(res, error.message);
         }
     }
+    //getCustomerPdfList
+    async getCustomerPdfList(req: Request, res: Response){
+        try{
+            const response = await customerService.getCustomerPdfList();
+            sendSuccess(res, response);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
 
 
 }
