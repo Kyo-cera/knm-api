@@ -3,7 +3,7 @@ import customerController from "../controllers/customerController";
 
 const customersRouter = Router();
 
-
+customersRouter.get('/createListPdf', customerController.getCustomerPdfList);
 customersRouter.get('/:id', customerController.getCustomerByItem);
 customersRouter.get('/', customerController.getAllCustomers);
 customersRouter.get('/', customerController.getAllCustomers);

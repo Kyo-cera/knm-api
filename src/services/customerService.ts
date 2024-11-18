@@ -1,5 +1,6 @@
 import { Customer } from 'models/customer';
 import db from '../database/database';
+import { createPDFList } from '../utils/pdf';
 class customerService {
     async getAllCustomers(): Promise<Customer[]> {
         const customers = await db.query(`SELECT * FROM ordinante`);
@@ -30,6 +31,17 @@ class customerService {
             throw error;
           }
         return "getCheckCustomer fatta con successo";
+    }
+    //getCustomerPdfList
+    async getCustomerPdfList(): Promise<object> {
+        try {           
+            const results = await createPDFList();
+            return {results}
+          } catch (error) {
+            console.error(`Errore durante l'aggiornamento del salesDoc in table Ordinante nel database:`, error);
+            throw error;
+          }
+       
     }
     
 
