@@ -11,3 +11,4 @@ dist/*
 data/*
 
 .env
+src/log/log.txt
