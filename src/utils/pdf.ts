@@ -1,10 +1,12 @@
-import fs from 'fs/promises'; // Assicurati di importare fs con il modulo promises
+import fs from 'fs/promises';
 import path from 'path';
+import { writeToLog } from '../utils/writeLog';
+const fse = require('fs-extra');
+const axios = require('axios');
 const pathFiles = path.join(__dirname, '../data');
- const pathFilesI = "I:/Cross Document/Ordini Consip/ORDINI Consip 2/"; 
-//const pathFilesI = "C:/trasferte/ORDINI Consip 2/";
-const salesDocuments = pathFiles + "pdfList.json";
-const apiPostPdfUrl = 'http://localhost:3005/customer/';
+ const pathFilesI =`${process.env.PATH_PDF}`;
+const salesDocuments = pathFiles + "/pdfList.json";
+const apiPostPdfUrl =`${process.env.ENDPOINT_API}${process.env.PORT}/customer/` ;
 let errorPDF = [];
   let counterKO = 0;
   let counterOK = 0;
@@ -17,9 +19,11 @@ export async function createPDFList() {
             const ext = path.extname(file);
             const fileName = path.basename(file, ext); // Ottieni il nome del file senza estensione
             const fileParts: string[] = fileName.split('_'); // Assicurati che fileParts sia un array di stringhe
-            
+            const isValid = isValidFileName(file);
+         //   console.log("isValid",isValid," file: ",file);
             // Verifica se l'estensione è PDF e se ci sono parti numeriche nel nome del file
-            if (ext.toLowerCase() === ".pdf" && fileParts.length > 1 && fileParts.some(part => !isNaN(Number(part)) && part.trim() !== '')) {
+            if (ext.toLowerCase() === ".pdf" && fileParts.length ===3 && isValid) {
+              //  console.log("file:", file," - ", fileParts.length," isValid- ",isValid )
                 acc.push(file);
             }
             return acc;
@@ -40,7 +44,9 @@ export async function createPDFList() {
         const jsonFilePath = path.join(pathFiles, "pdfList.json");
         const jsonString = JSON.stringify({ items: pdfList, total: count }, null, 2); // Aggiungi il totale al JSON
         await fs.writeFile(jsonFilePath, jsonString); // Usa await
-        console.log(`Lista dei documenti PDF creata con successo. Totale file aggiunti: ${count} -in - ${jsonFilePath}`);
+        writeToLog(`Lista dei documenti PDF creata con successo. Totale file aggiunti: ${count}`, jsonFilePath);
+       // const updateStatusResult = await updateStatusFromApi();
+       // console.log("Risultato dell'aggiornamento dello stato dall'API:", updateStatusResult);
         return { success: true, total: count };
     } catch (error) {
         console.error("Errore creazione lista", error);
@@ -48,7 +54,7 @@ export async function createPDFList() {
     }
 }
 
-async function readPDFAndSaveToJson(pdfFilePath: string, pathFiles: string) {
+export async function readPDFAndSaveToJson(pdfFilePath: string) {
     try {
         let emailPuntoOrdinanteValue = "";
         let odaValue = "";
@@ -131,7 +137,7 @@ async function readPDFAndSaveToJson(pdfFilePath: string, pathFiles: string) {
         return { success: false };
     }
 }
-// Assicurati che la funzione extractLastNumericCode sia definita correttamente
+
 
 function extractLastNumericCode(filePath: string): string | null {
     // Rimuove gli spazi prima dei punti
@@ -159,5 +165,221 @@ async function checkFileExists(pdfFilePath:string) {
             console.log(`Errore durante l'accesso al file ${pdfFilePath}:`, err);
         
         return false;
+    }
+}
+const BATCH_SIZE = 50;
+export async function readSalesDocuments() {
+  let counterKO = 0;
+  let counterOK = 0;
+  try {
+    const jsonData = await fs.readFile(salesDocuments, "utf8");
+    const jsonArray = JSON.parse(jsonData).items;
+
+    if (Array.isArray(jsonArray)) {
+      const chunkedArray = Array.from(
+        { length: Math.ceil(jsonArray.length / BATCH_SIZE) },
+        (_, i) => jsonArray.slice(i * BATCH_SIZE, (i + 1) * BATCH_SIZE)
+      );
+
+      for (const chunk of chunkedArray) {
+        const promises = chunk.map(async (item) => {
+          let pdfFile = pathFilesI + item.pdfSales_doc;
+          let pdfFilestatus = item.status;
+          
+          if (pdfFile && pdfFilestatus === 'pre') {
+            console.log("pdfFile:",pdfFile);
+            try {
+              await readPDFAndSaveToJson(pdfFile);
+              counterOK++;
+            } catch (error) {
+              console.error(`Error processing file ${pdfFile}:`, error);
+              counterKO++;
+            }
+          } else {
+            counterKO++;
+          }
+        });
+
+        await Promise.all(promises); // Aspetta che tutte le promesse siano risolte
+      }
+
+      const totalArray = jsonArray.length; // Rimosso await
+      console.log("jsonArray.length:" + totalArray + " item ok:" + counterOK + " item error: " + counterKO);
+      return { success: true, total: totalArray, totaItemsok: counterOK, totaItemsKo: counterKO };
+    } else {
+      console.log("jsonData is not an array.");
+    }
+  } catch (error) {
+    console.error("Error reading sales documents:", error);
+  }
+}
+export async function updateStatusFromApi() {
+    const pdfListPath = await path.join(salesDocuments); // Percorso al file JSON
+
+    try {
+        // Leggi il file JSON contenente la lista dei PDF
+        const jsonData = await fs.readFile(pdfListPath, 'utf8');
+        const pdfList = JSON.parse(jsonData);
+        const response = await getData(apiPostPdfUrl); 
+        console.log('apiPostPdfUrl: ',apiPostPdfUrl);
+        // Itera attraverso gli elementi della lista
+        for (const item of pdfList.items) {
+         //   console.log('item.sales_doc: ',item.sales_doc);
+
+          // Chiamata all'API per verificare il documento
+   const found = findSalesDoc(response.data, item.sales_doc);
+
+  //  console.log(`Elemento con sales_doc "${searchDoc}" trovato:`, found);
+      
+          if (found) {
+                 // Supponiamo che l'API restituisca un oggetto con una proprietà "exists"
+                item.status = "ok"; // Aggiorna lo stato a "ok"
+                writeToLog(`Document  trovato nel DB. Stato aggiornato a "ok"`, item.pdfSales_doc);
+               
+            } else {
+                writeToLog(`Document ${item.pdfSales_doc} non trovato nel DB. -${found} - ${item.sales_doc} -  `, found);
+            }
+               
+        }
+        function findSalesDoc(data: Array<{ Sales_Doc: string }>, salesDoc: string): boolean {
+            // Controllo che data sia un array
+            if (!Array.isArray(data)) {
+                console.error("Il parametro 'data' non è un array:", data);
+                return false; // Restituisce false se data non è un array
+            }
+        
+            // Controllo che salesDoc sia una stringa valida
+            if (typeof salesDoc !== 'string' || salesDoc.trim() === '') {
+                return false; // Restituisce false se salesDoc non è valido
+            }
+            
+            // Verifica se esiste un documento di vendita corrispondente
+            return data.some(item => item.Sales_Doc === salesDoc);
+        }
+
+        // Salva nuovamente la lista aggiornata nel file JSON
+        const updatedJsonString = JSON.stringify(pdfList, null, 2);
+        await fs.writeFile(pdfListPath, updatedJsonString);
+        writeToLog("Lista aggiornata salvata con successo.","lista pdf");
+        return {sucess:true}
+    } catch (error) {
+        writeToLog("Errore durante l'aggiornamento dello stato: ",error);
+        console.error("Errore durante l'aggiornamento dello stato:", error);
+    }
+}
+async function getData(url:string) {
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data; // Restituisce i dati della risposta
+    } catch (error) {
+        writeToLog("Errore durante la chiamata API GET: ",error);
+        console.error('Errore durante la chiamata API GET:', error);
+        return null;
+    }
+}
+function isValidFileName(fileName:string) {
+    
+    const regex = /^\d+_\d{8}_\d+ ?_?\.PDF$/; 
+    return regex.test(fileName);
+}
+
+async function moveFile(sourcePath:string, destPath:string) {
+    try {
+        // Controlla se il file di destinazione esiste già
+        let finalDestPath = destPath;
+        let counter = 1;
+
+        while (await fse.pathExists(finalDestPath)) {
+            const ext = path.extname(destPath);
+            const baseName = path.basename(destPath, ext);
+            finalDestPath = path.join(path.dirname(destPath), `${baseName}_${Date.now()}_${counter}${ext}`);
+            counter++;
+        }
+
+        await fse.move(sourcePath, finalDestPath);
+        console.log(`File spostato: ${path.basename(finalDestPath)}`);
+    } catch (error) {
+        console.error(`Errore durante lo spostamento del file: ${error}`);
+        throw error; // Rilancia l'errore per gestirlo nel chiamante
+    }
+}
+
+// Funzione principale per elaborare i file JSON
+export async function processJsonFiles() {
+    let successCount = 0;
+    let errorCount = 0;
+    const dataDir = pathFiles+"/pdf/";
+    const processDir= pathFiles+"/pdf/process/";
+    const errorDir= pathFiles+"/pdf/error/";
+    try {
+        const files = await fs.readdir(dataDir);
+        const jsonFiles = files.filter(file => path.extname(file) === '.json');
+      //  console.log(` file: counts ${jsonFiles.length}`);
+        const processingPromises = jsonFiles.map( async (file) => {
+            const filePath = path.join(dataDir, file);
+            let operationStatus = 'success'; // Variabile per tenere traccia dello stato dell'operazione
+            try {
+                const jsonData = await fse.readJson(filePath);
+                if (Object.keys(jsonData).length === 0) {
+                    writeToLog(`Il file ${file} è vuoto. Passo al file successivo.`,file);
+                    return; // Passa al file successivo
+                }else{
+                    writeToLog(` jsonData: counts `, Object.keys(jsonData).length);
+                }
+                const response = await axios.post(apiPostPdfUrl, jsonData);
+                writeToLog(`File ${file} inviato con successo:`, response.data);
+            } catch (error) {
+                writeToLog(`Errore durante l'invio del file ${file}:`, error);
+                operationStatus = 'error'; // Imposta lo stato su errore
+             
+                errorCount++;
+            }
+            // Sposta il file nella cartella appropriata in base allo stato dell'operazione
+            const finalFilePath = path.join(operationStatus === 'success' ? processDir : errorDir, file);
+            await moveFile(filePath, finalFilePath); // Sposta nella cartella appropriata
+            // Incrementa successCount solo se l'operazione è stata un successo
+            if (operationStatus === 'success') {
+                successCount++;
+                writeToLog(`File ${file} spostato nella cartella 'process' come `,path.basename(finalFilePath));
+            } else {
+                writeToLog(`File ${file} spostato nella cartella 'error' come `,path.basename(finalFilePath));
+            }
+        });
+
+        await Promise.all(processingPromises); // Esegui tutte le promesse in parallelo
+
+    } catch (error) {
+        console.error('Errore durante il processo dei file:', error);
+    } finally {
+        writeToLog(`Elaborazione completata. File elaborati con successo: ${successCount}, File con errore: `,errorCount);
+    }
+    return {sucess: successCount, error: errorCount};
+}
+
+export async function runAllProcessesPDF() {
+    try {
+        // 1. Crea la lista dei file PDF
+        const createListResult = await createPDFList();
+        writeToLog("Risultato della creazione lista PDF:", createListResult);
+
+        // 2. Aggiorna lo stato dall'API
+      const updateStatusResult = await updateStatusFromApi();
+      writeToLog("Risultato dell'aggiornamento dello stato dall'API:", updateStatusResult);
+
+        // 3. Leggi i documenti di vendita
+    const readSalesDocumentsResult = await readSalesDocuments();
+    writeToLog("Risultato della lettura dei documenti di vendita:", readSalesDocumentsResult);
+
+        // 4. Elabora i file JSON
+       const processJsonFilesResult = await processJsonFiles();
+       writeToLog("Risultato dell'elaborazione dei file JSON:", processJsonFilesResult);
+       return processJsonFilesResult
+
+    } catch (error) {
+        console.error("Errore durante l'esecuzione dei processi:", error);
     }
 }
