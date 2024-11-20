@@ -4,8 +4,10 @@ import axios from 'axios';
 // @ts-ignore
 import cron from 'node-cron';
 import { ScheduleData } from 'models/scheduleData';
-const apiURL = "http://localhost:3005"
-
+const ENDPOINT_API = process.env.ENDPOINT_API
+const PORT = process.env.PORT
+const apiURL = `${ENDPOINT_API}${PORT}`
+// const apiURL = "http://localhost:3005"
 class scheduleService {
     private filePath = path.join(__dirname, '../data/scheduleData/scheduleJSON.json');
 

@@ -12,7 +12,7 @@ const inputFolder = filePath+'licenze';
 const outputFolder = filePath+'licenze/csv';
 const errorFolder = filePath+'licenze/error';
 const doneFolder = filePath+'licenze/done';
-const apiUrl = 'http://localhost:3005/';
+const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
 
 
 class LicenseService {

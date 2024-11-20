@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const fileName = 'C:\\files\\Consips2 licenses SO.xlsx'; // Assicurati che il percorso sia corretto
 const sheetName = '2) Consip2 licenses pivot';
-const urlApi = 'http://localhost:3005/';
+const urlApi = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
 const sheetName2 = '1) Consip2 licenses';
 const col = 0;
 class OrderService {
