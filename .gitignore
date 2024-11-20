@@ -8,5 +8,7 @@ src/services/productService.ts
 src/attachment/*
 src/log/*
 dist/*
-
 .env
+src/data/*
+src/data/pdf/*
+src/data/error/*
