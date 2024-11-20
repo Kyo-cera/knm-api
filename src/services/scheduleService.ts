@@ -12,9 +12,8 @@ class scheduleService {
     private apiUrls: { [key in 'importLicenses' | 'importOrders' | 'importCustomers' | 'sendOrders']: string } = {
         importLicenses: `${apiURL}/license/import/licenses`,
         importOrders: `${apiURL}/orders/import/orders`,
-        importCustomers: `${apiURL}/customer/import/checkCustomer`,
+        importCustomers: `${apiURL}/customer/runAllProcessesPDF`,
         sendOrders: `${apiURL}/orders/cart`,
-        // sendOrders: `http://localhost:3005/orders/cart`,
     };
 
     private daysMap: { [key: string]: number } = {
@@ -45,7 +44,6 @@ class scheduleService {
                 }
             }
     
-            // Aggiungi o aggiorna i dati per il tipo specifico
             scheduleData[type] = {
                 ora,
                 minuti,
@@ -55,10 +53,8 @@ class scheduleService {
                 giornoDelMese,
             };
     
-            // Scrivi nel file
             fs.writeFileSync(this.filePath, JSON.stringify(scheduleData, null, 2), 'utf-8');
     
-            // Crea il cron job per il tipo appena salvato
             this.createCronJob(type, scheduleData[type]);
     
             return `Dati per il tipo ${type} salvati e cron job configurato con successo`;
@@ -126,7 +122,6 @@ class scheduleService {
                 const fileContent = fs.readFileSync(this.filePath, 'utf-8');
                 if (fileContent.trim() !== '') {
                     const scheduleData: ScheduleData = JSON.parse(fileContent);
-                    // Restituisce un oggetto con valori di fallback se la chiave non è presente nel JSON
                     return scheduleData[type] || {
                         ora: 0,
                         minuti: 0,
@@ -137,7 +132,6 @@ class scheduleService {
                     };
                 }
             }
-            // Restituisce un oggetto con valori di fallback se il file è vuoto
             return {
                 ora: 0,
                 minuti: 0,
