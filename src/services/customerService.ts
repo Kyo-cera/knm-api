@@ -1,6 +1,6 @@
 import { Customer } from 'models/customer';
 import db from '../database/database';
-import { createPDFList } from '../utils/pdf';
+import { createPDFList, processJsonFiles, readSalesDocuments, runAllProcessesPDF, updateStatusFromApi } from '../utils/pdf';
 class customerService {
     async getAllCustomers(): Promise<Customer[]> {
         const customers = await db.query(`SELECT * FROM ordinante`);
@@ -43,7 +43,50 @@ class customerService {
           }
        
     }
-    
+    async getCustomerPdfRead(): Promise<object> {
+        try {           
+            const results = await readSalesDocuments();
+            return {results}
+          } catch (error) {
+            console.error(`Errore durante la lettura del Pdf nella directory con fn: readSalesDocuments:`, error);
+            throw error;
+          }
+       
+    }
+    //getCustomerPdUpdate
+    async getCustomerPdfUpdate(): Promise<object> {
+      try {           
+          const results = await updateStatusFromApi();
+          return {results}
+        } catch (error) {
+          console.error(`Errore durante la lettura del Pdf nella directory con fn: readSalesDocuments:`, error);
+          throw error;
+        }
+     
+  }
+  //getCustomerPdfProcess
+  async getCustomerPdfProcess(): Promise<object> {
+    try {           
+        const results = await processJsonFiles();
+        return {results}
+      } catch (error) {
+        console.error(`Errore durante la lettura del Pdf nella directory con fn: readSalesDocuments:`, error);
+        throw error;
+      }
+   
+}
+//getCustomerAllPdfProcess
+async getCustomerAllPdfProcess(): Promise<object> {
+  try {           
+      const results = await runAllProcessesPDF();
+    //  console.log("results:: ",results);
+      return {results}
+    } catch (error) {
+      console.error(`Errore durante la lettura del Pdf  con fn: runAllProcessesPDF:`, error);
+      throw error;
+    }
+ 
+}
 
 }
 
