@@ -6,7 +6,7 @@ src/models/product.ts
 src/routes/productRoutes.ts
 src/services/productService.ts
 src/attachment/*
-src/log/*
 dist/*
-
 .env
+src/data/*
+src/log/*
