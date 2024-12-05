@@ -4,7 +4,7 @@ import { writeToLog } from '../utils/writeLog';
 const fse = require('fs-extra');
 const axios = require('axios');
 const pathFiles = path.join(__dirname, '../data');
- const pathFilesI =`${process.env.PATH_PDF}`;
+ const pathFilesI =`${process.env.PATH_PDF_PROD}`;
 const salesDocuments = pathFiles + "/pdfList.json";
 const apiPostPdfUrl =`${process.env.ENDPOINT_API}${process.env.PORT}/customer/` ;
 let errorPDF = [];
@@ -312,53 +312,67 @@ async function moveFile(sourcePath:string, destPath:string) {
 export async function processJsonFiles() {
     let successCount = 0;
     let errorCount = 0;
-    const dataDir = pathFiles+"/pdf/";
-    const processDir= pathFiles+"/pdf/process/";
-    const errorDir= pathFiles+"/pdf/error/";
+    const dataDir = pathFiles + "/pdf/";
+    const processDir = pathFiles + "/pdf/process/";
+    const errorDir = pathFiles + "/pdf/error/";
+
     try {
         const files = await fs.readdir(dataDir);
         const jsonFiles = files.filter(file => path.extname(file) === '.json');
-      //  console.log(` file: counts ${jsonFiles.length}`);
-        const processingPromises = jsonFiles.map( async (file) => {
-            const filePath = path.join(dataDir, file);
-            let operationStatus = 'success'; // Variabile per tenere traccia dello stato dell'operazione
-            try {
-                const jsonData = await fse.readJson(filePath);
-                if (Object.keys(jsonData).length === 0) {
-                    writeToLog(`Il file ${file} è vuoto. Passo al file successivo.`,file);
-                    return; // Passa al file successivo
-                }else{
-                    writeToLog(` jsonData: counts `, Object.keys(jsonData).length);
-                }
-                const response = await axios.post(apiPostPdfUrl, jsonData);
-                writeToLog(`File ${file} inviato con successo:`, response.data);
-            } catch (error) {
-                writeToLog(`Errore durante l'invio del file ${file}:`, error);
-                operationStatus = 'error'; // Imposta lo stato su errore
-             
-                errorCount++;
-            }
-            // Sposta il file nella cartella appropriata in base allo stato dell'operazione
-            const finalFilePath = path.join(operationStatus === 'success' ? processDir : errorDir, file);
-            await moveFile(filePath, finalFilePath); // Sposta nella cartella appropriata
-            // Incrementa successCount solo se l'operazione è stata un successo
-            if (operationStatus === 'success') {
-                successCount++;
-                writeToLog(`File ${file} spostato nella cartella 'process' come `,path.basename(finalFilePath));
-            } else {
-                writeToLog(`File ${file} spostato nella cartella 'error' come `,path.basename(finalFilePath));
-            }
-        });
 
-        await Promise.all(processingPromises); // Esegui tutte le promesse in parallelo
+        // Suddividere i file in batch da 200
+        const batchSize = 200;
+        for (let i = 0; i < jsonFiles.length; i += batchSize) {
+            const batchFiles = jsonFiles.slice(i, i + batchSize);
+            console.log(`Elaborazione batch da file ${i + 1} a ${Math.min(i + batchSize, jsonFiles.length)}.`);
+
+            // Processa i file nel batch
+            const processingPromises = batchFiles.map(async (file) => {
+                const filePath = path.join(dataDir, file);
+                let operationStatus = 'success'; // Variabile per tenere traccia dello stato dell'operazione
+                try {
+                    const jsonData = await fse.readJson(filePath);
+                    if (Object.keys(jsonData).length === 0) {
+                        writeToLog(`Il file ${file} è vuoto. Passo al file successivo.`, file);
+                        return; // Passa al file successivo
+                    } else {
+                        writeToLog(`jsonData: counts`, Object.keys(jsonData).length);
+                    }
+                    const response = await axios.post(apiPostPdfUrl, jsonData);
+                    writeToLog(`File ${file} inviato con successo:`, response.data);
+                } catch (error) {
+                    writeToLog(`Errore durante l'invio del file ${file}:`, error);
+                    operationStatus = 'error'; // Imposta lo stato su errore
+                    errorCount++;
+                }
+
+                // Sposta il file nella cartella appropriata in base allo stato dell'operazione
+                const finalFilePath = path.join(operationStatus === 'success' ? processDir : errorDir, file);
+                await moveFile(filePath, finalFilePath); // Sposta nella cartella appropriata
+
+                // Incrementa successCount solo se l'operazione è stata un successo
+                if (operationStatus === 'success') {
+                    successCount++;
+                    writeToLog(`File ${file} spostato nella cartella 'process' come`, path.basename(finalFilePath));
+                } else {
+                    writeToLog(`File ${file} spostato nella cartella 'error' come`, path.basename(finalFilePath));
+                }
+            });
+
+            // Attendi il completamento del batch corrente
+            await Promise.all(processingPromises);
+            console.log(`Batch da ${batchFiles.length} file completato con successo.`);
+        }
 
     } catch (error) {
         console.error('Errore durante il processo dei file:', error);
     } finally {
-        writeToLog(`Elaborazione completata. File elaborati con successo: ${successCount}, File con errore: `,errorCount);
+        writeToLog(`Elaborazione completata. File elaborati con successo: ${successCount}, File con errore:`, errorCount);
     }
-    return {sucess: successCount, error: errorCount};
+
+    return { success: successCount, error: errorCount };
 }
+
 
 export async function runAllProcessesPDF() {
     try {

@@ -17,7 +17,7 @@ const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
 
 class LicenseService {
     async getAllLicense(): Promise<License[]> {
-        const license = await db.query(`SELECT * FROM Licenze`);
+        const license = await db.query(`SELECT * FROM dbo.licenze;`);
         return license as License[];
     }
 
@@ -35,20 +35,21 @@ class LicenseService {
     
         try {
             const result = await db.query(`
-                INSERT INTO [dbo].[Licenze] 
-                (FatherComponent, Element, KNM_ITEM, LICENSE_KEY, STATO, Sales_Doc, Item, Timestamp)
+                INSERT INTO dbo.licenze 
+                ("FatherComponent", "Element", "KNM_ITEM", "LICENSE_KEY", "STATO", "Sales_Doc", "Item", "Timestamp")
                 VALUES
-                (
-                    '${fatherComponent || ''}', 
-                    '${element || ''}', 
-                    '${knmItem || ''}', 
-                    '${licenseKey || ''}', 
-                    '${STATO || ''}', 
-                    '${salesDoc || ''}', 
-                    '${item || ''}', 
-                    ${timestamp ? `'${new Date(timestamp).toISOString()}'` : 'CURRENT_TIMESTAMP'}
-                )
-            `);
+                ($1, $2, $3, $4, $5, $6, $7, COALESCE($8, CURRENT_TIMESTAMP));
+            `, [
+                fatherComponent || null,
+                element || null,
+                knmItem || null,
+                licenseKey || null,
+                STATO || null,
+                salesDoc || null,
+                item || null,
+                timestamp || null 
+            ]);
+            
     
             console.log(`Dati inseriti correttamente per l'item ${knmItem}`, result);
     
@@ -70,21 +71,45 @@ class LicenseService {
     
     
     async getLicenseById(id: string): Promise<License | null> {
-        const license = await db.query(`SELECT * FROM Licenze WHERE LICENSE_KEY = '${id}'`);
+        const license = await db.query(`SELECT * FROM dbo.licenze WHERE "LICENSE_KEY" = '${id}'`);
         if (Array.isArray(license) && license.length > 0) {
             return license[0] as License;
         }
         return null;
     }
     async getLicensePack(salesDoc: string): Promise<License | null> {
-        const licenses = await db.query(`Select [Element],[LICENSE_KEY],[Sales_Doc],[Item],[stato] from Licenze where sales_doc = '${salesDoc}'`);
+        const licenses = await db.query(`
+            SELECT "Element", "LICENSE_KEY", "Sales_Doc", "Item", "STATO" 
+            FROM dbo.licenze 
+            WHERE "Sales_Doc" = '${salesDoc}'`);
         if (Array.isArray(licenses) && licenses.length > 0) {
             return licenses as License;
         }
         return [] as License;
     }
     async getLicenseByElement(element: string): Promise<License | null> {
-        const license = await db.query(`SELECT Top 1 [FatherComponent] ,[Element] ,[KNM_ITEM] ,[LICENSE_KEY] ,[STATO] ,[Sales_Doc],[Item] ,[Timestamp]  ,[prog_Item] = convert(int,rtrim(ltrim(right([KNM_ITEM],3-(CHARINDEX(' ', right([KNM_ITEM],3))))))) FROM [LKDISPATCH].[dbo].[Licenze]  where [Element] = '${element}' and  stato is null order by [FatherComponent] asc , element asc, convert(int,rtrim(ltrim(right([KNM_ITEM],3-(CHARINDEX(' ', right([KNM_ITEM],3))))))) asc`);
+        const license = await db.query(`
+            SELECT 
+            "FatherComponent", 
+            "Element", 
+            "KNM_ITEM", 
+            "LICENSE_KEY", 
+            "STATO", 
+            "Sales_Doc", 
+            "Item", 
+            "Timestamp", 
+            CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER) AS "prog_Item"
+        FROM 
+            dbo.licenze
+        WHERE 
+            "Element" = '${element}'
+            AND ("STATO" IS NULL OR "STATO" = '')
+        ORDER BY 
+            "FatherComponent" ASC, 
+            "Element" ASC, 
+            CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER) ASC
+        LIMIT 1;
+`);
         if (Array.isArray(license) && license.length > 0) {
             return license[0] as License;
         }else{
@@ -93,7 +118,18 @@ class LicenseService {
 }
     //getEmail 
     async getEmailOrdering(salesDoc: string): Promise<License | null> {
-        const email = await db.query(`SELECT   [Sales_Doc] ,[Nome_Cognome] ,[CF] ,[email] ,[ODA]   FROM [LKDISPATCH].[dbo].[Ordini_con_Ordinanti]   where sales_doc = '${salesDoc}'`);
+        const email = await db.query(`
+            SELECT 
+                "Sales_Doc", 
+                nome_cognome, 
+                cf, 
+                "Email", 
+                "ODA"
+            FROM 
+                dbo.ordini_con_Ordinanti
+            WHERE 
+                "Sales_Doc" = '${salesDoc}';
+            `);
         if (Array.isArray(email) && email.length > 0) {
             return email as License;
         }
@@ -106,7 +142,14 @@ class LicenseService {
     async putLicense(salesDoc: string, item: string, key: string, stato: string): Promise<License | null> {
         let result;
         
-            result = await db.query(`UPDATE licenze SET stato = '${stato}', sales_doc = '${salesDoc}', Item = '${item}', Timestamp = GETDATE() WHERE License_key = '${key}'`);
+            result = await db.query(`
+                UPDATE dbo.licenze 
+                SET "STATO" = '${stato}', 
+                    "Sales_Doc" = '${salesDoc}', 
+                    "Item" = '${item}', 
+                    "Timestamp" = CURRENT_TIMESTAMP 
+                WHERE "LICENSE_KEY" = '${key}';
+                `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
             console.log('result:', lic);
@@ -125,7 +168,12 @@ class LicenseService {
     async putLicenseSended( key: string, stato: string): Promise<License | null> {
         let result;
         
-            result = await db.query(`UPDATE licenze SET stato = '${stato}',  Timestamp = GETDATE() WHERE License_key = '${key}'`);
+            result = await db.query(`
+                UPDATE dbo.licenze 
+                SET "STATO" = '${stato}',  
+                    "Timestamp" = CURRENT_TIMESTAMP
+                WHERE "LICENSE_KEY" = '${key}';
+                `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
             console.log('result:', lic);
@@ -142,8 +190,10 @@ class LicenseService {
     }
 
     async postLicense(data: License): Promise<License | null> {
-        const result = await db.query(`INSERT INTO Products (name, price) VALUES (@name, @price)`);
-      
+        const result = await db.query(`
+            INSERT INTO "Products" (name, price) 
+            VALUES (@name, @price);
+            `);
         return null;
     }
 
@@ -163,7 +213,7 @@ class LicenseService {
     
             console.log('Invio dei dati alla API per inserimento...', licenseData);
     
-            const response = await axios.post(`${apiUrl}license/postLicenza`, licenseData);
+            const response = await axios.post(`${apiUrl}/license/postLicence`, licenseData);
     
             console.log('Licenza inserita correttamente tramite API:', response.data);
         } catch (error: any) {
@@ -177,7 +227,7 @@ class LicenseService {
 
     async getTypeLicenze(): Promise<any[]> {
         try {
-            const query = 'SELECT * FROM FattehrComponewntList';
+            const query = 'SELECT * FROM dbo.FattehrComponewntList';
             const results = await db.query(query);
     
             const recordset: any[] = results;

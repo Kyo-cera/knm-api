@@ -4,73 +4,112 @@ const XLSX = require('xlsx');
 const axios = require('axios');
 const path = require('path');
 const fs = require('fs').promises;
-const fileName = 'C:\\files\\Consips2 licenses SO.xlsx'; // Assicurati che il percorso sia corretto
+const fileName = process.env.PATH_ORDERS; 
 const sheetName = '2) Consip2 licenses pivot';
 const urlApi = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
 const sheetName2 = '1) Consip2 licenses';
 const col = 0;
 class OrderService {
     async getAllOrders(): Promise<Order[]> {
-        const orders = await db.query(`SELECT * FROM Orders`);
+        const orders = await db.query(`SELECT * FROM dbo.orders`);
         return orders as Order[];
     }
     async getAllSalesOrders(): Promise<Order[]> {
-        const sales = await db.query(`SELECT distinct a.Sales_Doc, b.ODA  FROM [LKDISPATCH].[dbo].[Orders] a  inner join [Ordini_con_Ordinanti] b on a.Sales_Doc = b.Sales_Doc   
-       where a.DlBl = '' and a.Sales_Doc+'-'+a.item not in (select distinct b.sales_doc+'-'+b.Item from Licenze b where b.sales_doc not in ('')) order by Sales_Doc asc `);
-        return sales as Order[];
-    }
+    const sales = await db.query(`
+        SELECT DISTINCT a."Sales_Doc", b."ODA"
+        FROM dbo.orders a
+        INNER JOIN dbo.ordini_con_ordinanti b
+            ON a."Sales_Doc" = b."Sales_Doc"
+        WHERE a."DlBl" = ''
+            AND a."Sales_Doc" || '-' || a."Item" NOT IN (
+                SELECT DISTINCT b."Sales_Doc" || '-' || b."Item"
+                FROM dbo.licenze b
+                WHERE b."Sales_Doc" <> ''
+            )
+        ORDER BY a."Sales_Doc" ASC;
+    `);
+    return sales as Order[];
+}
 
-    async getOrderByItemSalesDoc(salesDoc:string): Promise<Order[] | null> {
-        console.log("salesDoc:", salesDoc)
-        const orders = await db.query(`SELECT * FROM Orders WHERE Sales_Doc = ${salesDoc}`);
-        if (Array.isArray(orders) && orders.length > 0) {
-            return orders;
-        }
-        return null;
-    }
 
-    async getOrdersWithoutDestination(): Promise<Order[]> {
-        const orderCheckAdress = await db.query(`  SELECT [Sales_Doc] ,[Nome_Cognome]+' / CF: '+[CF] 'Nome Cognome / CF:'   ,[email] ,[ODA] FROM [LKDISPATCH].[dbo].[Ordini_con_Ordinanti] where Nome_Cognome in ('') or email in ('') or oda in ('') 
-        Union 
-        SELECT distinct  a.[Sales_Doc] ,'Nome Cognome / CF:' = '' ,'email' = '' ,'ODA' = ''  FROM [LKDISPATCH].[dbo].[Orders] a   Where [DlBl] = '' and a.Sales_Doc not in (select distinct b.sales_doc 
-        from Licenze b where b.sales_doc not in ('')) And a.sales_doc not in (select sales_doc from [Ordini_con_Ordinanti]) order by Sales_Doc asc `);
-        return orderCheckAdress as Order[];
+async getOrderByItemSalesDoc(salesDoc: string): Promise<Order[] | null> {
+    console.log("salesDoc:", salesDoc);
+    const orders = await db.query(`
+        SELECT *
+        FROM dbo.orders
+        WHERE "Sales_Doc" = '$1';
+    `, [salesDoc]); 
+
+    if (Array.isArray(orders) && orders.length > 0) {
+        return orders;
     }
+    return null;
+}
+
+
+async getOrdersWithoutDestination(): Promise<Order[]> {
+    const orderCheckAdress = await db.query(`
+        SELECT "Sales_Doc", 
+               nome_cognome || ' / CF: ' || cf AS "Nome Cognome / CF:", 
+               "Email", 
+               "ODA" 
+        FROM dbo.ordini_con_Ordinanti 
+        WHERE nome_cognome IN ('') 
+           OR "Email" IN ('') 
+           OR "ODA" IN ('') 
+        
+        UNION 
+        
+        SELECT DISTINCT a."Sales_Doc", 
+                        '' AS "Nome Cognome / CF:", 
+                        '' AS "email", 
+                        '' AS "ODA"
+        FROM dbo.orders a 
+        WHERE a."DlBl" = '' 
+          AND a."Sales_Doc" NOT IN (
+              SELECT DISTINCT b."Sales_Doc"
+              FROM dbo.licenze b
+              WHERE b."Sales_Doc" <> ''
+          ) 
+          AND a."Sales_Doc" NOT IN (
+              SELECT "Sales_Doc"
+              FROM dbo.ordini_con_ordinanti
+          )
+        ORDER BY "Sales_Doc" ASC;
+    `);
+    return orderCheckAdress as Order[];
+}
+
 
     //getgetCheckDibi
     async getCheckDibi(salesDoc: string, item: string, dibi: string): Promise<Order[]> {
-        const orderCheckAdress = await db.query(`USE [LKDISPATCH];
-        DECLARE @return_value int,
-                @Action varchar(30);
-        EXEC @return_value = [dbo].[Orders_Update]
-                @Sales_Doc = N'${salesDoc}',
-                @Item = N'${item}',
-                @DlBl = '${dibi}',
-                @Action = @Action OUTPUT;
-        SELECT @Action as N'@Action';`);
+        const orderCheckAdress = await db.query(`
+            SELECT * 
+            FROM dbo.Orders_Update($1, $2, $3);
+        `, [salesDoc, item, dibi]);
+    
         return orderCheckAdress as Order[];
     }
+    
 // list order combination pack
 async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
-    const ordersList = await db.query(`SELECT * FROM [LKDISPATCH].[dbo].[Orders] a inner join  [dbo].[Combinations] b on a.Component = b.Item_Material_Number where sales_doc = '${salesDoc}'`);
+    const ordersList = await db.query(`
+        SELECT * 
+        FROM dbo.orders a
+        INNER JOIN dbo.combinations b 
+            ON a."Component" = b."Item_Material_Number"
+        WHERE a."Sales_Doc" = '${salesDoc}';
+    `);
+
     if (Array.isArray(ordersList) && ordersList.length > 0) {
         return ordersList as Order;
     }
     return null;
 }
-//
-    async postOrder(data: Order): Promise<Order | null> {
-        const result = await db.query(`INSERT INTO Orders (name, price) VALUES (@name, @price)`);
-      
-        return null;
-    }
-
-
 
 
 
     async importOrders(): Promise<Order[]> {
-        console.log('ciao import orders')
         try {
             // Controlla se il file esiste
             await fs.access(fileName);
@@ -215,13 +254,29 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
         }
     
         // Se non ci sono duplicati, procedi con l'inserimento
-        const insertPromises = data.map(async (rowData:any) => {
+        const insertPromises = data.map(async (rowData: any) => {
             const query = `
-                INSERT INTO Orders (Value_contr_no, Sales_Doc, Item, Customer, Name_1, Material, Component, Material_Description, Language, DlBl, Timestamp, Purchase_order_nr)
-                VALUES ('${rowData.valueContrNo}', '${rowData.salesDoc}', '${rowData.item}', '${rowData.customer}', '${rimuoviApici(rowData.name)}', '${rowData.material}', '${rowData.component}', '${rowData.materialDescription}', '${rowData.language}', '${rowData.dlBl}', GETDATE(), '${rowData.purchaseOrderNr}')
+                INSERT INTO dbo.orders 
+                ("Value_contr_no", "Sales_Doc", "Item", "Customer", "name", "Material", "Component", "Material_Description", "Language", "DlBl", "Timestamp", "Purchase_order_nr")
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, CURRENT_TIMESTAMP, $11);
             `;
-            return db.query(query);
+            const values = [
+                rowData.valueContrNo,
+                rowData.salesDoc,
+                rowData.item,
+                rowData.customer,
+                rimuoviApici(rowData.name), 
+                rowData.material,
+                rowData.component,
+                rowData.materialDescription,
+                rowData.language,
+                rowData.dlBl,
+                rowData.purchaseOrderNr
+            ];
+            
+            return db.query(query, values);
         });
+        
 
         const results = Promise.all(insertPromises);
     } catch (error) {
@@ -234,7 +289,7 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
 
         try {
           const query = `
-           SELECT *  FROM [LKDISPATCH].[dbo].[Orders] where Sales_Doc='${rowData.salesDoc}' AND Item='${rowData.item}' AND Material_Description='${rowData.materialDescription}';
+           SELECT * FROM dbo.orders WHERE "Sales_Doc"='${rowData.salesDoc}' AND "Item"='${rowData.item}' AND "Material_Description"='${rowData.materialDescription}';
           `;
           const results = await db.query(query);
          // console.log('results: '+results.recordset.length)
