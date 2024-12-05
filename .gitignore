@@ -9,6 +9,7 @@ src/attachment/*
 src/log/*
 dist/*
 data/*
-
 .env
+src/log/log.txt
+src/data/*
 src/log/log.txt
