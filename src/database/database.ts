@@ -48,7 +48,8 @@ const dbConfig = {
     host: 'localhost',       
     user: 'apps',            
     password: 'Kyo2024!',    
-    database: 'LKDISPATCH',    
+    database: 'LKDISPATCH',
+//    database: 'postgres',    
     port: 5432,              
 };
 
