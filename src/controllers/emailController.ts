@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import mailService from "../services/mailService";
 import { sendError, sendSuccess } from '../utils/requestHandlers';
 import { e_mail } from 'models/e-mail';
+import emailServices from '../services/emailService';
 
 class emailController{
 
@@ -61,7 +62,16 @@ class emailController{
     }
     
 
-
+    async getEmails(req: Request, res: Response){
+        try{
+            console.log('Entrato in getEmails')
+            const mails = await emailServices.getEmails();
+            console.log('Emails trovate:', mails);
+            sendSuccess(res, mails);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
 
 }
 
