@@ -12,3 +12,7 @@ data/*
 .env
 src/log/log.txt
 src/data/*
+<<<<<<< HEAD
+=======
+src/log/log.txt
+>>>>>>> 766f3ea36dc31fdffe1bb47e82ec8d66690493b9

@@ -12,7 +12,7 @@ const inputFolder = filePath+'licenze';
 const outputFolder = filePath+'licenze/csv';
 const errorFolder = filePath+'licenze/error';
 const doneFolder = filePath+'licenze/done';
-const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 
 
 class LicenseService {
@@ -214,7 +214,6 @@ class LicenseService {
             console.log('Invio dei dati alla API per inserimento...', licenseData);
     
             const response = await axios.post(`${apiUrl}/license/postLicence`, licenseData);
-    
             console.log('Licenza inserita correttamente tramite API:', response.data);
         } catch (error: any) {
             console.error('Errore nell\'invio dei dati alla API:', error);
@@ -381,7 +380,7 @@ class LicenseService {
             
             try {
                 const response = await this.getTypeLicenze();
-                
+                console.log('response: ', response);
                 if (response && response.length > 0) {
                     console.log(`Andata a buon fine la chiamata al orderslist. Numero di record: ${response.length}`);
                     
