@@ -180,6 +180,23 @@ class userService {
         }
     }
     
+    async getUsersByEmail(email: string): Promise<User[] | null> {
+        try {
+            const query = `SELECT * FROM dbo.users WHERE "email" = '${email}';`;
+    
+            const result = await db.query(query);
+    
+            if (Array.isArray(result) && result.length > 0) {
+                return result as User[]; 
+            }
+    
+            console.log('Nessun utente trovato per il tipo: ' + email);
+            return null; 
+        } catch (error) {
+            console.error('Errore durante il recupero degli utenti per tipo:', error);
+            throw error; 
+        }
+    }
 
 }
 

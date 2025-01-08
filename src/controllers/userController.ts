@@ -119,5 +119,20 @@ class userController{
         }
     }
 
+    async getUsersByEmail(req: Request, res: Response){
+        try{
+            const email = String(req.params['email']);
+            console.log('element: ->:  '+email);
+            const user = await userService.getUsersByEmail(email);
+            if(user){
+                sendSuccess(res, user);
+            }else{
+                sendError(res, `email not found`, 404);
+            }
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
 }
 export default new userController();
