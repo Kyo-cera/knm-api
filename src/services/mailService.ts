@@ -1,5 +1,7 @@
 import { e_mail } from '../models/e-mail';
 import { IResult } from 'mssql';
+import { sendEmail } from '../utils/email';
+import { EmailData } from '../models/email';
 import db from '../database/database';
 
 class mailService{
@@ -67,6 +69,16 @@ class mailService{
     
     }
     
+    async invioEmail (data: EmailData): Promise<void> {
+        const emailData: EmailData = {
+                              recipient: `${data.recipient}`,
+                              subject: `${data.subject}`,
+                              emailBody: `${data.emailBody}`,
+                              attachment: `${data.attachment}`
+                          };
+                          const sendSuccess = await sendEmail(emailData);
+    }
+        
 
 }
 

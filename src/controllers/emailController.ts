@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import mailService from "../services/mailService";
 import { sendError, sendSuccess } from '../utils/requestHandlers';
 import { e_mail } from 'models/e-mail';
+import { EmailData } from '../models/email';
 import emailServices from '../services/emailService';
 
 class emailController{
@@ -68,6 +69,16 @@ class emailController{
             const mails = await emailServices.getEmails();
             console.log('Emails trovate:', mails);
             sendSuccess(res, mails);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async invioEmail(req: Request, res: Response){
+        const data: EmailData = req.body;
+        try{
+            const email = await mailService.invioEmail(data);
+            sendSuccess(res, email);
         }catch(error: any){
             sendError(res, error.message);
         }
