@@ -89,26 +89,24 @@ class LicenseService {
     }
     async getLicenseByElement(element: string): Promise<License | null> {
         const license = await db.query(`
-            SELECT 
-            "FatherComponent", 
-            "Element", 
-            "KNM_ITEM", 
-            "LICENSE_KEY", 
-            "STATO", 
-            "Sales_Doc", 
-            "Item", 
-            "Timestamp", 
-            CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER) AS "prog_Item"
-        FROM 
-            dbo.licenze
-        WHERE 
-            "Element" = '${element}'
-            AND ("STATO" IS NULL OR "STATO" = '')
-        ORDER BY 
-            "FatherComponent" ASC, 
-            "Element" ASC, 
-            CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER) ASC
-        LIMIT 1;
+       SELECT 
+    *, 
+    CASE 
+        WHEN RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3)))) ~ '^\d+$'
+        THEN CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER)
+        ELSE NULL
+    END AS "prog_Item"
+FROM 
+    dbo.licenze
+WHERE 
+    "Element" = 'KNM E-Terminal'
+    AND ("STATO" IS NULL OR "STATO" = '')
+ORDER BY 
+    "FatherComponent" ASC, 
+    "Element" ASC, 
+    "prog_Item" ASC
+LIMIT 1;
+
 `);
         if (Array.isArray(license) && license.length > 0) {
             return license[0] as License;
