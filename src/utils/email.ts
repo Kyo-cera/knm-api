@@ -3,7 +3,7 @@ import { createExcelFileEmailsChecked } from './excel';
 const axios = require('axios');
 export async function sendEmail(emailData: EmailData) {
   try {
-    const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}/mail`;
+    const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}/mail`;
     const response = await axios.post(apiUrl, emailData);
   //  console.log("email sent: result",response.data);
     return response.data.status
@@ -15,7 +15,7 @@ export async function sendEmail(emailData: EmailData) {
 
 
 export async function processCheckData() {
-  const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}/orders/salesCheckData`;
+  const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}/orders/salesCheckData`;
   const response = await axios.get(apiUrl);
   const data = response.data.data;
   const error = response.data.error;
