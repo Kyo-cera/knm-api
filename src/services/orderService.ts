@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs').promises;
 const fileName = process.env.PATH_ORDERS; 
 const sheetName = '2) Consip2 licenses pivot';
-const urlApi = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+const urlApi = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 const sheetName2 = '1) Consip2 licenses';
 const col = 0;
 class OrderService {
