@@ -2,6 +2,7 @@ import axios from 'axios';
 import { EmailData } from '../models/email';
 import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
+<<<<<<< HEAD
 import fs from 'fs';
 import path from 'path';
 const filePath = path.resolve('data/devMode/devMode.json');
@@ -54,6 +55,9 @@ class EmailManagmentService {
 }
 
 export default new EmailManagmentService()
+=======
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
+>>>>>>> 526a047a1f094e1928220adc7a2b8dc9a0db8a83
 export const emailAdmin = async () => {
         const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
           const Emailadmin = EmailadminResp.data.data;
@@ -76,7 +80,7 @@ export const emailAdmin = async () => {
               const customerResponse = await axios.get(`${apiUrl}/customer/`);
               const customers = customerResponse.data.data;
             //   console.log('customerResponse:', customerResponse);
-              console.log('customers:', customers);
+            //  console.log('customers:', customers);
           
               let customerWithSalesDoc = false;
               let customerWithoutEmail = false;
@@ -85,7 +89,7 @@ export const emailAdmin = async () => {
           
               if (customers && customers.length > 0) {
                   for (const customer of customers) {
-                      console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
+                    //  console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
                       if (customer.Sales_Doc === salesDoc) {
                           customerWithSalesDoc = true;
                           break; 
@@ -165,7 +169,11 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             }
 
             const emailData: EmailData = {
+<<<<<<< HEAD
             // recipient: `${devMode ? "knm-licenses@dit.kyocera.com" : emailCust}`,
+=======
+            // recipient: `${emailCust}`,
+>>>>>>> 526a047a1f094e1928220adc7a2b8dc9a0db8a83
             recipient: `knm-licenses@dit.kyocera.com`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
