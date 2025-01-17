@@ -10,5 +10,7 @@ emailRoutes.get('/:id', emailController.getEmailById);
 emailRoutes.post('/addEmail', emailController.postEmail);
 emailRoutes.put('/updateByID/:id', emailController.updateByID);
 emailRoutes.post('/invioEmail', emailController.invioEmail);
+emailRoutes.get('/devMode', emailController.devMode);
+emailRoutes.get('/getDevMode', emailController.getDevMode);
 
 export default emailRoutes;

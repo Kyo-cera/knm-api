@@ -2,7 +2,58 @@ import axios from 'axios';
 import { EmailData } from '../models/email';
 import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
-const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+import fs from 'fs';
+import path from 'path';
+const filePath = path.resolve('data/devMode/devMode.json');
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
+let devMode = false
+
+class EmailManagmentService {
+    constructor() {
+        this.loadDevMode();
+    }
+
+    async loadDevMode() {
+        try {
+            if (fs.existsSync(filePath)) {
+                const data = await fs.promises.readFile(filePath, 'utf8');
+                const jsonData = JSON.parse(data);
+                devMode = jsonData.devMode;
+            }
+        } catch (error) {
+            console.error('Errore durante la lettura di devMode:', error);
+        }
+    }
+
+    async inDevMode() {
+        devMode = !devMode;
+        const data = { devMode: devMode };
+
+        try {
+            await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+            console.log(`devMode aggiornato in ${filePath}:`, data);
+            return data;
+        } catch (error) {
+            console.error('Errore durante il salvataggio di devMode:', error);
+        }
+    }
+
+    async getDevMode() {
+        try {
+            if (fs.existsSync(filePath)) {
+                const data = await fs.promises.readFile(filePath, 'utf8');
+                const jsonData = JSON.parse(data);
+                return jsonData.devMode;
+            }
+            return false;
+        } catch (error) {
+            console.error('Errore durante la lettura di devMode:', error);
+            return false;
+        }
+    }
+}
+
+export default new EmailManagmentService()
 export const emailAdmin = async () => {
         const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
           const Emailadmin = EmailadminResp.data.data;
@@ -114,7 +165,8 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             }
 
             const emailData: EmailData = {
-            recipient: `${emailCust}`,
+            // recipient: `${devMode ? "knm-licenses@dit.kyocera.com" : emailCust}`,
+            recipient: `knm-licenses@dit.kyocera.com`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
@@ -132,3 +184,4 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
         throw error;
     }
 }
+

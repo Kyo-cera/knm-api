@@ -4,6 +4,7 @@ import { sendError, sendSuccess } from '../utils/requestHandlers';
 import { e_mail } from 'models/e-mail';
 import { EmailData } from '../models/email';
 import emailServices from '../services/emailService';
+import emailManagment from '../services/emailManagment';
 
 class emailController{
 
@@ -79,6 +80,24 @@ class emailController{
         try{
             const email = await mailService.invioEmail(data);
             sendSuccess(res, email);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async devMode(req: Request, res: Response){
+        try{
+            const devMode = await emailManagment.inDevMode();
+            sendSuccess(res, devMode);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async getDevMode(req: Request, res: Response){
+        try{
+            const devMode = await emailManagment.getDevMode();
+            sendSuccess(res, devMode);
         }catch(error: any){
             sendError(res, error.message);
         }
