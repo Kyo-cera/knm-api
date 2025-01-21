@@ -30,10 +30,9 @@ class mailService{
     async postMail(data: e_mail): Promise<void> {
         try {
             const result = await db.query(`
-                INSERT INTO dbo.email
-                ("email", "subject", "body", "type_email", "updated_at") 
+                INSERT INTO dbo.email(email, subject, body, type_email, updated_at)
                 VALUES 
-                (${data.email}, ${data.subject}, ${data.body}, ${data.type_email}, GETDATE())
+                ('${data.email}', '${data.subject}', '${data.body}', '${data.type_email}', CURRENT_TIMESTAMP)
             `);
         } catch (error) {
             console.error('Errore durante l\'inserimento della email:', error);
