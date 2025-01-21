@@ -99,7 +99,7 @@ class LicenseService {
 FROM 
     dbo.licenze
 WHERE 
-    "Element" = 'KNM E-Terminal'
+    "Element" = '${element}'
     AND ("STATO" IS NULL OR "STATO" = '')
 ORDER BY 
     "FatherComponent" ASC, 
