@@ -166,7 +166,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
             const emailData: EmailData = {
 
-            recipient: `knm-licenses@dit.kyocera.com`,
+            recipient: `${emailCust}`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
