@@ -6,6 +6,7 @@ import orderRoutes from './ordersRoutes';
 import emailRoutes from './emailRoutes';
 import scheduleRoutes from "./scheduleRoutes";
 import userRoutes from "./usersRoutes";
+import devModeRoutes from "./devModeRoutes";
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.use('/customer', customersRoutes);
 router.use('/email', emailRoutes);
 router.use('/schedule', scheduleRoutes);
 router.use('/user', userRoutes);
+router.use('/devMode', devModeRoutes);
 router.post('/mail', Mails.sendMail);
 
 export default router;

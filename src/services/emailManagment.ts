@@ -4,9 +4,9 @@ import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
 import fs from 'fs';
 import path from 'path';
-const filePath = path.resolve('data/devMode/devMode.json');
 const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
-let devMode = false
+const filePath = path.resolve('./src/data/devMode/devMode.json');
+let devMode: boolean 
 
 class EmailManagmentService {
     constructor() {
@@ -166,7 +166,8 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
             const emailData: EmailData = {
 
-            recipient: `${emailCust}`,
+            // recipient: `${emailCust}`,
+            recipient: devMode ? 'KNM-Licenses@dit.kyocera.com' : `${emailCust}`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
