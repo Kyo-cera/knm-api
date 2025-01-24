@@ -7,6 +7,7 @@ import emailRoutes from './emailRoutes';
 import scheduleRoutes from "./scheduleRoutes";
 import userRoutes from "./usersRoutes";
 import devModeRoutes from "./devModeRoutes";
+import emailServiceRoutes from "./emailServiceRoutes";
 
 const router = Router();
 
@@ -18,6 +19,7 @@ router.use('/customer', customersRoutes);
 router.use('/email', emailRoutes);
 router.use('/schedule', scheduleRoutes);
 router.use('/user', userRoutes);
+router.use('/emailMC', emailServiceRoutes);
 router.use('/devMode', devModeRoutes);
 router.post('/mail', Mails.sendMail);
 
