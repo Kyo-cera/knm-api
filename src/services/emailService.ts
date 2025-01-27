@@ -5,6 +5,10 @@ import fs from 'fs';
 import path from "path";
 import { ScheduleData } from "models/scheduleData";
 import cron from 'node-cron';
+import { writeToLog } from '../utils/writeLog';
+require("dotenv").config();
+const envPath = path.resolve(__dirname, ".env");
+const SCHEDULE_DATA_PATH = path.join(__dirname, "../data/scheduleData/scheduleDataEmail.json");
 
 dotenv.config();
 
@@ -58,7 +62,7 @@ class Services {
 
             return accessToken;
         } catch (error) {
-            console.error("Errore nel recupero del token delegato:", error);
+            writeToLog("Errore nel recupero del token delegato:", error);
             throw error;
         }
     };
@@ -86,7 +90,7 @@ class Services {
 
             return emails;
         } catch (error) {
-            console.error("Errore durante il recupero delle email:", error);
+            writeToLog("Errore durante il recupero delle email:", error);
             throw error;
         }
     };
@@ -103,7 +107,7 @@ class Services {
 
             return response.data.value; // Array di allegati
         } catch (error) {
-            console.error("❌ Errore nel recupero degli allegati:", error);
+            writeToLog("❌ Errore nel recupero degli allegati:", error);
             throw error;
         }
     }
@@ -113,7 +117,7 @@ class Services {
             const attachments = await Services.getAttachments(messageId);
     
             if (attachments.length === 0) {
-                console.log("📭 Nessun allegato trovato.");
+                writeToLog("📭 Nessun allegato trovato.", attachments.length);
                 return;
             }
     
@@ -131,11 +135,11 @@ class Services {
                     const filePath = path.join(savePath, fileName);
     
                     fs.writeFileSync(filePath, attachment.contentBytes, "base64");
-                    console.log(`✅ Allegato salvato: ${filePath}`);
+                    writeToLog(`✅ Allegato salvato: ${filePath}`, filePath);
                 }
             }
         } catch (error) {
-            console.error("❌ Errore nel download degli allegati:", error);
+            writeToLog("❌ Errore nel download degli allegati:", error);
             throw error;
         }
     }
@@ -160,9 +164,9 @@ class Services {
                 }
             );
     
-            console.log(`✅ Email ${isRead ? "letta" : "non letta"} con successo!`);
+            writeToLog(`✅ Email ${isRead ? "letta" : "non letta"} con successo!`, isRead);
         } catch (error) {
-            console.error("❌ Errore nel modificare lo stato di lettura dell'email:", error);
+            writeToLog("❌ Errore nel modificare lo stato di lettura dell'email:", error);
             throw error;
         }
     }
@@ -181,27 +185,98 @@ class Services {
                 }
             }
             } catch (error) {
-            console.error("❌ Errore nel recupero degli allegati:", error);
+                writeToLog("❌ Errore nel recupero degli allegati:", error);
             throw error;
         }
     }
 
+    static saveScheduleData(scheduleData: ScheduleData): void {
+        try {
+            fs.writeFileSync(SCHEDULE_DATA_PATH, JSON.stringify(scheduleData, null, 2), "utf-8");
+            writeToLog("✅ Dati di schedulazione salvati:", scheduleData);
+        } catch (error) {
+            writeToLog("❌ Errore nel salvataggio dei dati di schedulazione:", error);
+        }
+    }
+
+    static getScheduleData(): any {
+        try {
+            if (!fs.existsSync(SCHEDULE_DATA_PATH)) {
+                writeToLog("⚠️ Il file di schedulazione non esiste. Restituzione di dati vuoti.", SCHEDULE_DATA_PATH);
+                return { ora: null, minuti: null };
+            }
+    
+            const data = fs.readFileSync(SCHEDULE_DATA_PATH, "utf-8");
+            return JSON.parse(data);
+        } catch (error) {
+            writeToLog("❌ Errore nel recupero dei dati di schedulazione:", error);
+            return null;
+        }
+    }
+
+    // funzione per la gestione del token scaduto
+    static async refreshAccessToken(refreshToken: any) {
+        const tokenUrl = `https://login.microsoftonline.com/abb79fd9-c566-40c1-af4d-313a74c9f286/oauth2/v2.0/token`;
+    
+        const data = new URLSearchParams();
+        data.append("client_id", process.env.CLIENT_ID || "");
+        data.append("client_secret", process.env.CLIENT_SECRET || "");
+        data.append("grant_type", "refresh_token");
+        data.append("refresh_token", process.env.REFRESH_TOKEN || "");
+        data.append("scope", "https://graph.microsoft.com/.default");
+
+            
+        try {
+            const response = await axios.post(tokenUrl, data);
+            const newToken = response.data.access_token;
+            writeToLog("✅ Nuovo Access Token ottenuto!", newToken);
+    
+            // Aggiorna il file .env con il nuovo token
+            Services.updateEnvFile("TOKENMSG", newToken);
+    
+            return newToken;
+        } catch (error) {
+            writeToLog("❌ Errore nel rinnovo del token:", error);
+            return null;
+        }
+    }
+    
+    // Funzione per aggiornare una variabile nel file .env
+    static updateEnvFile(key:any, value:any) {
+        let envContent = fs.readFileSync(envPath, "utf8"); // Legge il file .env
+    
+        // Se la chiave esiste, la aggiorna, altrimenti la aggiunge
+        const regex = new RegExp(`^${key}=.*`, "m");
+        if (regex.test(envContent)) {
+            envContent = envContent.replace(regex, `${key}=${value}`);
+        } else {
+            envContent += `\n${key}=${value}`;
+        }
+    
+        fs.writeFileSync(envPath, envContent, "utf8"); // Scrive il nuovo file .env
+        writeToLog(`✅ Variabile ${key} aggiornata nel file .env!`, key);
+    }
+    
+    
+
     static scheduleCheckAndDownload(scheduleData: ScheduleData): void {
         const { ora, minuti } = scheduleData; 
 
+        Services.saveScheduleData(scheduleData);
+
         const cronExpression = `${minuti} ${ora} * * *`;
 
-        console.log(`[DEBUG] Configurazione cron: "${cronExpression}" per l'API CheckAndDownload`);
+        writeToLog(`[DEBUG] Configurazione cron: "${cronExpression}" per l'API CheckAndDownload`, cronExpression);
 
         cron.schedule(
             cronExpression,
             async () => {
                 try {
-                    console.log(`⏳ Avvio richiesta API a ${ora}:${minuti}...`);
+                    writeToLog(`⏳ Avvio richiesta API a ${ora}:${minuti}...`,`${ora}, ${minuti}`);
                     const response = await axios.get("http://localhost:3005/emailMC/checkAndDownload");
-                    console.log("✅ API eseguita con successo:", response.data);
+                    writeToLog("✅ API eseguita con successo:", response.data);
                 } catch (error) {
-                    console.error("❌ Errore nell'esecuzione dell'API:", error);
+                    writeToLog("❌ Errore nell'esecuzione dell'API:", error);
                 }
             },
             {
@@ -210,7 +285,8 @@ class Services {
             }
         );
 
-        console.log(`🔔 API programmata per le ${ora}:${minuti}`);
+        writeToLog(`🔔 API programmata per le ${ora}:${minuti}`,`${ora}, ${minuti}`);
+        // Services.refreshAccessToken(process.env.TOKENMSG)
     }
 
     
