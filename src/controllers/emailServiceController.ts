@@ -33,6 +33,15 @@ class emailServiceController{
         }
     }
 
+    async getScheduleData(req: Request, res: Response){
+        try{
+            const ScheduleData = await emailService.getScheduleData();
+            sendSuccess(res, ScheduleData);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
     async scheduleCheckAndDownload(req: Request, res: Response) {
         try {
             const scheduleData: ScheduleData = req.body;
