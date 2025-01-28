@@ -112,13 +112,14 @@ class Services {
         }
     }
 
-    static async downloadAttachments(messageId: string): Promise<void> {
+    static async downloadAttachments(messageId: string): Promise<any[]> {
         try {
             const attachments = await Services.getAttachments(messageId);
+            let attachmentTrovati: any[] = [];
     
             if (attachments.length === 0) {
                 writeToLog("📭 Nessun allegato trovato.", attachments.length);
-                return;
+                return [];
             }
     
             for (const attachment of attachments) {
@@ -136,8 +137,10 @@ class Services {
     
                     fs.writeFileSync(filePath, attachment.contentBytes, "base64");
                     writeToLog(`✅ Allegato salvato: ${filePath}`, filePath);
+                    attachmentTrovati.push(attachment)
                 }
             }
+            return attachmentTrovati
         } catch (error) {
             writeToLog("❌ Errore nel download degli allegati:", error);
             throw error;
@@ -181,8 +184,9 @@ class Services {
                 if(email.hasAttachments && !email.isRead && oggetto.includes("sblocco")){
                     let attachments = await this.downloadAttachments(email.id)
                     await this.markEmailAsRead(email.id, true)
-                    return attachments
+                    return {attachments, successDownload:true}
                 }
+                return {successDownload:false}
             }
             } catch (error) {
                 writeToLog("❌ Errore nel recupero degli allegati:", error);
