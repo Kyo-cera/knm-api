@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import emailService from "../services/emailService";
 import { sendError, sendSuccess } from '../utils/requestHandlers';
-import { ScheduleData } from "models/scheduleData";
+import { scheduleDataEmail } from "models/scheduleDataEmail";
 
 class emailServiceController{
 
@@ -44,13 +44,13 @@ class emailServiceController{
 
     async scheduleCheckAndDownload(req: Request, res: Response) {
         try {
-            const scheduleData: ScheduleData = req.body;
-            if (!scheduleData.ora || !scheduleData.minuti) {
+            const scheduleDataEmail: scheduleDataEmail = req.body;
+            if (!scheduleDataEmail.ora || !scheduleDataEmail.minuti) {
                 return sendError(res, "I parametri 'ora' e 'minuti' sono obbligatori.", 400);
             }
 
-            emailService.scheduleCheckAndDownload(scheduleData);
-            sendSuccess(res, { message: `✅ API programmata per le ${scheduleData.ora}:${scheduleData.minuti}` });
+            emailService.scheduleCheckAndDownload(scheduleDataEmail);
+            sendSuccess(res, { message: `✅ API programmata per le ${scheduleDataEmail.ora}:${scheduleDataEmail.minuti}` });
         } catch (error: any) {
             sendError(res, error.message);
         }

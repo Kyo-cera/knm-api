@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 import fs from 'fs';
 import path from "path";
-import { ScheduleData } from "models/scheduleData";
+import { scheduleDataEmail } from "models/scheduleDataEmail";
 import cron from 'node-cron';
 import { writeToLog } from '../utils/writeLog';
 require("dotenv").config();
@@ -190,10 +190,10 @@ class Services {
         }
     }
 
-    static saveScheduleData(scheduleData: ScheduleData): void {
+    static saveScheduleData(scheduleDataEmail: scheduleDataEmail): void {
         try {
-            fs.writeFileSync(SCHEDULE_DATA_PATH, JSON.stringify(scheduleData, null, 2), "utf-8");
-            writeToLog("✅ Dati di schedulazione salvati:", scheduleData);
+            fs.writeFileSync(SCHEDULE_DATA_PATH, JSON.stringify(scheduleDataEmail, null, 2), "utf-8");
+            writeToLog("✅ Dati di schedulazione salvati:", scheduleDataEmail);
         } catch (error) {
             writeToLog("❌ Errore nel salvataggio dei dati di schedulazione:", error);
         }
@@ -203,7 +203,7 @@ class Services {
         try {
             if (!fs.existsSync(SCHEDULE_DATA_PATH)) {
                 writeToLog("⚠️ Il file di schedulazione non esiste. Restituzione di dati vuoti.", SCHEDULE_DATA_PATH);
-                return { ora: null, minuti: null };
+                return { ora: null, minuti: null, frequenza: null };
             }
     
             const data = fs.readFileSync(SCHEDULE_DATA_PATH, "utf-8");
@@ -259,10 +259,10 @@ class Services {
     
     
 
-    static scheduleCheckAndDownload(scheduleData: ScheduleData): void {
-        const { ora, minuti } = scheduleData; 
+    static scheduleCheckAndDownload(scheduleDataEmail: scheduleDataEmail): void {
+        const { ora, minuti, frequenza } = scheduleDataEmail; 
 
-        Services.saveScheduleData(scheduleData);
+        Services.saveScheduleData(scheduleDataEmail);
 
         const cronExpression = `${minuti} ${ora} * * *`;
 
