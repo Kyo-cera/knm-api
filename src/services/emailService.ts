@@ -124,16 +124,21 @@ class Services {
     
             for (const attachment of attachments) {
                 if (attachment["@odata.type"] === "#microsoft.graph.fileAttachment") {
-                    const fileName = attachment.name;
-                    let savePath = "C:\\files"; 
-    
-                    if (fileName.includes("licenses SO")) {
+                    let fileName = attachment.name;
+                    let savePath = "C:\\files";
+
+                    console.log("📂 Nome originale:", fileName);
+
+                    if (fileName.includes("Consips2")) {
+                        fileName = "Consips2 licenses SO.xlsx"
                         savePath = "C:\\files"; 
-                    } else if (fileName.includes("Sblocco")) {
+                    } else if (fileName.includes("licenze KNM") || fileName.includes("Sblocco") || fileName.includes("sblocco")) {
+                        fileName = "28° Sblocco C2 (licenze KNM) 16.10.2024.xlsx"
                         savePath = "C:\\files\\licenze"; 
                     }
     
                     const filePath = path.join(savePath, fileName);
+                    attachment.name = fileName;
     
                     fs.writeFileSync(filePath, attachment.contentBytes, "base64");
                     writeToLog(`✅ Allegato salvato: ${filePath}`, filePath);

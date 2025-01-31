@@ -1,6 +1,7 @@
 import { License } from 'models/license';
 import db from '../database/database';
 import { IResult } from 'mssql';
+import { writeToLog } from '../utils/writeLog';
 const csv = require('csv-parser');
 
 const fs = require('fs');
@@ -16,6 +17,11 @@ const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 
 
 class LicenseService {
+    private files: any[];
+
+    constructor() {
+        this.files = []; 
+    }
     async getAllLicense(): Promise<License[]> {
         const license = await db.query(`SELECT * FROM dbo.licenze;`);
         return license as License[];
@@ -222,7 +228,7 @@ LIMIT 1;
     
 
 
-    async getTypeLicenze(): Promise<any[]> {
+    async getTypeLicenze(): Promise<any> {
         try {
             const query = 'SELECT * FROM dbo.FattehrComponewntList';
             const results = await db.query(query);
@@ -243,18 +249,33 @@ LIMIT 1;
         }
     }
     
-    
-    
-    
+    async ifExixsCSV(outputFolder: string, file: string): Promise<boolean> {
+        try {
+            const filePath = path.join(outputFolder, file);
 
-    async readCSVAndCallAPI(record: any): Promise<void> {
+            await fs.access(filePath);
+
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }    
+    
+    async readCSVAndCallAPI(record: any): Promise<any> {
         const startingString = 'KNM';
         const file = `${record.Element}.csv`;
+        if (!(await this.ifExixsCSV(outputFolder, file))) {
+            writeToLog(`File non trovato: `, file)
+            this.files.push(`File non trovato: ${file}`)
+            console.error(`File non trovato: ${file}`);
+            return ; 
+        }
         const csvFilePath = path.join(outputFolder, file);
-
-        console.log('Tentativo di lettura del file CSV:', csvFilePath);
-
+        writeToLog('csvFilePath: ', csvFilePath);     
+        writeToLog('Tentativo di lettura del file CSV:', csvFilePath);
+        
         const tableDB = this.searchTable(record.Element);
+        
         const rows: any[] = [];
 
         try {
@@ -262,13 +283,13 @@ LIMIT 1;
                 fs.createReadStream(csvFilePath)
                     .pipe(csv())
                     .on('data', (row: any) => {
-                        console.log('Riga CSV:', row);
+                        writeToLog('Riga CSV:', row);
                         if (row['MyQ ITEM']?.startsWith(startingString)) {
                             rows.push(row);
                         }
                     })
                     .on('end', async () => {
-                        console.log('Lettura CSV completata, righe trovate:', rows.length); 
+                        writeToLog('Lettura CSV completata, righe trovate:', rows.length); 
 
                         for (const row of rows) {
                             const item = row['MyQ ITEM'];
@@ -276,7 +297,7 @@ LIMIT 1;
                             const { FatherComponent, Element } = record;
 
                             try {
-                                console.log(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`);
+                                writeToLog(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`, item);
                                 await this.inKnmETerminal({
                                     FatherComponent,
                                     Element,
@@ -332,7 +353,7 @@ LIMIT 1;
     
 
 
-    async importLicenses(): Promise<License[]> {
+    async importLicenses(): Promise<any> {
         const files = fs.readdirSync(inputFolder);
         let excelFilesCount = 0;
     
@@ -352,6 +373,7 @@ LIMIT 1;
                         if (range.e.r > range.s.r && range.e.c > range.s.c) {
                             const csv = XLSX.utils.sheet_to_csv(worksheet);
                             const csvFilePath = path.join(outputFolder, `${sheetName}.csv`);
+                            writeToLog("csvFilePath ",csvFilePath);
                             fs.writeFileSync(csvFilePath, csv);
                             console.log(`Foglio ${sheetName} convertito in CSV`);
                         } else {
@@ -395,7 +417,8 @@ LIMIT 1;
             console.log('Spiacente, non sono stati trovati file Excel.');
         }
     
-        return await this.getAllLicense();
+        // return await this.getAllLicense(), file;
+        return { licenses: await this.getAllLicense(), files: this.files };
     }
 }
 
