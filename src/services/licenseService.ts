@@ -17,7 +17,7 @@ const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 
 
 class LicenseService {
-    private files: any[];
+    private files: string[];
 
     constructor() {
         this.files = []; 
@@ -252,9 +252,7 @@ LIMIT 1;
     async ifExixsCSV(outputFolder: string, file: string): Promise<boolean> {
         try {
             const filePath = path.join(outputFolder, file);
-
-            await fs.access(filePath);
-
+            await fs.promises.access(filePath, fs.constants.F_OK);
             return true;
         } catch (error) {
             return false;
@@ -264,20 +262,27 @@ LIMIT 1;
     async readCSVAndCallAPI(record: any): Promise<any> {
         const startingString = 'KNM';
         const file = `${record.Element}.csv`;
-        if (!(await this.ifExixsCSV(outputFolder, file))) {
-            writeToLog(`File non trovato: `, file)
-            this.files.push(`File non trovato: ${file}`)
-            console.error(`File non trovato: ${file}`);
-            return ; 
+        const errorMessage = `File non trovato: ${file}`;
+    
+        // Verifica se il file esiste
+        const fileExists = await this.ifExixsCSV(outputFolder, file);
+        if (!fileExists) {
+            // Aggiungi il messaggio solo se non è già presente
+            if (!this.files.includes(errorMessage)) {
+                this.files.push(errorMessage);
+                writeToLog(`File non trovato: `, file);
+                console.error(errorMessage);
+            }
+            return;
         }
+    
         const csvFilePath = path.join(outputFolder, file);
-        writeToLog('csvFilePath: ', csvFilePath);     
+        writeToLog('csvFilePath: ', csvFilePath);
         writeToLog('Tentativo di lettura del file CSV:', csvFilePath);
-        
+    
         const tableDB = this.searchTable(record.Element);
-        
         const rows: any[] = [];
-
+    
         try {
             await new Promise<void>((resolve, reject) => {
                 fs.createReadStream(csvFilePath)
@@ -289,13 +294,13 @@ LIMIT 1;
                         }
                     })
                     .on('end', async () => {
-                        writeToLog('Lettura CSV completata, righe trovate:', rows.length); 
-
+                        writeToLog('Lettura CSV completata, righe trovate:', rows.length);
+    
                         for (const row of rows) {
                             const item = row['MyQ ITEM'];
                             const licenseKey = row['LICENSE KEY'];
                             const { FatherComponent, Element } = record;
-
+    
                             try {
                                 writeToLog(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`, item);
                                 await this.inKnmETerminal({
@@ -310,7 +315,7 @@ LIMIT 1;
                                 console.error(`API call error for item ${item}:`, (apiError as Error).message);
                             }
                         }
-
+    
                         this.moveFileToProcessedFolder(csvFilePath);
                         resolve();
                     })
@@ -350,10 +355,8 @@ LIMIT 1;
         console.log(`File moved to ${destination}`);
     }
     
-    
-
-
     async importLicenses(): Promise<any> {
+        this.files = []; // Resetta this.files una sola volta all'inizio
         const files = fs.readdirSync(inputFolder);
         let excelFilesCount = 0;
     
@@ -364,23 +367,23 @@ LIMIT 1;
                     excelFilesCount++;
                     const workbook = XLSX.readFile(excelFilePath);
                     console.log(`Fogli disponibili nel file: ${workbook.SheetNames}`);
-
+    
                     workbook.SheetNames.forEach((sheetName: string) => {
                         console.log(`Elaborando foglio: ${sheetName}`);
                         const worksheet = workbook.Sheets[sheetName];
-                    
-                        const range = XLSX.utils.decode_range(worksheet['!ref']); 
+    
+                        const range = XLSX.utils.decode_range(worksheet['!ref']);
                         if (range.e.r > range.s.r && range.e.c > range.s.c) {
                             const csv = XLSX.utils.sheet_to_csv(worksheet);
                             const csvFilePath = path.join(outputFolder, `${sheetName}.csv`);
-                            writeToLog("csvFilePath ",csvFilePath);
+                            writeToLog("csvFilePath ", csvFilePath);
                             fs.writeFileSync(csvFilePath, csv);
                             console.log(`Foglio ${sheetName} convertito in CSV`);
                         } else {
                             console.log(`Foglio ${sheetName} vuoto o non valido, salto la conversione.`);
                         }
                     });
-                    
+    
                     fs.renameSync(excelFilePath, path.join(doneFolder, `${Date.now()}_${fileName}`));
                 }
             } catch (error) {
@@ -394,16 +397,16 @@ LIMIT 1;
         } else {
             console.log('No Excel files found.');
         }
-
+    
         if (excelFilesCount >= 1) {
             console.log(`Numero di file Excel trovati: ${excelFilesCount}`);
-            
+    
             try {
                 const response = await this.getTypeLicenze();
                 console.log('response: ', response);
                 if (response && response.length > 0) {
                     console.log(`Andata a buon fine la chiamata al orderslist. Numero di record: ${response.length}`);
-                    
+    
                     for (const record of response) {
                         console.log('Record elaborato:', record);
                     }
@@ -417,7 +420,6 @@ LIMIT 1;
             console.log('Spiacente, non sono stati trovati file Excel.');
         }
     
-        // return await this.getAllLicense(), file;
         return { licenses: await this.getAllLicense(), files: this.files };
     }
 }
