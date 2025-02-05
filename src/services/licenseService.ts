@@ -201,48 +201,65 @@ LIMIT 1;
         return null;
     }
 
-    async inKnmETerminal(rowData: any): Promise<void> {
+    async inKnmETerminal(rowData: any): Promise<{ isSuccess: boolean, isDuplicate: boolean }> {
         try {
             if (!rowData.licenseKey || rowData.licenseKey.trim() === '') {
                 console.log(`Skipping record with empty LICENSE_KEY:`, rowData);
-                return; 
+                return { isSuccess: false, isDuplicate: false }; 
             }
-    
+
+            // Verifica duplicati
+            const isDuplicate = await this.checkLicenseDuplicate(rowData.licenseKey);
+            if (isDuplicate) {
+                console.log(`Duplicate license found for key: ${rowData.licenseKey}`);
+                return { isSuccess: false, isDuplicate: true };
+            }
+
             const licenseData = {
                 fatherComponent: rowData.FatherComponent,
                 element: rowData.Element,
                 knmItem: rowData.item,
                 licenseKey: rowData.licenseKey,
             };
-    
-            console.log('Invio dei dati alla API per inserimento...', licenseData);
-    
+
+            console.log('Inserting new license...', licenseData);
             const response = await axios.post(`${apiUrl}/license/postLicence`, licenseData);
-            console.log('Licenza inserita correttamente tramite API:', response.data);
+            console.log('License successfully inserted:', response.data);
+            
+            return { isSuccess: true, isDuplicate: false };
         } catch (error: any) {
-            console.error('Errore nell\'invio dei dati alla API:', error);
-            console.error('Dettagli errore:', error.message);
-            throw new Error(error.message); 
+            console.error('Error sending data to API:', error);
+            console.error('Error details:', error.message);
+            throw new Error(error.message);
         }
     }
     
-
+    async checkLicenseDuplicate(licenseKey: string): Promise<boolean> {
+        try {
+            const query = `
+                SELECT COUNT(*) as count 
+                FROM dbo.licenze 
+                WHERE "LICENSE_KEY" = $1;
+            `;
+            const result = await db.query(query, [licenseKey]);
+            return result[0].count > 0;
+        } catch (error) {
+            console.error('Error checking for duplicate license:', error);
+            return true; // In caso di errore, meglio prevenire inserimenti duplicati
+        }
+    }
 
     async getTypeLicenze(): Promise<any> {
         try {
             const query = 'SELECT * FROM dbo.FattehrComponewntList';
             const results = await db.query(query);
-    
             const recordset: any[] = results;
-    
+
             console.log('Totale record trovati:', recordset.length);
-    
-            for (const record of recordset) {
-                console.log('Elaborando record:', record);
-                await this.readCSVAndCallAPI(record);
-            }
-    
+
+            // Rimuoviamo il loop qui e ritorniamo solo il recordset
             return recordset;
+
         } catch (error) {
             console.error('Errore nella query al database:', error);
             throw new Error('Errore durante il fetch dei dati dal database');
@@ -283,6 +300,9 @@ LIMIT 1;
         const tableDB = this.searchTable(record.Element);
         const rows: any[] = [];
     
+        const newLicenses: any[] = [];
+        let duplicateCount = 0;
+    
         try {
             await new Promise<void>((resolve, reject) => {
                 fs.createReadStream(csvFilePath)
@@ -303,14 +323,25 @@ LIMIT 1;
     
                             try {
                                 writeToLog(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`, item);
-                                await this.inKnmETerminal({
+                                const result = await this.inKnmETerminal({
                                     FatherComponent,
                                     Element,
                                     item,
                                     licenseKey,
                                     tableDB,
                                 });
-                                console.log(`API call successful for item: ${item}`);
+
+                                if (result.isDuplicate) {
+                                    duplicateCount++;
+                                } else if (result.isSuccess) {
+                                    newLicenses.push({
+                                        FatherComponent,
+                                        Element,
+                                        item,
+                                        licenseKey
+                                    });
+                                }
+
                             } catch (apiError) {
                                 console.error(`API call error for item ${item}:`, (apiError as Error).message);
                             }
@@ -321,8 +352,11 @@ LIMIT 1;
                     })
                     .on('error', (error: any) => reject(error));
             });
+
+            return { newLicenses, duplicateCount };
         } catch (error) {
             console.error('Error processing CSV:', error);
+            throw error;
         }
     }
 
@@ -356,10 +390,13 @@ LIMIT 1;
     }
     
     async importLicenses(): Promise<any> {
-        this.files = []; // Resetta this.files una sola volta all'inizio
+        this.files = [];
         const files = fs.readdirSync(inputFolder);
         let excelFilesCount = 0;
+        let totalNewLicenses: any[] = [];
+        let totalDuplicates = 0;
     
+        // Prima convertiamo tutti i file Excel in CSV
         for (const fileName of files) {
             const excelFilePath = path.join(inputFolder, fileName);
             try {
@@ -368,7 +405,7 @@ LIMIT 1;
                     const workbook = XLSX.readFile(excelFilePath);
                     console.log(`Fogli disponibili nel file: ${workbook.SheetNames}`);
     
-                    workbook.SheetNames.forEach((sheetName: string) => {
+                    for (const sheetName of workbook.SheetNames) {
                         console.log(`Elaborando foglio: ${sheetName}`);
                         const worksheet = workbook.Sheets[sheetName];
     
@@ -377,50 +414,49 @@ LIMIT 1;
                             const csv = XLSX.utils.sheet_to_csv(worksheet);
                             const csvFilePath = path.join(outputFolder, `${sheetName}.csv`);
                             writeToLog("csvFilePath ", csvFilePath);
-                            fs.writeFileSync(csvFilePath, csv);
+                            await fs.promises.writeFile(csvFilePath, csv);
                             console.log(`Foglio ${sheetName} convertito in CSV`);
-                        } else {
-                            console.log(`Foglio ${sheetName} vuoto o non valido, salto la conversione.`);
                         }
-                    });
+                    }
     
-                    fs.renameSync(excelFilePath, path.join(doneFolder, `${Date.now()}_${fileName}`));
+                    await fs.promises.rename(excelFilePath, path.join(doneFolder, `${Date.now()}_${fileName}`));
                 }
             } catch (error) {
-                fs.renameSync(excelFilePath, path.join(errorFolder, `${Date.now()}_${fileName}`));
+                await fs.promises.rename(excelFilePath, path.join(errorFolder, `${Date.now()}_${fileName}`));
                 console.error('Error converting Excel file:', error);
             }
         }
     
-        if (excelFilesCount > 0) {
-            console.log(`Excel files processed: ${excelFilesCount}`);
-        } else {
-            console.log('No Excel files found.');
-        }
-    
         if (excelFilesCount >= 1) {
-            console.log(`Numero di file Excel trovati: ${excelFilesCount}`);
-    
             try {
-                const response = await this.getTypeLicenze();
-                console.log('response: ', response);
-                if (response && response.length > 0) {
-                    console.log(`Andata a buon fine la chiamata al orderslist. Numero di record: ${response.length}`);
-    
-                    for (const record of response) {
-                        console.log('Record elaborato:', record);
+                // Otteniamo la lista dei tipi di licenze
+                const licenseTypes = await this.getTypeLicenze();
+                console.log('License types found:', licenseTypes);
+
+                if (licenseTypes && licenseTypes.length > 0) {
+                    // Processiamo ogni tipo di licenza
+                    for (const record of licenseTypes) {
+                        console.log('Processing license type:', record);
+                        const result = await this.readCSVAndCallAPI(record);
+                        
+                        if (result && result.newLicenses) {
+                            console.log(`Found ${result.newLicenses.length} new licenses and ${result.duplicateCount} duplicates for ${record.Element}`);
+                            totalNewLicenses = [...totalNewLicenses, ...result.newLicenses];
+                            totalDuplicates += result.duplicateCount;
+                        }
                     }
-                } else {
-                    console.log('Spiacente, nessun record trovato nel database.');
                 }
             } catch (error) {
-                console.error('Errore durante la chiamata a getTypeLicenze:', error);
+                console.error('Error processing licenses:', error);
             }
-        } else {
-            console.log('Spiacente, non sono stati trovati file Excel.');
         }
     
-        return { licenses: await this.getAllLicense(), files: this.files };
+        console.log(`Total new licenses: ${totalNewLicenses.length}, Total duplicates: ${totalDuplicates}`);
+        return { 
+            licenses: totalNewLicenses, 
+            duplicateCount: totalDuplicates,
+            files: this.files 
+        };
     }
 }
 

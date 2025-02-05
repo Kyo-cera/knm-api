@@ -112,7 +112,9 @@ export const emailAdmin = async () => {
                       recipient: `${emailAdmin}`,
                       subject: `${customerWithApostrofo ? `Indirizzo email ${custEmail} non valido` : subjectAdmin} - Sales Doc: ${salesDoc}`,
                       emailBody: `<p>${bodyAdmin}<br>Sales Doc: ${salesDoc}</p>`,
-                      attachment: "SalesDoc-Without-email.xlsx"
+                      ...(fs.existsSync(path.join(__dirname, '../attachment/SalesDoc-Without-email.xlsx')) && {
+                          attachment: "SalesDoc-Without-email.xlsx"
+                      })
                   };
           
                   const sendSuccess = await sendEmail(emailData);

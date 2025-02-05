@@ -109,19 +109,20 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
 
 
 
-    async importOrders(): Promise<Order[]> {
+    async importOrders(): Promise<{orders: Order[], duplicateCount: number}> {
         try {
-            // Controlla se il file esiste
             await fs.access(fileName);
         } catch (error) {
             console.error(`Il file non esiste: ${fileName}`);
-            return []; // Esci dalla funzione se il file non esiste
+            return { orders: [], duplicateCount: 0 };
         }
     
         const workbook = XLSX.readFile(fileName);
         const worksheet = workbook.Sheets[sheetName];
         const range = XLSX.utils.decode_range(worksheet['!ref']);
-        const data = [];
+        const newOrders: Order[] = [];
+        let duplicateCount = 0;
+        let processedCount = 0;
     
         for (let row = 8; row <= range.e.r; row++) {
             const cell = worksheet[XLSX.utils.encode_cell({ r: row, c: col })];
@@ -129,12 +130,35 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
                 const value = cell.v.trim();
                 const isNumeric = !isNaN(value.replace(/[^0-9]/g, ''));
                 if (isNumeric && value.indexOf(' ') === -1) {
-                    const salesDocData = await readSalesDoc(workbook, sheetName2, value);
-                 //   console.log(salesDocData);
-                    data.push(value);
+                    const result = await readSalesDoc(workbook, sheetName2, value);
+                    if (result.data && result.data.length > 0) {
+                        processedCount++;
+                        duplicateCount += result.duplicates;
+                        if (!result.duplicates) {
+                            result.data.forEach(orderData => {
+                                newOrders.push({
+                                    valueContrNo: orderData.valueContrNo,
+                                    salesDoc: orderData.salesDoc,
+                                    item: orderData.item,
+                                    customer: orderData.customer,
+                                    name: orderData.name,
+                                    material: orderData.material,
+                                    component: orderData.component,
+                                    materialDescription: orderData.materialDescription,
+                                    language: orderData.language,
+                                    dlBl: orderData.dlBl,
+                                    purchaseOrderNr: orderData.purchaseOrderNr
+                                } as Order);
+                            });
+                        }
+                    }
                 }
             }
         }
+    
+        console.log(`Ordini totali processati: ${processedCount}`);
+        console.log(`Ordini effettivamente importati: ${newOrders.length}`);
+        console.log(`Duplicati trovati: ${duplicateCount}`);
     
         try {
             await moveFileToProcessedFolder(fileName, path, fs);
@@ -144,10 +168,10 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
             console.error('Errore nello spostamento del file:', error);
         }
 
-        const ordini = this.getAllOrders();
-       
-      
-        return ordini;
+        return { 
+            orders: newOrders,
+            duplicateCount: duplicateCount 
+        };
     }
 
 }
@@ -181,7 +205,7 @@ async function readSalesDoc(workbook:any, sheetName:any, salesDoc:any) {
 
     if (salesDocColumnIndex === -1) {
         console.log("Colonna 'Sales Doc' non trovata.");
-        return data;
+        return { data, duplicates: 0 };
     }
 
     for (let row = 1; row <= range.e.r; row++) {
@@ -210,13 +234,13 @@ async function readSalesDoc(workbook:any, sheetName:any, salesDoc:any) {
     }
 
     if (data.length > 0) {
-    //   const response = await axios.post(`${urlApi}inOrders`, data);
-      //  console.log('Risposta inOrders:', response.data, 'status:', response.status); 
-        
-      const response = inOrders(data);
+        const duplicates = await inOrders(data);
+        if (duplicates > 0) {
+            return { data, duplicates };
+        }
     }
 
-    return data;
+    return { data, duplicates: 0 };
 }
 
 function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
@@ -237,24 +261,53 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
   }
 
 
-  function inOrders(data:any) {
+  async function getOrdesCheck(rowData: any) {
     try {
-        const rowsData = data; // Assumiamo che req.body sia un array di oggetti
+        const query = `
+            SELECT COUNT(*) as count 
+            FROM dbo.orders 
+            WHERE "Sales_Doc" = $1 
+            AND "Item" = $2 
+            AND "Material_Description" = $3;
+        `;
+        const values = [
+            rowData.salesDoc,
+            rowData.item,
+            rowData.materialDescription
+        ];
+        
+        const results = await db.query(query, values);
+        return results[0].count > 0;  // Ritorna true se esiste almeno un record
+        
+    } catch (error) {
+        console.error('Errore durante il controllo dell\'item nel database:', error);
+        return true; // In caso di errore, meglio prevenire inserimenti duplicati
+    }
+}
+
+async function inOrders(data: any) {
+    try {
+        const rowsData = data;
+        let duplicateCount = 0;
         const duplicateItems = [];
-    
+
+        // Verifica tutti i duplicati prima di procedere con l'inserimento
         for (const rowData of rowsData) {
-          const checkRow:any =  getOrdesCheck(rowData);
-          if (checkRow > 0) {
-            duplicateItems.push(rowData); // Aggiungi l'elemento duplicato alla lista
-          }
+            const isDuplicate = await getOrdesCheck(rowData);
+            if (isDuplicate) {
+                duplicateCount++;
+                duplicateItems.push(rowData);
+                console.log(`Duplicato trovato per Sales_Doc: ${rowData.salesDoc}, Item: ${rowData.item}`);
+            }
         }
-    
+
         if (duplicateItems.length > 0) {
-          return;
+            console.log(`Trovati ${duplicateItems.length} duplicati, inserimento annullato`);
+            return duplicateCount;
         }
-    
+
         // Se non ci sono duplicati, procedi con l'inserimento
-        const insertPromises = data.map(async (rowData: any) => {
+        for (const rowData of rowsData) {
             const query = `
                 INSERT INTO dbo.orders 
                 ("Value_contr_no", "Sales_Doc", "Item", "Customer", "name", "Material", "Component", "Material_Description", "Language", "DlBl", "Timestamp", "Purchase_order_nr")
@@ -265,7 +318,7 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
                 rowData.salesDoc,
                 rowData.item,
                 rowData.customer,
-                rimuoviApici(rowData.name), 
+                rimuoviApici(rowData.name),
                 rowData.material,
                 rowData.component,
                 rowData.materialDescription,
@@ -273,36 +326,16 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
                 rowData.dlBl,
                 rowData.purchaseOrderNr
             ];
-            
-            return db.query(query, values);
-        });
-        
 
-        const results = Promise.all(insertPromises);
-    } catch (error) {
-        console.error(error);
-    }
-
-    }
-
-    async function getOrdesCheck(rowData:any){
-
-        try {
-          const query = `
-           SELECT * FROM dbo.orders WHERE "Sales_Doc"='${rowData.salesDoc}' AND "Item"='${rowData.item}' AND "Material_Description"='${rowData.materialDescription}';
-          `;
-          const results = await db.query(query);
-         // console.log('results: '+results.recordset.length)
-          /* if (results.recordset.length !== 1) {
-            throw new Error('Subquery returned more than one value.');
-          } */
-      
-          return results.length;
-        } catch (error) {
-          console.error('Errore durante il controllo dell\'item nel database:', error);
-          throw error;
+            await db.query(query, values);
         }
-      }
+        
+        return duplicateCount;
+    } catch (error) {
+        console.error('Errore durante l\'inserimento:', error);
+        return 0;
+    }
+}
 
       function rimuoviApici(inputString:any) {
         // Utilizzo della funzione replace con espressione regolare per rimuovere gli apici singoli
