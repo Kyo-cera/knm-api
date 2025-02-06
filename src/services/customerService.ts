@@ -16,22 +16,30 @@ class customerService {
         return null;
     }
     async postCustomer(data: Customer): Promise<Customer | null> {
-      try {
-          const query = `
-              INSERT INTO dbo.ordinante ("Sales_Doc", "Ordinante", "Email", "ODA")
-              VALUES ('${data.Sales_Doc}', '${data.Ordinante}', '${data.Email}', '${data.ODA}');
-          `;
+        try {
+            if (!data.ODA || !data.Sales_Doc || !data.Ordinante || !data.Email) {
+                throw new Error('Missing required fields');
+            }
 
-          await db.query(query);
+            const values = [
+                data.Sales_Doc.toString().replace(/[\s\uFEFF\xA0]+/g, ''),
+                data.Ordinante.toString().trim(),
+                data.Email.toString().trim(),
+                data.ODA.toString().replace(/[\s\uFEFF\xA0]+/g, '').substring(0, 20)
+            ];
 
-          const customer = await this.getCustomerByItemOda(Number(data.ODA));
-  
-          return customer;
-      } catch (error) {
-          console.error('Errore durante l\'inserimento del cliente:', error);
-          throw error;
-      }
-  }
+            const query = `
+                INSERT INTO dbo.ordinante ("Sales_Doc", "Ordinante", "Email", "ODA")
+                VALUES ($1, $2, $3, $4)
+            `;
+            console.log("data.ODA: ",data.ODA);
+            await db.query(query, values);
+            return await this.getCustomerByItemOda(Number(values[3]));
+        } catch (error) {
+            console.error('Errore durante l\'inserimento del cliente:', error);
+            throw error;
+        }
+    }
   
 
   async getCheckCustomer(): Promise<string> {
