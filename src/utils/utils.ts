@@ -1,3 +1,6 @@
+import { User } from "models/user";
+// import { Sign } from "jsonwebtoken"
+import { APIResponse } from "models/APIResponse";
 
 
 export async function checkFileSize(path: any, fs : any, filePath:string) {
@@ -34,3 +37,12 @@ export async function deleteLogFile(fs: any, filePath: string) {
       console.error('Errore durante la cancellazione del file di log:', error);
     }
   }
+
+  // export const generateJWT = (payload: Pick<User. "email" | "id">) => {
+  //   return new Promise((res.rej)={
+  //     if (err) rej(new APIResponse(status.ERROR){
+      
+  //   }
+  //   })
+    
+  // }

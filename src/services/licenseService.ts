@@ -1,6 +1,7 @@
 import { License } from 'models/license';
 import db from '../database/database';
 import { IResult } from 'mssql';
+import { writeToLog } from '../utils/writeLog';
 const csv = require('csv-parser');
 
 const fs = require('fs');
@@ -12,12 +13,17 @@ const inputFolder = filePath+'licenze';
 const outputFolder = filePath+'licenze/csv';
 const errorFolder = filePath+'licenze/error';
 const doneFolder = filePath+'licenze/done';
-const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 
 
 class LicenseService {
+    private files: string[];
+
+    constructor() {
+        this.files = []; 
+    }
     async getAllLicense(): Promise<License[]> {
-        const license = await db.query(`SELECT * FROM Licenze`);
+        const license = await db.query(`SELECT * FROM dbo.licenze;`);
         return license as License[];
     }
 
@@ -35,20 +41,21 @@ class LicenseService {
     
         try {
             const result = await db.query(`
-                INSERT INTO [dbo].[Licenze] 
-                (FatherComponent, Element, KNM_ITEM, LICENSE_KEY, STATO, Sales_Doc, Item, Timestamp)
+                INSERT INTO dbo.licenze 
+                ("FatherComponent", "Element", "KNM_ITEM", "LICENSE_KEY", "STATO", "Sales_Doc", "Item", "Timestamp")
                 VALUES
-                (
-                    '${fatherComponent || ''}', 
-                    '${element || ''}', 
-                    '${knmItem || ''}', 
-                    '${licenseKey || ''}', 
-                    '${STATO || ''}', 
-                    '${salesDoc || ''}', 
-                    '${item || ''}', 
-                    ${timestamp ? `'${new Date(timestamp).toISOString()}'` : 'CURRENT_TIMESTAMP'}
-                )
-            `);
+                ($1, $2, $3, $4, $5, $6, $7, COALESCE($8, CURRENT_TIMESTAMP));
+            `, [
+                fatherComponent || null,
+                element || null,
+                knmItem || null,
+                licenseKey || null,
+                STATO || null,
+                salesDoc || null,
+                item || null,
+                timestamp || null 
+            ]);
+            
     
             console.log(`Dati inseriti correttamente per l'item ${knmItem}`, result);
     
@@ -70,21 +77,43 @@ class LicenseService {
     
     
     async getLicenseById(id: string): Promise<License | null> {
-        const license = await db.query(`SELECT * FROM Licenze WHERE LICENSE_KEY = '${id}'`);
+        const license = await db.query(`SELECT * FROM dbo.licenze WHERE "LICENSE_KEY" = '${id}'`);
         if (Array.isArray(license) && license.length > 0) {
             return license[0] as License;
         }
         return null;
     }
     async getLicensePack(salesDoc: string): Promise<License | null> {
-        const licenses = await db.query(`Select [Element],[LICENSE_KEY],[Sales_Doc],[Item],[stato] from Licenze where sales_doc = '${salesDoc}'`);
+        const licenses = await db.query(`
+            SELECT "Element", "LICENSE_KEY", "Sales_Doc", "Item", "STATO" 
+            FROM dbo.licenze 
+            WHERE "Sales_Doc" = '${salesDoc}'`);
         if (Array.isArray(licenses) && licenses.length > 0) {
             return licenses as License;
         }
         return [] as License;
     }
     async getLicenseByElement(element: string): Promise<License | null> {
-        const license = await db.query(`SELECT Top 1 [FatherComponent] ,[Element] ,[KNM_ITEM] ,[LICENSE_KEY] ,[STATO] ,[Sales_Doc],[Item] ,[Timestamp]  ,[prog_Item] = convert(int,rtrim(ltrim(right([KNM_ITEM],3-(CHARINDEX(' ', right([KNM_ITEM],3))))))) FROM [LKDISPATCH].[dbo].[Licenze]  where [Element] = '${element}' and  stato is null order by [FatherComponent] asc , element asc, convert(int,rtrim(ltrim(right([KNM_ITEM],3-(CHARINDEX(' ', right([KNM_ITEM],3))))))) asc`);
+        const license = await db.query(`
+       SELECT 
+    *, 
+    CASE 
+        WHEN RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3)))) ~ '^\d+$'
+        THEN CAST(TRIM(BOTH ' ' FROM RIGHT("KNM_ITEM", 3 - POSITION(' ' IN REVERSE(RIGHT("KNM_ITEM", 3))))) AS INTEGER)
+        ELSE NULL
+    END AS "prog_Item"
+FROM 
+    dbo.licenze
+WHERE 
+    "Element" = '${element}'
+    AND ("STATO" IS NULL OR "STATO" = '')
+ORDER BY 
+    "FatherComponent" ASC, 
+    "Element" ASC, 
+    "prog_Item" ASC
+LIMIT 1;
+
+`);
         if (Array.isArray(license) && license.length > 0) {
             return license[0] as License;
         }else{
@@ -93,7 +122,18 @@ class LicenseService {
 }
     //getEmail 
     async getEmailOrdering(salesDoc: string): Promise<License | null> {
-        const email = await db.query(`SELECT   [Sales_Doc] ,[Nome_Cognome] ,[CF] ,[email] ,[ODA]   FROM [LKDISPATCH].[dbo].[Ordini_con_Ordinanti]   where sales_doc = '${salesDoc}'`);
+        const email = await db.query(`
+            SELECT 
+                "Sales_Doc", 
+                nome_cognome, 
+                cf, 
+                "Email", 
+                "ODA"
+            FROM 
+                dbo.ordini_con_Ordinanti
+            WHERE 
+                "Sales_Doc" = '${salesDoc}';
+            `);
         if (Array.isArray(email) && email.length > 0) {
             return email as License;
         }
@@ -106,7 +146,14 @@ class LicenseService {
     async putLicense(salesDoc: string, item: string, key: string, stato: string): Promise<License | null> {
         let result;
         
-            result = await db.query(`UPDATE licenze SET stato = '${stato}', sales_doc = '${salesDoc}', Item = '${item}', Timestamp = GETDATE() WHERE License_key = '${key}'`);
+            result = await db.query(`
+                UPDATE dbo.licenze 
+                SET "STATO" = '${stato}', 
+                    "Sales_Doc" = '${salesDoc}', 
+                    "Item" = '${item}', 
+                    "Timestamp" = CURRENT_TIMESTAMP 
+                WHERE "LICENSE_KEY" = '${key}';
+                `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
             console.log('result:', lic);
@@ -125,7 +172,12 @@ class LicenseService {
     async putLicenseSended( key: string, stato: string): Promise<License | null> {
         let result;
         
-            result = await db.query(`UPDATE licenze SET stato = '${stato}',  Timestamp = GETDATE() WHERE License_key = '${key}'`);
+            result = await db.query(`
+                UPDATE dbo.licenze 
+                SET "STATO" = '${stato}',  
+                    "Timestamp" = CURRENT_TIMESTAMP
+                WHERE "LICENSE_KEY" = '${key}';
+                `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
             console.log('result:', lic);
@@ -142,114 +194,169 @@ class LicenseService {
     }
 
     async postLicense(data: License): Promise<License | null> {
-        const result = await db.query(`INSERT INTO Products (name, price) VALUES (@name, @price)`);
-      
+        const result = await db.query(`
+            INSERT INTO "Products" (name, price) 
+            VALUES (@name, @price);
+            `);
         return null;
     }
 
-    async inKnmETerminal(rowData: any): Promise<void> {
+    async inKnmETerminal(rowData: any): Promise<{ isSuccess: boolean, isDuplicate: boolean }> {
         try {
             if (!rowData.licenseKey || rowData.licenseKey.trim() === '') {
                 console.log(`Skipping record with empty LICENSE_KEY:`, rowData);
-                return; 
+                return { isSuccess: false, isDuplicate: false }; 
             }
-    
+
+            // Verifica duplicati
+            const isDuplicate = await this.checkLicenseDuplicate(rowData.licenseKey);
+            if (isDuplicate) {
+                console.log(`Duplicate license found for key: ${rowData.licenseKey}`);
+                return { isSuccess: false, isDuplicate: true };
+            }
+
             const licenseData = {
                 fatherComponent: rowData.FatherComponent,
                 element: rowData.Element,
                 knmItem: rowData.item,
                 licenseKey: rowData.licenseKey,
             };
-    
-            console.log('Invio dei dati alla API per inserimento...', licenseData);
-    
-            const response = await axios.post(`${apiUrl}license/postLicenza`, licenseData);
-    
-            console.log('Licenza inserita correttamente tramite API:', response.data);
+
+            console.log('Inserting new license...', licenseData);
+            const response = await axios.post(`${apiUrl}/license/postLicence`, licenseData);
+            console.log('License successfully inserted:', response.data);
+            
+            return { isSuccess: true, isDuplicate: false };
         } catch (error: any) {
-            console.error('Errore nell\'invio dei dati alla API:', error);
-            console.error('Dettagli errore:', error.message);
-            throw new Error(error.message); 
+            console.error('Error sending data to API:', error);
+            console.error('Error details:', error.message);
+            throw new Error(error.message);
         }
     }
     
-
-
-    async getTypeLicenze(): Promise<any[]> {
+    async checkLicenseDuplicate(licenseKey: string): Promise<boolean> {
         try {
-            const query = 'SELECT * FROM FattehrComponewntList';
+            const query = `
+                SELECT COUNT(*) as count 
+                FROM dbo.licenze 
+                WHERE "LICENSE_KEY" = $1;
+            `;
+            const result = await db.query(query, [licenseKey]);
+            return result[0].count > 0;
+        } catch (error) {
+            console.error('Error checking for duplicate license:', error);
+            return true; // In caso di errore, meglio prevenire inserimenti duplicati
+        }
+    }
+
+    async getTypeLicenze(): Promise<any> {
+        try {
+            const query = 'SELECT * FROM dbo.FattehrComponewntList';
             const results = await db.query(query);
-    
             const recordset: any[] = results;
-    
+
             console.log('Totale record trovati:', recordset.length);
-    
-            for (const record of recordset) {
-                console.log('Elaborando record:', record);
-                await this.readCSVAndCallAPI(record);
-            }
-    
+
+            // Rimuoviamo il loop qui e ritorniamo solo il recordset
             return recordset;
+
         } catch (error) {
             console.error('Errore nella query al database:', error);
             throw new Error('Errore durante il fetch dei dati dal database');
         }
     }
     
+    async ifExixsCSV(outputFolder: string, file: string): Promise<boolean> {
+        try {
+            const filePath = path.join(outputFolder, file);
+            await fs.promises.access(filePath, fs.constants.F_OK);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }    
     
-    
-    
-
-    async readCSVAndCallAPI(record: any): Promise<void> {
+    async readCSVAndCallAPI(record: any): Promise<any> {
         const startingString = 'KNM';
         const file = `${record.Element}.csv`;
+        const errorMessage = `File non trovato: ${file}`;
+    
+        // Verifica se il file esiste
+        const fileExists = await this.ifExixsCSV(outputFolder, file);
+        if (!fileExists) {
+            // Aggiungi il messaggio solo se non è già presente
+            if (!this.files.includes(errorMessage)) {
+                this.files.push(errorMessage);
+                writeToLog(`File non trovato: `, file);
+                console.error(errorMessage);
+            }
+            return;
+        }
+    
         const csvFilePath = path.join(outputFolder, file);
-
-        console.log('Tentativo di lettura del file CSV:', csvFilePath);
-
+        writeToLog('csvFilePath: ', csvFilePath);
+        writeToLog('Tentativo di lettura del file CSV:', csvFilePath);
+    
         const tableDB = this.searchTable(record.Element);
         const rows: any[] = [];
-
+    
+        const newLicenses: any[] = [];
+        let duplicateCount = 0;
+    
         try {
             await new Promise<void>((resolve, reject) => {
                 fs.createReadStream(csvFilePath)
                     .pipe(csv())
                     .on('data', (row: any) => {
-                        console.log('Riga CSV:', row);
+                        writeToLog('Riga CSV:', row);
                         if (row['MyQ ITEM']?.startsWith(startingString)) {
                             rows.push(row);
                         }
                     })
                     .on('end', async () => {
-                        console.log('Lettura CSV completata, righe trovate:', rows.length); 
-
+                        writeToLog('Lettura CSV completata, righe trovate:', rows.length);
+    
                         for (const row of rows) {
                             const item = row['MyQ ITEM'];
                             const licenseKey = row['LICENSE KEY'];
                             const { FatherComponent, Element } = record;
-
+    
                             try {
-                                console.log(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`);
-                                await this.inKnmETerminal({
+                                writeToLog(`Chiamata a inKnmETerminal con item: ${item}, licenseKey: ${licenseKey}`, item);
+                                const result = await this.inKnmETerminal({
                                     FatherComponent,
                                     Element,
                                     item,
                                     licenseKey,
                                     tableDB,
                                 });
-                                console.log(`API call successful for item: ${item}`);
+
+                                if (result.isDuplicate) {
+                                    duplicateCount++;
+                                } else if (result.isSuccess) {
+                                    newLicenses.push({
+                                        FatherComponent,
+                                        Element,
+                                        item,
+                                        licenseKey
+                                    });
+                                }
+
                             } catch (apiError) {
                                 console.error(`API call error for item ${item}:`, (apiError as Error).message);
                             }
                         }
-
+    
                         this.moveFileToProcessedFolder(csvFilePath);
                         resolve();
                     })
                     .on('error', (error: any) => reject(error));
             });
+
+            return { newLicenses, duplicateCount };
         } catch (error) {
             console.error('Error processing CSV:', error);
+            throw error;
         }
     }
 
@@ -282,13 +389,14 @@ class LicenseService {
         console.log(`File moved to ${destination}`);
     }
     
-    
-
-
-    async importLicenses(): Promise<License[]> {
+    async importLicenses(): Promise<any> {
+        this.files = [];
         const files = fs.readdirSync(inputFolder);
         let excelFilesCount = 0;
+        let totalNewLicenses: any[] = [];
+        let totalDuplicates = 0;
     
+        // Prima convertiamo tutti i file Excel in CSV
         for (const fileName of files) {
             const excelFilePath = path.join(inputFolder, fileName);
             try {
@@ -296,59 +404,59 @@ class LicenseService {
                     excelFilesCount++;
                     const workbook = XLSX.readFile(excelFilePath);
                     console.log(`Fogli disponibili nel file: ${workbook.SheetNames}`);
-
-                    workbook.SheetNames.forEach((sheetName: string) => {
+    
+                    for (const sheetName of workbook.SheetNames) {
                         console.log(`Elaborando foglio: ${sheetName}`);
                         const worksheet = workbook.Sheets[sheetName];
-                    
-                        const range = XLSX.utils.decode_range(worksheet['!ref']); 
+    
+                        const range = XLSX.utils.decode_range(worksheet['!ref']);
                         if (range.e.r > range.s.r && range.e.c > range.s.c) {
                             const csv = XLSX.utils.sheet_to_csv(worksheet);
                             const csvFilePath = path.join(outputFolder, `${sheetName}.csv`);
-                            fs.writeFileSync(csvFilePath, csv);
+                            writeToLog("csvFilePath ", csvFilePath);
+                            await fs.promises.writeFile(csvFilePath, csv);
                             console.log(`Foglio ${sheetName} convertito in CSV`);
-                        } else {
-                            console.log(`Foglio ${sheetName} vuoto o non valido, salto la conversione.`);
                         }
-                    });
-                    
-                    fs.renameSync(excelFilePath, path.join(doneFolder, `${Date.now()}_${fileName}`));
+                    }
+    
+                    await fs.promises.rename(excelFilePath, path.join(doneFolder, `${Date.now()}_${fileName}`));
                 }
             } catch (error) {
-                fs.renameSync(excelFilePath, path.join(errorFolder, `${Date.now()}_${fileName}`));
+                await fs.promises.rename(excelFilePath, path.join(errorFolder, `${Date.now()}_${fileName}`));
                 console.error('Error converting Excel file:', error);
             }
         }
     
-        if (excelFilesCount > 0) {
-            console.log(`Excel files processed: ${excelFilesCount}`);
-        } else {
-            console.log('No Excel files found.');
-        }
-
         if (excelFilesCount >= 1) {
-            console.log(`Numero di file Excel trovati: ${excelFilesCount}`);
-            
             try {
-                const response = await this.getTypeLicenze();
-                
-                if (response && response.length > 0) {
-                    console.log(`Andata a buon fine la chiamata al orderslist. Numero di record: ${response.length}`);
-                    
-                    for (const record of response) {
-                        console.log('Record elaborato:', record);
+                // Otteniamo la lista dei tipi di licenze
+                const licenseTypes = await this.getTypeLicenze();
+                console.log('License types found:', licenseTypes);
+
+                if (licenseTypes && licenseTypes.length > 0) {
+                    // Processiamo ogni tipo di licenza
+                    for (const record of licenseTypes) {
+                        console.log('Processing license type:', record);
+                        const result = await this.readCSVAndCallAPI(record);
+                        
+                        if (result && result.newLicenses) {
+                            console.log(`Found ${result.newLicenses.length} new licenses and ${result.duplicateCount} duplicates for ${record.Element}`);
+                            totalNewLicenses = [...totalNewLicenses, ...result.newLicenses];
+                            totalDuplicates += result.duplicateCount;
+                        }
                     }
-                } else {
-                    console.log('Spiacente, nessun record trovato nel database.');
                 }
             } catch (error) {
-                console.error('Errore durante la chiamata a getTypeLicenze:', error);
+                console.error('Error processing licenses:', error);
             }
-        } else {
-            console.log('Spiacente, non sono stati trovati file Excel.');
         }
     
-        return await this.getAllLicense();
+        console.log(`Total new licenses: ${totalNewLicenses.length}, Total duplicates: ${totalDuplicates}`);
+        return { 
+            licenses: totalNewLicenses, 
+            duplicateCount: totalDuplicates,
+            files: this.files 
+        };
     }
 }
 

@@ -1,12 +1,22 @@
 node_modules/*
 package-lock.json
 database.sql
+src/attachment/*
 src/controllers/productController.ts
 src/models/product.ts
 src/routes/productRoutes.ts
 src/services/productService.ts
+<<<<<<< HEAD
 src/attachment/*
 dist/*
 .env
 src/data/*
 src/log/*
+=======
+src/log/*
+dist/*
+src/data/*
+.env
+
+src/attachment/7414165698.xlsx
+>>>>>>> 2c3548fcbc27a9e5377384d1b83c26a9d8cde680

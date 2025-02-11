@@ -1,16 +1,18 @@
 import { e_mail } from '../models/e-mail';
 import { IResult } from 'mssql';
+import { sendEmail } from '../utils/email';
+import { EmailData } from '../models/email';
 import db from '../database/database';
 
 class mailService{
 
     async getAllEmail(): Promise<e_mail[]> {
-        const email = await db.query(`SELECT * FROM email`);
+        const email = await db.query(`SELECT * FROM dbo.email`);
         return email as e_mail[];
     }
 
     async getEmailByType(tipo:string): Promise<e_mail | null> {
-        const email = await db.query(`SELECT * FROM email WHERE type_email = '${tipo}'`);
+        const email = await db.query(`SELECT * FROM dbo.email WHERE "type_email" = '${tipo}'`);
         if (Array.isArray(email) && email.length > 0) {
             return email[0] as e_mail;
         }
@@ -18,7 +20,7 @@ class mailService{
     }
 
     async getEmailById(id:number): Promise<e_mail | null> {
-        const email = await db.query(`SELECT * FROM email WHERE id = '${id}'`);
+        const email = await db.query(`SELECT * FROM dbo.email WHERE "id" = '${id}'`);
         if (Array.isArray(email) && email.length > 0) {
             return email[0] as e_mail;
         }
@@ -28,10 +30,9 @@ class mailService{
     async postMail(data: e_mail): Promise<void> {
         try {
             const result = await db.query(`
-                INSERT INTO [dbo].[email] 
-                ([email], [subject], [body], [type_email], [updated_at]) 
+                INSERT INTO dbo.email(email, subject, body, type_email, updated_at)
                 VALUES 
-                ('${data.email}', '${data.subject}', '${data.body}', '${data.type_email}', GETDATE())
+                ('${data.email}', '${data.subject}', '${data.body}', '${data.type_email}', CURRENT_TIMESTAMP)
             `);
         } catch (error) {
             console.error('Errore durante l\'inserimento della email:', error);
@@ -41,18 +42,21 @@ class mailService{
     async updateByID(data: e_mail, id: number): Promise<void> {
         try {
             const result = await db.query(`
-                SELECT TOP 1 * FROM [dbo].[email] WHERE [id] = ${id}
+                SELECT * 
+                FROM dbo.email
+                WHERE "id" = '${id}'
+                LIMIT 1;
             `);
             
             if (result.length > 0) {
                 await db.query(`
-                    UPDATE [dbo].[email]
+                    UPDATE dbo.email
                     SET 
-                        [email] = '${data.email}', 
-                        [subject] = '${data.subject}', 
-                        [body] = '${data.body}', 
-                        [updated_at] = GETDATE()
-                    WHERE [id] = ${id}
+                        "email" = '${data.email}', 
+                        "subject" = '${data.subject}', 
+                        "body" = '${data.body}', 
+                        "updated_at" = CURRENT_TIMESTAMP  -- Usare CURRENT_TIMESTAMP in PostgreSQL
+                    WHERE "id" = '${id}'
                 `);
             } else {
                 console.log(`Email with ID ${id} not found. No update performed.`);
@@ -64,6 +68,16 @@ class mailService{
     
     }
     
+    async invioEmail (data: EmailData): Promise<void> {
+        const emailData: EmailData = {
+                              recipient: `${data.recipient}`,
+                              subject: `${data.subject}`,
+                              emailBody: `${data.emailBody}`,
+                              attachment: `${data.attachment}`
+                          };
+                          const sendSuccess = await sendEmail(emailData);
+    }
+        
 
 }
 

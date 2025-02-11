@@ -4,7 +4,8 @@ import { sendEmail } from '../utils/email';
 import { emailAdmin, getEmailCustomer } from './emailManagment'
 import { createExcelFileLicense, readLicenseKeysFromExcel } from '../utils/excel';
 import { writeToLog } from '../utils/writeLog';
-const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
+// const apiUrl = `http://localhost:3005`;
 async function processSalesDoc(): Promise<void> {
     try {
           //   processCheckData(); // check data &  invio email con i clienti senza email

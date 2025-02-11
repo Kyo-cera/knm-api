@@ -2,7 +2,58 @@ import axios from 'axios';
 import { EmailData } from '../models/email';
 import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
-const apiUrl = `${process.env.ENDPOINTAPI}${process.env.PORT}`;
+import fs from 'fs';
+import path from 'path';
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
+const filePath = path.resolve('./src/data/devMode/devMode.json');
+let devMode: boolean 
+
+class EmailManagmentService {
+    constructor() {
+        this.loadDevMode();
+    }
+
+    async loadDevMode() {
+        try {
+            if (fs.existsSync(filePath)) {
+                const data = await fs.promises.readFile(filePath, 'utf8');
+                const jsonData = JSON.parse(data);
+                devMode = jsonData.devMode;
+            }
+        } catch (error) {
+            console.error('Errore durante la lettura di devMode:', error);
+        }
+    }
+
+    async inDevMode() {
+        devMode = !devMode;
+        const data = { devMode: devMode };
+
+        try {
+            await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+            console.log(`devMode aggiornato in ${filePath}:`, data);
+            return data;
+        } catch (error) {
+            console.error('Errore durante il salvataggio di devMode:', error);
+        }
+    }
+
+    async getDevMode() {
+        try {
+            if (fs.existsSync(filePath)) {
+                const data = await fs.promises.readFile(filePath, 'utf8');
+                const jsonData = JSON.parse(data);
+                return jsonData.devMode;
+            }
+            return false;
+        } catch (error) {
+            console.error('Errore durante la lettura di devMode:', error);
+            return false;
+        }
+    }
+}
+
+export default new EmailManagmentService()
 export const emailAdmin = async () => {
         const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
           const Emailadmin = EmailadminResp.data.data;
@@ -25,7 +76,7 @@ export const emailAdmin = async () => {
               const customerResponse = await axios.get(`${apiUrl}/customer/`);
               const customers = customerResponse.data.data;
             //   console.log('customerResponse:', customerResponse);
-              console.log('customers:', customers);
+            //  console.log('customers:', customers);
           
               let customerWithSalesDoc = false;
               let customerWithoutEmail = false;
@@ -34,7 +85,7 @@ export const emailAdmin = async () => {
           
               if (customers && customers.length > 0) {
                   for (const customer of customers) {
-                      console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
+                    //  console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
                       if (customer.Sales_Doc === salesDoc) {
                           customerWithSalesDoc = true;
                           break; 
@@ -61,7 +112,9 @@ export const emailAdmin = async () => {
                       recipient: `${emailAdmin}`,
                       subject: `${customerWithApostrofo ? `Indirizzo email ${custEmail} non valido` : subjectAdmin} - Sales Doc: ${salesDoc}`,
                       emailBody: `<p>${bodyAdmin}<br>Sales Doc: ${salesDoc}</p>`,
-                      attachment: "SalesDoc-Without-email.xlsx"
+                      ...(fs.existsSync(path.join(__dirname, '../attachment/SalesDoc-Without-email.xlsx')) && {
+                          attachment: "SalesDoc-Without-email.xlsx"
+                      })
                   };
           
                   const sendSuccess = await sendEmail(emailData);
@@ -114,7 +167,9 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             }
 
             const emailData: EmailData = {
-            recipient: `${emailCust}`,
+
+            // recipient: `${emailCust}`,
+            recipient: devMode ? 'KNM-Licenses@dit.kyocera.com' : `${emailCust}`,
             subject: subjectCust,
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
@@ -132,3 +187,4 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
         throw error;
     }
 }
+
