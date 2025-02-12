@@ -4,7 +4,7 @@ import { writeToLog } from '../utils/writeLog';
 const fse = require('fs-extra');
 const axios = require('axios');
 const pathFiles = path.join(__dirname, '../data');
- const pathFilesI =`${process.env.PATH_PDF}`;
+ const pathFilesI =`${process.env.PATH_PDF_PROD}`;
 const salesDocuments = pathFiles + "/pdfList.json";
 const apiPostPdfUrl =`${process.env.ENDPOINT_API}${process.env.PORT}/customer/` ;
 let errorPDF = [];
