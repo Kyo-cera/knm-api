@@ -12,7 +12,7 @@ class DeployService {
             
             const { stdout, stderr } = await execAsync(command);
             console.log('Deploy output:', stdout);
-            
+            // commento di prova
             if (stderr) {
                 console.error('Deploy errors:', stderr);
                 throw new Error(stderr);
