@@ -11,7 +11,7 @@ class DeployService {
             const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
             
             const { stdout, stderr } = await execAsync(command);
-            console.log('Deploy output:', stdout);
+            console.log('Deploy output :', stdout);
             
             if (stderr) {
                 console.error('Deploy errors:', stderr);
