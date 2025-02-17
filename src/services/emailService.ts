@@ -7,7 +7,7 @@ import { scheduleDataEmail } from "models/scheduleDataEmail";
 import cron from 'node-cron';
 import { writeToLog } from '../utils/writeLog';
 require("dotenv").config();
-const envPath = path.resolve(__dirname, ".env");
+const envPath = path.join(process.cwd(), '.env');
 const SCHEDULE_DATA_PATH = path.join(__dirname, "../data/scheduleData/scheduleDataEmail.json");
 
 dotenv.config();
@@ -69,16 +69,16 @@ class Services {
 
     static getEmails = async (): Promise<any> => {
         try {
-            const accessToken = await Services.generateDelegatedAccessToken();
+            const accessToken = process.env.TOKENMSG;
+            const userId = process.env.MAIL_SENDER; // Usa l'ID utente specificato
 
-            const response = await axios.get("https://graph.microsoft.com/v1.0/me/messages", {
+            const response = await axios.get(`https://graph.microsoft.com/v1.0/users/${userId}/messages`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
 
             const messages = response.data.value;
-
             const emails = messages.map((message: any) => ({
                 id: message.id,
                 subject: message.subject,
@@ -97,7 +97,8 @@ class Services {
 
     static async getAttachments(messageId: string): Promise<any> {
         try {
-            const url = `https://graph.microsoft.com/v1.0/me/messages/${messageId}/attachments`;
+            const userId = process.env.MAIL_SENDER;
+            const url = `https://graph.microsoft.com/v1.0/users/${userId}/messages/${messageId}/attachments`;
 
             const response = await axios.get(url, {
                 headers: {
@@ -105,7 +106,7 @@ class Services {
                 },
             });
 
-            return response.data.value; // Array di allegati
+            return response.data.value;
         } catch (error) {
             writeToLog("❌ Errore nel recupero degli allegati:", error);
             throw error;
@@ -182,6 +183,7 @@ class Services {
 
 
     static async checkAndDownload(): Promise<any> {
+        await Services.handleTokenRefresh();
         try {
             let emails = await this.getEmails()
             for (let email of emails){
@@ -224,51 +226,93 @@ class Services {
     }
 
     // funzione per la gestione del token scaduto
-    static async refreshAccessToken(refreshToken: any) {
-        const tokenUrl = `https://login.microsoftonline.com/abb79fd9-c566-40c1-af4d-313a74c9f286/oauth2/v2.0/token`;
-    
-        const data = new URLSearchParams();
-        data.append("client_id", process.env.CLIENT_ID || "");
-        data.append("client_secret", process.env.CLIENT_SECRET || "");
-        data.append("grant_type", "refresh_token");
-        data.append("refresh_token", process.env.REFRESH_TOKEN || "");
-        data.append("scope", "https://graph.microsoft.com/.default");
-
-            
+    static async refreshAccessToken() {
         try {
-            const response = await axios.post(tokenUrl, data);
-            const newToken = response.data.access_token;
-            writeToLog("✅ Nuovo Access Token ottenuto!", newToken);
-    
-            // Aggiorna il file .env con il nuovo token
-            Services.updateEnvFile("TOKENMSG", newToken);
-    
-            return newToken;
+            // Salviamo il payload solo la prima volta e solo se non esiste già
+            if (!process.env.INITIAL_TOKEN_PAYLOAD && process.env.TOKENMSG) {
+                const initialToken = process.env.TOKENMSG;
+                const payload = JSON.parse(Buffer.from(initialToken.split('.')[1], 'base64').toString());
+                
+                // Salviamo il payload in una variabile separata
+                await Services.updateEnvFile("INITIAL_TOKEN_PAYLOAD", JSON.stringify(payload), true);
+            }
+
+            const initialPayload = process.env.INITIAL_TOKEN_PAYLOAD ? JSON.parse(process.env.INITIAL_TOKEN_PAYLOAD) : {};
+            
+            const tokenUrl = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/token`;
+            const data = new URLSearchParams();
+            
+            const clientId = initialPayload.appid || process.env.APPLICATION_ID;
+            
+            data.append("grant_type", "client_credentials");
+            data.append("client_id", clientId);
+            data.append("client_secret", process.env.APPLICATION_SECRET || "");
+            data.append("resource", "https://graph.microsoft.com");
+
+            if (initialPayload.scp) {
+                data.append("scope", initialPayload.scp);
+            }
+
+            const response = await axios.post(tokenUrl, data, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            });
+
+            if (response.data.access_token) {
+                // Aggiorniamo solo il token, non il payload
+                await Services.updateEnvFile("TOKENMSG", response.data.access_token, false);
+                return response.data.access_token;
+            }
         } catch (error) {
             writeToLog("❌ Errore nel rinnovo del token:", error);
-            return null;
+            throw error;
         }
     }
     
-    // Funzione per aggiornare una variabile nel file .env
-    static updateEnvFile(key:any, value:any) {
-        let envContent = fs.readFileSync(envPath, "utf8"); // Legge il file .env
-    
-        // Se la chiave esiste, la aggiorna, altrimenti la aggiunge
-        const regex = new RegExp(`^${key}=.*`, "m");
-        if (regex.test(envContent)) {
-            envContent = envContent.replace(regex, `${key}=${value}`);
-        } else {
-            envContent += `\n${key}=${value}`;
+    // Funzione per gestire automaticamente il refresh del token quando scade
+    static async handleTokenRefresh() {
+        const updateToken = "Avvio aggiornamento token..."
+        const updatedToken = "Token aggiornato con successo!"
+        try {
+            writeToLog("🔄 ", updateToken);
+            await Services.refreshAccessToken();
+            writeToLog("✅ ", updatedToken);
+        } catch (error) {
+            writeToLog("❌ Errore nell'aggiornamento del token:", error);
+            throw error;
         }
+    }
     
-        fs.writeFileSync(envPath, envContent, "utf8"); // Scrive il nuovo file .env
-        writeToLog(`✅ Variabile ${key} aggiornata nel file .env!`, key);
+    // Modifichiamo updateEnvFile per gestire l'aggiunta di nuove variabili
+    static updateEnvFile(key: string, value: string, isNewVariable: boolean = false) {
+        try {
+            let envContent = fs.readFileSync(envPath, "utf8");
+            let lines = envContent.split('\n');
+            
+            // Se è una nuova variabile e non esiste già
+            if (isNewVariable && !lines.some(line => line.startsWith(`${key}=`))) {
+                lines.push(`${key}='${value}'`);
+            } else {
+                // Altrimenti aggiorniamo la variabile esistente
+                lines = lines.filter(line => !line.startsWith(`${key}=`));
+                lines.push(`${key}='${value}'`);
+            }
+            
+            envContent = lines.join('\n');
+            fs.writeFileSync(envPath, envContent, "utf8");
+            
+            writeToLog(`✅ Variabile ${key} ${isNewVariable ? 'aggiunta' : 'aggiornata'} nel file .env!`, value);
+        } catch (error) {
+            writeToLog("❌ Errore nell'aggiornamento del file .env:", error);
+            throw error;
+        }
     }
     
     
 
-    static scheduleCheckAndDownload(scheduleDataEmail: scheduleDataEmail): void {
+    static async scheduleCheckAndDownload(scheduleDataEmail: scheduleDataEmail): Promise<void> {
+        
         const { ora, minuti, frequenza } = scheduleDataEmail; 
 
         Services.saveScheduleData(scheduleDataEmail);
@@ -295,7 +339,6 @@ class Services {
         );
 
         writeToLog(`🔔 API programmata per le ${ora}:${minuti}`,`${ora}, ${minuti}`);
-        // Services.refreshAccessToken(process.env.TOKENMSG)
     }
 
     
