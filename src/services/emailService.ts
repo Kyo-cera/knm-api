@@ -183,7 +183,10 @@ class Services {
 
 
     static async checkAndDownload(): Promise<any> {
-        await Services.handleTokenRefresh();
+        // await Services.handleTokenRefresh();
+        // writeToLog("nuovo token: : ", process.env.TOKENMSG);
+        // dotenv.config();
+        // writeToLog("nuovo token: : ", process.env.TOKENMSG);
         try {
             let emails = await this.getEmails()
             for (let email of emails){
@@ -228,40 +231,25 @@ class Services {
     // funzione per la gestione del token scaduto
     static async refreshAccessToken() {
         try {
-            // Salviamo il payload solo la prima volta e solo se non esiste già
-            if (!process.env.INITIAL_TOKEN_PAYLOAD && process.env.TOKENMSG) {
-                const initialToken = process.env.TOKENMSG;
-                const payload = JSON.parse(Buffer.from(initialToken.split('.')[1], 'base64').toString());
-                
-                // Salviamo il payload in una variabile separata
-                await Services.updateEnvFile("INITIAL_TOKEN_PAYLOAD", JSON.stringify(payload), true);
-            }
-
-            const initialPayload = process.env.INITIAL_TOKEN_PAYLOAD ? JSON.parse(process.env.INITIAL_TOKEN_PAYLOAD) : {};
-            
-            const tokenUrl = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/token`;
+            const tokenUrl = `https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/v2.0/token`;
             const data = new URLSearchParams();
-            
-            const clientId = initialPayload.appid || process.env.APPLICATION_ID;
-            
+    
             data.append("grant_type", "client_credentials");
-            data.append("client_id", clientId);
+            data.append("client_id", process.env.APPLICATION_ID || "");
             data.append("client_secret", process.env.APPLICATION_SECRET || "");
-            data.append("resource", "https://graph.microsoft.com");
-
-            if (initialPayload.scp) {
-                data.append("scope", initialPayload.scp);
-            }
-
+            data.append("scope", "https://graph.microsoft.com/.default");
+    
             const response = await axios.post(tokenUrl, data, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-
+    
             if (response.data.access_token) {
-                // Aggiorniamo solo il token, non il payload
+                // Aggiorniamo solo il token nel file .env
                 await Services.updateEnvFile("TOKENMSG", response.data.access_token, false);
+                process.env.TOKENMSG = response.data.access_token
+                dotenv.config();
                 return response.data.access_token;
             }
         } catch (error) {
@@ -269,6 +257,7 @@ class Services {
             throw error;
         }
     }
+    
     
     // Funzione per gestire automaticamente il refresh del token quando scade
     static async handleTokenRefresh() {

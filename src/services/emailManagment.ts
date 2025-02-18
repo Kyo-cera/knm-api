@@ -4,6 +4,7 @@ import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
 import fs from 'fs';
 import path from 'path';
+import db from '../database/database';
 const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 const filePath = path.resolve('./src/data/devMode/devMode.json');
 let devMode: boolean 
@@ -142,17 +143,25 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             return false;
         }
 
-        console.log('Cliente:', customer);
+        // console.log('Cliente:', customer);
 
         const EmailcustomersResp = await axios.get(`${apiUrl}/email/byType/Emailcustomers`);
         const Emailcustomers = EmailcustomersResp.data.data;
+        const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
+        const Emailadmin = EmailadminResp.data.data;
+
+          let emailAdmin = '';
+          
+          if (Emailadmin && Emailadmin.email) {
+              emailAdmin = Emailadmin.email;
+          }
 
         if (!Emailcustomers) {
             console.error("Errore: `Emailcustomers` non definito.");
             return false;
         }
 
-        console.log('Emailcustomers su getEmailCustomer:', Emailcustomers);
+        // console.log('Emailcustomers su getEmailCustomer:', Emailcustomers);
 
         if(customer && Emailcustomers){
 
@@ -160,7 +169,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             let bodyCust = Emailcustomers.body || '';
             // let emailCust = Emailcustomers.email || '';
             let emailCust = customer.Email || '';
-            console.log('emailCust: ', emailCust);
+            // console.log('emailCust: ', emailCust);
 
             if (bodyCust.includes("cliente")) {
                 bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
@@ -174,9 +183,65 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
         };
-        console.log('emailData: ', emailData);
+        // console.log('emailData: ', emailData);
         const sendsuccess = await sendEmail(emailData);
-        console.log('Esito invio email:', sendsuccess);
+        let emails:any[] = []
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+        const response: any = await axios.get(`http://localhost:3005/emailMC/getEmails`, {
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+
+        
+        if (response) {
+            console.log("Email data: ", response.data.data);
+            emails = response.data.data
+            let emailsFiltrate = []
+            for (let emailFiltrate of  emails) {
+                if (emailFiltrate.isRead === false && emailFiltrate.hasAttachments == false) {
+                    emailsFiltrate.push(emailFiltrate)
+                }
+            }
+            console.log("emailsFiltrate: ", emailsFiltrate);
+            console.log("emails[0]: ", emails[0]);
+            console.log("Emailadmin: ", Emailadmin);
+            console.log("Email filtrate trovate:", emailsFiltrate.length);
+            if (emailsFiltrate[0]?.subject.includes("Non recapitabile")) {
+                const emailDataSbagliata: EmailData = {
+                    recipient: `${emailAdmin}`,
+                    subject: `Indirizzo email inesistente - Sales Doc: ${salesDoc}`,
+                    emailBody: `<p>Indirizzo email inesistente</p>`,
+                    ...(fs.existsSync(path.join(__dirname, '../attachment/SalesDoc-Without-email.xlsx')) && {
+                        attachment: "SalesDoc-Without-email.xlsx"
+                    })
+                };
+                const sendSuccessEmailSbagliata = await sendEmail(emailDataSbagliata);
+                await new Promise(resolve => setTimeout(resolve, 500)); 
+                console.log("ID email da marcare come letta:", emailsFiltrate[0].id);
+                await markEmailAsRead(emailsFiltrate[0].id, true)
+                try {
+                    // **Esecuzione della query con db.query**
+                    await db.query(`
+                        UPDATE dbo.licenze
+                        SET "STATO" = null, "Sales_Doc" = null, "Item" = null
+                        WHERE "Sales_Doc" = ${salesDoc}
+                    `);
+            
+                    console.log(`Licenze aggiornate per Sales_Doc: ${salesDoc}`);
+                } catch (error) {
+                    console.error("Errore durante l'aggiornamento del database:", error);
+                }
+                return sendSuccessEmailSbagliata;
+            }
+        } else {
+            console.error("Nessuna email trovata nella risposta");
+        }
+
+        
+
+        // console.log('Esito invio email:', sendsuccess);
         return sendsuccess;
         
         }
@@ -188,3 +253,28 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
     }
 }
 
+async function markEmailAsRead(messageId: string, isRead: boolean): Promise<void> {
+    try {
+        if (!messageId) {
+            throw new Error("❌ messageId non valido o undefined");
+        }
+
+        const url = `https://graph.microsoft.com/v1.0/me/messages/${messageId}`;
+
+        const response = await axios.patch(
+            url,
+            { isRead },  // Imposta true o false
+            {
+                headers: {
+                    Authorization: `Bearer ${process.env.TOKENMSG}`,
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        writeToLog(`✅ Email ${isRead ? "letta" : "non letta"} con successo!`, isRead);
+    } catch (error) {
+        writeToLog("❌ Errore nel modificare lo stato di lettura dell'email:", error);
+        throw error;
+    }
+}
