@@ -76,8 +76,8 @@ export const emailAdmin = async () => {
           for (const salesDoc of salesDocs) {
               const customerResponse = await axios.get(`${apiUrl}/customer/`);
               const customers = customerResponse.data.data;
-            //   console.log('customerResponse:', customerResponse);
-            //  console.log('customers:', customers);
+              console.log('customerResponse:', customerResponse);
+             console.log('customers:', customers);
           
               let customerWithSalesDoc = false;
               let customerWithoutEmail = false;
@@ -86,7 +86,7 @@ export const emailAdmin = async () => {
           
               if (customers && customers.length > 0) {
                   for (const customer of customers) {
-                    //  console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
+                     console.log(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc: ${salesDoc}`);
                       if (customer.Sales_Doc === salesDoc) {
                           customerWithSalesDoc = true;
                           break; 
@@ -143,7 +143,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             return false;
         }
 
-        // console.log('Cliente:', customer);
+        console.log('Cliente:', customer);
 
         const EmailcustomersResp = await axios.get(`${apiUrl}/email/byType/Emailcustomers`);
         const Emailcustomers = EmailcustomersResp.data.data;
@@ -161,7 +161,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             return false;
         }
 
-        // console.log('Emailcustomers su getEmailCustomer:', Emailcustomers);
+        console.log('Emailcustomers su getEmailCustomer:', Emailcustomers);
 
         if(customer && Emailcustomers){
 
@@ -169,7 +169,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             let bodyCust = Emailcustomers.body || '';
             // let emailCust = Emailcustomers.email || '';
             let emailCust = customer.Email || '';
-            // console.log('emailCust: ', emailCust);
+            console.log('emailCust: ', emailCust);
 
             if (bodyCust.includes("cliente")) {
                 bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
@@ -183,7 +183,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
         };
-        // console.log('emailData: ', emailData);
+        console.log('emailData: ', emailData);
         const sendsuccess = await sendEmail(emailData);
         let emails:any[] = []
         await new Promise(resolve => setTimeout(resolve, 1000)); 
@@ -208,6 +208,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             console.log("emails[0]: ", emails[0]);
             console.log("Emailadmin: ", Emailadmin);
             console.log("Email filtrate trovate:", emailsFiltrate.length);
+            await new Promise(resolve => setTimeout(resolve, 10000));
             if (emailsFiltrate[0]?.subject.includes("Non recapitabile")) {
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
@@ -217,23 +218,23 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                         attachment: "SalesDoc-Without-email.xlsx"
                     })
                 };
-                const sendSuccessEmailSbagliata = await sendEmail(emailDataSbagliata);
-                await new Promise(resolve => setTimeout(resolve, 500)); 
+                await sendEmail(emailDataSbagliata);
+                await new Promise(resolve => setTimeout(resolve, 10000)); 
                 console.log("ID email da marcare come letta:", emailsFiltrate[0].id);
                 await markEmailAsRead(emailsFiltrate[0].id, true)
+                await new Promise(resolve => setTimeout(resolve, 2000)); 
                 try {
-                    // **Esecuzione della query con db.query**
                     await db.query(`
                         UPDATE dbo.licenze
                         SET "STATO" = null, "Sales_Doc" = null, "Item" = null
-                        WHERE "Sales_Doc" = ${salesDoc}
+                        WHERE "Sales_Doc" = '${salesDoc}'
                     `);
             
                     console.log(`Licenze aggiornate per Sales_Doc: ${salesDoc}`);
                 } catch (error) {
                     console.error("Errore durante l'aggiornamento del database:", error);
                 }
-                return sendSuccessEmailSbagliata;
+                return false;
             }
         } else {
             console.error("Nessuna email trovata nella risposta");
@@ -241,7 +242,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
         
 
-        // console.log('Esito invio email:', sendsuccess);
+        console.log('Esito invio email:', sendsuccess);
         return sendsuccess;
         
         }
