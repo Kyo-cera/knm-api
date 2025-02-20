@@ -186,7 +186,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
         console.log('emailData: ', emailData);
         const sendsuccess = await sendEmail(emailData);
         let emails:any[] = []
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
+        await new Promise(resolve => setTimeout(resolve, 5000)); 
 
         const response: any = await axios.get(`http://localhost:3005/emailMC/getEmails`, {
             headers: {
@@ -208,7 +208,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             console.log("emails[0]: ", emails[0]);
             console.log("Emailadmin: ", Emailadmin);
             console.log("Email filtrate trovate:", emailsFiltrate.length);
-            await new Promise(resolve => setTimeout(resolve, 10000));
+            await new Promise(resolve => setTimeout(resolve, 15000));
             if (emailsFiltrate[0]?.subject.includes("Non recapitabile")) {
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
@@ -219,10 +219,10 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                     })
                 };
                 await sendEmail(emailDataSbagliata);
-                await new Promise(resolve => setTimeout(resolve, 10000)); 
+                await new Promise(resolve => setTimeout(resolve, 15000)); 
                 console.log("ID email da marcare come letta:", emailsFiltrate[0].id);
                 await markEmailAsRead(emailsFiltrate[0].id, true)
-                await new Promise(resolve => setTimeout(resolve, 2000)); 
+                await new Promise(resolve => setTimeout(resolve, 5000)); 
                 try {
                     await db.query(`
                         UPDATE dbo.licenze
