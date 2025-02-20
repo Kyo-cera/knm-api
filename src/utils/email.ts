@@ -1,5 +1,6 @@
 import { EmailData } from '../models/email';
 import { createExcelFileEmailsChecked } from './excel';
+import { writeToLog } from '../utils/writeLog';
 const axios = require('axios');
 export async function sendEmail(emailData: EmailData) {
   try {
@@ -24,7 +25,7 @@ export async function processCheckData() {
  // console.log('Successo:', response.success,'url:',apiUrl,'response:',response.data.data);
   
   if (data && data.length > 0) {
-      console.log('users senza email:',data.length);
+    writeToLog('users senza email:',data.length);
       data.forEach((item:any, index: number) => {
        
         //  console.log(`    Email: ${item.email}`);
@@ -34,12 +35,12 @@ export async function processCheckData() {
               dataWithoutEmails.push(item);
           }
       });
-      console.log('dataWithoutEmails.length '+dataWithoutEmails.length);
+      writeToLog('dataWithoutEmails.length ', dataWithoutEmails.length);
       if (dataWithoutEmails.length > 0) {
         const fileExcelMaked = await createExcelFileEmailsChecked(dataWithoutEmails);
-        console.log('inviando email a:  :',fileExcelMaked);
+        writeToLog('inviando email a:  :',fileExcelMaked);
         if (fileExcelMaked) {
-          console.log('invio email a:  :',fileExcelMaked);
+          writeToLog('invio email a:  :',fileExcelMaked);
           const emailData: EmailData = {
             recipient: 'knm-licenses@dit.kyocera.com',
             subject: 'dati mancanti di questi utenti',
@@ -48,15 +49,15 @@ export async function processCheckData() {
         };
 
         const sendsuccess = await sendEmail(emailData);
-        console.log('email customer senza dati inviata con :',sendsuccess);
+        writeToLog('email customer senza dati inviata con :',sendsuccess);
         }
       }
   } else {
-      console.log('Nessun dato presente.');
+    writeToLog('Nessun dato presente.', dataWithoutEmails.length);
   }
 
   if (error) {
-      console.log('Errore:', error);
+    writeToLog('Errore:', error);
   }
 }
 

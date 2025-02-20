@@ -11,12 +11,12 @@ async function processSalesDoc(): Promise<void> {
           //   processCheckData(); // check data &  invio email con i clienti senza email
           const response = await axios.get(`${apiUrl}/orders/sales`);
           const items = response.data.data;
-          console.log("items: ",items)
+          writeToLog("items: ",items)
 
           emailAdmin();
 
        if (items.length === 0) {
-            console.log('non ci sono ordini da spedire: ' + items.length);
+        writeToLog('non ci sono ordini da spedire: ' , items.length);
             return items.length;
         }else{   
             
@@ -24,9 +24,9 @@ async function processSalesDoc(): Promise<void> {
                 const salesDoc = item.Sales_Doc;
                 const oda = item.ODA;
                 const cart = await callSalesDoc(salesDoc);
-                console.log('ORDINE PER :', salesDoc,' numero di licenze richieste: ',cart.length); // Test del documento di vendita
-                console.log('ODA PER :', oda);
-                console.log('item :', item);
+                writeToLog('ORDINE PER :'+ salesDoc+' numero di licenze richieste: ',cart.length); // Test del documento di vendita
+                writeToLog('ODA PER :', oda);
+                writeToLog('item :', item);
     
           if (cart) {
                     const pack = await getPackLicense(salesDoc);
@@ -35,17 +35,17 @@ async function processSalesDoc(): Promise<void> {
                 if(pack.length > 0){
                    
                     const emailSend = await getEmailCustomer(salesDoc, oda);
-                    console.log('callSalesDoc: ordine da spedire:', pack.length); 
-                    console.log('la email spedita con :', emailSend); 
+                    writeToLog('callSalesDoc: ordine da spedire:', pack.length); 
+                    writeToLog('la email spedita con :', emailSend); 
                     if(emailSend){
                      const updateLicense = await  sendedLicense(salesDoc);
                   
-                        console.log('updateLicense :', updateLicense); 
+                     writeToLog('updateLicense :', updateLicense); 
                     }
                     
                 }else{
                    
-                    console.log('non ci sono ordine da spedire ', pack.length);
+                    writeToLog('non ci sono ordine da spedire ', pack.length);
                 }    
                 }
                
@@ -119,10 +119,10 @@ async function sendedLicense(salesDoc: string): Promise<any> {
     try {
         const keys: string[]=await readLicenseKeysFromExcel(salesDoc);
 
-        console.log('key: ',keys);
+        writeToLog('key: ',keys);
         processLicenseKeys(keys)
         .then((results) => {
-            console.log('agiornamento delle chiavi:', results);
+            writeToLog('agiornamento delle chiavi:', results);
             return results;
         })
         .catch((error) => {
@@ -145,7 +145,7 @@ async function getPackLicense(salesDoc: string): Promise<any> {
         if (pack.length > 0) {
             writeToLog("richiesta creazione file excel "+salesDoc+"--",pack.length);
             const fileExcel = await createExcelFileLicense(pack,salesDoc);
-            console.log('fileExcel resp: ',fileExcel);
+            writeToLog('fileExcel resp: ',fileExcel);
         }
         
         

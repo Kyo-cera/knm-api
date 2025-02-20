@@ -5,6 +5,7 @@ import { e_mail } from 'models/e-mail';
 import { EmailData } from '../models/email';
 import emailServices from '../services/emailService';
 import emailManagment from '../services/emailManagment';
+import { writeToLog } from '../utils/writeLog';
 
 class emailController{
 
@@ -20,7 +21,7 @@ class emailController{
     async getEmailByType(req: Request, res: Response){
         try{
             const tipo = String(req.params['tipo']);
-            console.log('tipo ' + tipo);
+            writeToLog('tipo ' , tipo);
             const email = await mailService.getEmailByType(tipo);
             sendSuccess(res, email);
         }catch(error: any){
@@ -66,9 +67,8 @@ class emailController{
 
     async getEmails(req: Request, res: Response){
         try{
-            console.log('Entrato in getEmails')
             const mails = await emailServices.getEmails();
-            console.log('Emails trovate:', mails);
+            writeToLog('Emails trovate:', mails);
             sendSuccess(res, mails);
         }catch(error: any){
             sendError(res, error.message);

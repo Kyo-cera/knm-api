@@ -1,6 +1,7 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import * as path from 'path';
+import { writeToLog } from '../utils/writeLog';
 
 const execAsync = promisify(exec);
 
@@ -11,7 +12,7 @@ class DeployService {
             const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
             
             const { stdout, stderr } = await execAsync(command);
-            console.log('Deploy output:', stdout);
+            writeToLog('Deploy output:', stdout);
             // commento di prova
             if (stderr) {
                 console.error('Deploy errors:', stderr);
@@ -29,7 +30,7 @@ class DeployService {
             const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
             
             const { stdout, stderr } = await execAsync(command);
-            console.log('Deploy output:', stdout);
+            writeToLog('Deploy output:', stdout);
             
             if (stderr) {
                 console.error('Deploy errors:', stderr);

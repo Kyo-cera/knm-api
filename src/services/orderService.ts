@@ -1,5 +1,6 @@
 import { Order } from 'models/order';
 import db from '../database/database';
+import { writeToLog } from '../utils/writeLog';
 const XLSX = require('xlsx');
 const axios = require('axios');
 const path = require('path');
@@ -33,7 +34,7 @@ class OrderService {
 
 
 async getOrderByItemSalesDoc(salesDoc: string): Promise<Order[] | null> {
-    console.log("salesDoc:", salesDoc);
+    writeToLog("salesDoc:", salesDoc);
     const orders = await db.query(`
         SELECT *
         FROM dbo.orders
@@ -156,14 +157,14 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
             }
         }
     
-        console.log(`Ordini totali processati: ${processedCount}`);
-        console.log(`Ordini effettivamente importati: ${newOrders.length}`);
-        console.log(`Duplicati trovati: ${duplicateCount}`);
+        writeToLog(`Ordini totali processati: `, processedCount);
+        writeToLog(`Ordini effettivamente importati: `, newOrders.length);
+        writeToLog(`Duplicati trovati: `, duplicateCount);
     
         try {
             await moveFileToProcessedFolder(fileName, path, fs);
             const responseCheck = await axios.get(`${urlApi}/customer/import/checkCustomer`);
-            console.log('----> checkcustomers', responseCheck.status);
+            writeToLog('----> checkcustomers', responseCheck.status);
         } catch (error) {
             console.error('Errore nello spostamento del file:', error);
         }
@@ -204,7 +205,7 @@ async function readSalesDoc(workbook:any, sheetName:any, salesDoc:any) {
     }
 
     if (salesDocColumnIndex === -1) {
-        console.log("Colonna 'Sales Doc' non trovata.");
+        writeToLog("Colonna 'Sales Doc' non trovata.", salesDocColumnIndex);
         return { data, duplicates: 0 };
     }
 
@@ -255,7 +256,7 @@ function moveFileToProcessedFolder(filePath:any,path:any,fs:any) {
       if (err) {
         console.error(`Errore durante il rinominare del file -${fileName} :`, err);
       } else {
-        console.log(`File ${timestamp}-${fileName}  rinominato con il timestamp e spostato nella cartella di elaborazione con successo`);
+        writeToLog(`File ${timestamp}-${fileName}  rinominato con il timestamp e spostato nella cartella di elaborazione con successo`, timestamp);
       }
     });
   }
@@ -297,12 +298,12 @@ async function inOrders(data: any) {
             if (isDuplicate) {
                 duplicateCount++;
                 duplicateItems.push(rowData);
-                console.log(`Duplicato trovato per Sales_Doc: ${rowData.salesDoc}, Item: ${rowData.item}`);
+                writeToLog(`Duplicato trovato per Sales_Doc: ${rowData.salesDoc}, Item: `, rowData.item);
             }
         }
 
         if (duplicateItems.length > 0) {
-            console.log(`Trovati ${duplicateItems.length} duplicati, inserimento annullato`);
+            writeToLog(`Trovati ${duplicateItems.length} duplicati, inserimento annullato`, duplicateItems.length);
             return duplicateCount;
         }
 

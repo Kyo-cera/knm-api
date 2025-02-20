@@ -57,7 +57,7 @@ class LicenseService {
             ]);
             
     
-            console.log(`Dati inseriti correttamente per l'item ${knmItem}`, result);
+            writeToLog(`Dati inseriti correttamente per l'item ${knmItem}`, result);
     
             return [{
                 fatherComponent,
@@ -156,13 +156,13 @@ LIMIT 1;
                 `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
-            console.log('result:', lic);
+            writeToLog('result:', lic);
         
         if (state && state!='') {
-            console.log('ok result:', state);
+            writeToLog('ok result:', state);
             return await this.getLicenseById(key);
         }else{
-            console.log('ko ', state);
+            writeToLog('ko ', state);
             return null;
         }
         
@@ -180,13 +180,13 @@ LIMIT 1;
                 `);
             let lic = await this.getLicenseById(key); 
             const state = await lic?.STATO
-            console.log('result:', lic);
+            writeToLog('result:', lic);
         
         if (state && state!='') {
-            console.log('ok result:', state);
+            writeToLog('ok result:', state);
             return await this.getLicenseById(key);
         }else{
-            console.log('ko ', state);
+            writeToLog('ko ', state);
             return null;
         }
         
@@ -204,14 +204,14 @@ LIMIT 1;
     async inKnmETerminal(rowData: any): Promise<{ isSuccess: boolean, isDuplicate: boolean }> {
         try {
             if (!rowData.licenseKey || rowData.licenseKey.trim() === '') {
-                console.log(`Skipping record with empty LICENSE_KEY:`, rowData);
+                writeToLog(`Skipping record with empty LICENSE_KEY:`, rowData);
                 return { isSuccess: false, isDuplicate: false }; 
             }
 
             // Verifica duplicati
             const isDuplicate = await this.checkLicenseDuplicate(rowData.licenseKey);
             if (isDuplicate) {
-                console.log(`Duplicate license found for key: ${rowData.licenseKey}`);
+                writeToLog(`Duplicate license found for key: rowData.licenseKey`,rowData.licenseKey);
                 return { isSuccess: false, isDuplicate: true };
             }
 
@@ -222,9 +222,9 @@ LIMIT 1;
                 licenseKey: rowData.licenseKey,
             };
 
-            console.log('Inserting new license...', licenseData);
+            writeToLog('Inserting new license...', licenseData);
             const response = await axios.post(`${apiUrl}/license/postLicence`, licenseData);
-            console.log('License successfully inserted:', response.data);
+            writeToLog('License successfully inserted:', response.data);
             
             return { isSuccess: true, isDuplicate: false };
         } catch (error: any) {
@@ -255,7 +255,7 @@ LIMIT 1;
             const results = await db.query(query);
             const recordset: any[] = results;
 
-            console.log('Totale record trovati:', recordset.length);
+            writeToLog('Totale record trovati:', recordset.length);
 
             // Rimuoviamo il loop qui e ritorniamo solo il recordset
             return recordset;
@@ -386,7 +386,7 @@ LIMIT 1;
         const destination = path.join(processedFolderPath, path.basename(filePath));
         
         fs.renameSync(filePath, destination);
-        console.log(`File moved to ${destination}`);
+        writeToLog(`File moved to `, destination);
     }
     
     async importLicenses(): Promise<any> {
@@ -403,10 +403,10 @@ LIMIT 1;
                 if (path.extname(fileName) === '.xlsx' && fileName !== 'Consips2 licenses SO.xlsx') {
                     excelFilesCount++;
                     const workbook = XLSX.readFile(excelFilePath);
-                    console.log(`Fogli disponibili nel file: ${workbook.SheetNames}`);
+                    writeToLog(`Fogli disponibili nel file: `, workbook.SheetNames);
     
                     for (const sheetName of workbook.SheetNames) {
-                        console.log(`Elaborando foglio: ${sheetName}`);
+                        writeToLog(`Elaborando foglio: `, sheetName);
                         const worksheet = workbook.Sheets[sheetName];
     
                         const range = XLSX.utils.decode_range(worksheet['!ref']);
@@ -415,7 +415,7 @@ LIMIT 1;
                             const csvFilePath = path.join(outputFolder, `${sheetName}.csv`);
                             writeToLog("csvFilePath ", csvFilePath);
                             await fs.promises.writeFile(csvFilePath, csv);
-                            console.log(`Foglio ${sheetName} convertito in CSV`);
+                            writeToLog(`Foglio ${sheetName} convertito in CSV`, sheetName);
                         }
                     }
     
@@ -431,16 +431,16 @@ LIMIT 1;
             try {
                 // Otteniamo la lista dei tipi di licenze
                 const licenseTypes = await this.getTypeLicenze();
-                console.log('License types found:', licenseTypes);
+                writeToLog('License types found:', licenseTypes);
 
                 if (licenseTypes && licenseTypes.length > 0) {
                     // Processiamo ogni tipo di licenza
                     for (const record of licenseTypes) {
-                        console.log('Processing license type:', record);
+                        writeToLog('Processing license type:', record);
                         const result = await this.readCSVAndCallAPI(record);
                         
                         if (result && result.newLicenses) {
-                            console.log(`Found ${result.newLicenses.length} new licenses and ${result.duplicateCount} duplicates for ${record.Element}`);
+                            writeToLog(`Found ${result.newLicenses.length} new licenses and ${result.duplicateCount} duplicates for `, record.Element);
                             totalNewLicenses = [...totalNewLicenses, ...result.newLicenses];
                             totalDuplicates += result.duplicateCount;
                         }
@@ -451,7 +451,7 @@ LIMIT 1;
             }
         }
     
-        console.log(`Total new licenses: ${totalNewLicenses.length}, Total duplicates: ${totalDuplicates}`);
+        writeToLog(`Total new licenses: ${totalNewLicenses.length}, Total duplicates: `, totalDuplicates);
         return { 
             licenses: totalNewLicenses, 
             duplicateCount: totalDuplicates,

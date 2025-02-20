@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import cartService from '../services/cartService';
 import orderService from '../services/orderService';
 import { sendError, sendSuccess } from '../utils/requestHandlers';
+import { writeToLog } from '../utils/writeLog';
 class OrderController{
 
     async getAllOrders(req: Request, res: Response){
@@ -36,10 +37,10 @@ class OrderController{
     async getOrdersList(req: Request, res: Response){
         try{
             const pack  = await cartService();
-            console.log('# di richieste: ',pack);
+            writeToLog('# di richieste: ',pack);
             sendSuccess(res, pack);
         }catch(error: any){
-           console.log(error.message);
+            writeToLog("error ",error.message);
            sendError(res, error.message);
         }
     }

@@ -1,5 +1,6 @@
 import { User } from 'models/user';
 import db from '../database/database';
+import { writeToLog } from '../utils/writeLog';
 class userService {
 
     async getAllUsers(): Promise<User[]> {
@@ -12,7 +13,7 @@ class userService {
         if (Array.isArray(user) && user.length > 0) {
             return user[0] as User;
         }
-        console.log('user not found '+user);
+        writeToLog('user not found ',user);
         return user;
     }
 
@@ -154,7 +155,7 @@ class userService {
                 return result as User[]; 
             }
     
-            console.log('Nessun utente trovato per il tipo: ' + type);
+            writeToLog('Nessun utente trovato per il tipo: ' , type);
             return null; 
         } catch (error) {
             console.error('Errore durante il recupero degli utenti per tipo:', error);
@@ -172,7 +173,7 @@ class userService {
                 return result as User[]; 
             }
     
-            console.log('Nessun utente trovato per il role: ' + role);
+            writeToLog('Nessun utente trovato per il role: ' , role);
             return null; 
         } catch (error) {
             console.error('Errore durante il recupero degli utenti per tipo:', error);
@@ -190,7 +191,7 @@ class userService {
                 return result as User[]; 
             }
     
-            console.log('Nessun utente trovato per il tipo: ' + email);
+            writeToLog('Nessun utente trovato per il tipo: ' , email);
             return null; 
         } catch (error) {
             console.error('Errore durante il recupero degli utenti per tipo:', error);

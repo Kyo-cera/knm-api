@@ -43,6 +43,7 @@
 // export default new Database();
 
 import { Pool } from 'pg';
+import { writeToLog } from '../utils/writeLog';
 
 const dbConfig = {
     host: 'localhost',       
@@ -59,7 +60,7 @@ class Database {
     async closePool() {
         try {
             await pool.end(); 
-            console.log('Pool di connessioni chiusa correttamente');
+            writeToLog('Pool di connessioni chiusa correttamente', pool);
         } catch (error) {
             console.error('Errore durante la chiusura della pool di connessioni:', error);
             throw error;
@@ -78,16 +79,16 @@ class Database {
 
     async testConnection() {
         try {
-            console.log('Tentativo di connessione al database...');
+            writeToLog('Tentativo di connessione al database...', pool);
             
             // Esegue una query semplice per testare la connessione
             const result = await this.query('SELECT NOW() AS current_time');
             
             if (result && result.length > 0) {
-                console.log('Connessione al database riuscita!');
-                console.log('Ora del server:', result[0].current_time);
+                writeToLog('Connessione al database riuscita!', pool);
+                writeToLog('Ora del server:', result[0].current_time);
             } else {
-                console.log('Connessione riuscita, ma non ci sono risultati.');
+                writeToLog('Connessione riuscita, ma non ci sono risultati.', pool);
             }
         } catch (error) {
             console.error('Errore nella connessione al database:', error);

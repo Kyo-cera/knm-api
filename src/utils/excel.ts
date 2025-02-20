@@ -15,7 +15,7 @@ export async function createExcelFileLicense(jsonData: any,id: string) {
     // Aggiungi dati dal JSON
     jsonData.forEach((data: any) => {
         const { Element, LICENSE_KEY, Sales_Doc, Item } = data;
-        console.log('Element:', Element, 'LICENSE_KEY:', LICENSE_KEY, 'Sales_Doc:', Sales_Doc, 'Item:', Item);
+        writeToLog('Element:'+ Element+ 'LICENSE_KEY:'+ LICENSE_KEY+ 'Sales_Doc:'+ Sales_Doc+ 'Item:', Item);
         worksheet.addRow([Element, LICENSE_KEY, Sales_Doc, Item]);
     });
 

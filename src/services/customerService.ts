@@ -1,6 +1,7 @@
 import { Customer } from 'models/customer';
 import db from '../database/database';
 import { createPDFList, processJsonFiles, readSalesDocuments, runAllProcessesPDF, updateStatusFromApi } from '../utils/pdf';
+import { writeToLog } from '../utils/writeLog';
 class customerService {
     async getAllCustomers(): Promise<Customer[]> {
         const customers = await db.query(`SELECT * FROM dbo.ordinante`);
@@ -12,7 +13,7 @@ class customerService {
         if (Array.isArray(customer) && customer.length > 0) {
             return customer[0] as Customer;
         }
-        console.log('customer not found'+customer);
+        writeToLog('customer not found',customer);
         return null;
     }
     async postCustomer(data: Customer): Promise<Customer | null> {
@@ -32,7 +33,7 @@ class customerService {
                 INSERT INTO dbo.ordinante ("Sales_Doc", "Ordinante", "Email", "ODA")
                 VALUES ($1, $2, $3, $4)
             `;
-            console.log("data.ODA: ",data.ODA);
+            writeToLog("data.ODA: ",data.ODA);
             await db.query(query, values);
             return await this.getCustomerByItemOda(Number(values[3]));
         } catch (error) {

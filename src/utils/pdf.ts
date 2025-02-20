@@ -30,7 +30,7 @@ export async function createPDFList() {
         }, []);
 
         if (pdfFiles.length === 0) {
-            console.log("Nessun file PDF trovato nella directory.");
+            writeToLog("Nessun file PDF trovato nella directory.", pdfFiles.length);
             return { success: true, total: 0 }; // Restituisce successo anche se non ci sono file
         }
 
@@ -39,7 +39,7 @@ export async function createPDFList() {
             pdfList.push({ pdfSales_doc: pdfFile, status: "pre", sales_doc: salesOrder });
             count++; // Incrementa il contatore per ogni file aggiunto
         }
-        console.log(`pathFiles- ${pathFiles}`);
+        writeToLog(`pathFiles- `, pathFiles);
 
         const jsonFilePath = path.join(pathFiles, "pdfList.json");
         const jsonString = JSON.stringify({ items: pdfList, total: count }, null, 2); // Aggiungi il totale al JSON
@@ -97,7 +97,7 @@ export async function readPDFAndSaveToJson(pdfFilePath: string) {
                                 try {
                                     await fs.writeFile(jsonFilePath, jsonString);
                                     counterOK++;
-                                    console.log(`Email Punto Ordinante salvata con successo nel file JSON: Contatore: ${counterOK}`, salesOrder);
+                                    writeToLog(`Email Punto Ordinante salvata con successo nel file JSON: Contatore: ${counterOK}`, salesOrder);
                                 } catch (writeError) {
                                     console.error("Errore durante la scrittura del file:", writeError);
                                 }
@@ -162,7 +162,7 @@ async function checkFileExists(pdfFilePath:string) {
     } catch (err) {
         // Controllo specifico per l'errore ENOENT (file non trovato)
        
-            console.log(`Errore durante l'accesso al file ${pdfFilePath}:`, err);
+        writeToLog(`Errore durante l'accesso al file ${pdfFilePath}:`, err);
         
         return false;
     }
@@ -187,7 +187,7 @@ export async function readSalesDocuments() {
           let pdfFilestatus = item.status;
           
           if (pdfFile && pdfFilestatus === 'pre') {
-            console.log("pdfFile:",pdfFile);
+            writeToLog("pdfFile:",pdfFile);
             try {
               await readPDFAndSaveToJson(pdfFile);
               counterOK++;
@@ -204,10 +204,10 @@ export async function readSalesDocuments() {
       }
 
       const totalArray = jsonArray.length; // Rimosso await
-      console.log("jsonArray.length:" + totalArray + " item ok:" + counterOK + " item error: " + counterKO);
+      writeToLog("jsonArray.length:" + totalArray + " item ok:" + counterOK + " item error: " , counterKO);
       return { success: true, total: totalArray, totaItemsok: counterOK, totaItemsKo: counterKO };
     } else {
-      console.log("jsonData is not an array.");
+        writeToLog("jsonData is not an array.", Array);
     }
   } catch (error) {
     console.error("Error reading sales documents:", error);
@@ -221,7 +221,7 @@ export async function updateStatusFromApi() {
         const jsonData = await fs.readFile(pdfListPath, 'utf8');
         const pdfList = JSON.parse(jsonData);
         const response = await getData(apiPostPdfUrl); 
-        console.log('apiPostPdfUrl: ',apiPostPdfUrl);
+        writeToLog('apiPostPdfUrl: ',apiPostPdfUrl);
         // Itera attraverso gli elementi della lista
         for (const item of pdfList.items) {
          //   console.log('item.sales_doc: ',item.sales_doc);
@@ -301,7 +301,7 @@ async function moveFile(sourcePath:string, destPath:string) {
         }
 
         await fse.move(sourcePath, finalDestPath);
-        console.log(`File spostato: ${path.basename(finalDestPath)}`);
+        writeToLog(`File spostato: `, path.basename(finalDestPath));
     } catch (error) {
         console.error(`Errore durante lo spostamento del file: ${error}`);
         throw error; // Rilancia l'errore per gestirlo nel chiamante
@@ -324,7 +324,7 @@ export async function processJsonFiles() {
         const batchSize = 200;
         for (let i = 0; i < jsonFiles.length; i += batchSize) {
             const batchFiles = jsonFiles.slice(i, i + batchSize);
-            console.log(`Elaborazione batch da file ${i + 1} a ${Math.min(i + batchSize, jsonFiles.length)}.`);
+            writeToLog(`Elaborazione batch da file ${i + 1} a `, Math.min(i + batchSize, jsonFiles.length));
 
             // Processa i file nel batch
             const processingPromises = batchFiles.map(async (file) => {
@@ -361,7 +361,7 @@ export async function processJsonFiles() {
 
             // Attendi il completamento del batch corrente
             await Promise.all(processingPromises);
-            console.log(`Batch da ${batchFiles.length} file completato con successo.`);
+            writeToLog(`Batch da ${batchFiles.length} file completato con successo.`, batchFiles.length);
         }
 
     } catch (error) {

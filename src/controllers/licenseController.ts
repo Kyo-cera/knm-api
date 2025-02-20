@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import licenseService from '../services/licenseService';
 import { sendError, sendSuccess } from '../utils/requestHandlers';
 import { License } from 'models/license';
+import { writeToLog } from '../utils/writeLog';
 
 class LicenseController{
 
@@ -29,7 +30,7 @@ class LicenseController{
     async getLicenseByItem(req: Request, res: Response){
         try{
             const element = String(req.params['element']);
-            console.log('element: ->:  '+element);
+            writeToLog('element: ->:  ',element);
             const license = await licenseService.getLicenseByElement(element);
             if(license){
                 sendSuccess(res, license);
@@ -43,7 +44,7 @@ class LicenseController{
     async getLicensePack(req: Request, res: Response){
         try{
             const salesDoc = String(req.params['salesDoc']);
-            console.log('salesDoc: ->:  '+salesDoc);
+            writeToLog('salesDoc: ->:  ',salesDoc);
             const licenses = await licenseService.getLicensePack(salesDoc);
             if(licenses){
                 sendSuccess(res, licenses);
@@ -58,7 +59,7 @@ class LicenseController{
 async getEmailOrdering(req: Request, res: Response){
     try{
         const salesDoc = String(req.params['salesDoc']);
-        console.log('salesDoc: ->:  '+salesDoc);
+        writeToLog('salesDoc: ->:  ',salesDoc);
         const data = await licenseService.getEmailOrdering(salesDoc);
         if(data){
             sendSuccess(res, data);
@@ -76,9 +77,9 @@ async getEmailOrdering(req: Request, res: Response){
             const item = String(req.params['item']);
             const key = String(req.params['key']);
             const stato = String(req.params['stato']);
-            console.log('element: -> '+SalesDoc+' item '+item+' key'+key+' '+stato);
+            writeToLog('element: -> ',SalesDoc+' item '+item+' key'+key+' '+stato);
             const license = await  licenseService.putLicense(SalesDoc,item,key,stato);
-            console.log('license: -> '+license);
+            writeToLog('license: -> ',license);
             if(license){
                 sendSuccess(res, license);
             }else{
@@ -92,9 +93,9 @@ async getEmailOrdering(req: Request, res: Response){
         try{          
             const key = String(req.params['key']);
             const stato = String(req.params['stato']);
-            console.log('element: ->  key'+key+' '+stato);
+            writeToLog('element: ->  key',key+' '+stato);
             const sended = await  licenseService.putLicenseSended(key,stato);
-            console.log('license: -> '+sended);
+            writeToLog('license: -> ',sended);
             if(sended){
                 sendSuccess(res, sended);
             }else{

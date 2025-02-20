@@ -4,6 +4,7 @@ import axios from 'axios';
 // @ts-ignore
 import cron from 'node-cron';
 import { ScheduleData } from 'models/scheduleData';
+import { writeToLog } from '../utils/writeLog';
 const ENDPOINT_API = process.env.ENDPOINT_API
 const PORT = process.env.PORT
 const apiURL = `${ENDPOINT_API}${PORT}`
@@ -101,12 +102,12 @@ class scheduleService {
             cronExpression = `${data.minuti} ${data.ora} * * *`; 
         }
 
-        console.log(`[DEBUG] Configurazione cron: "${cronExpression}" per tipo "${type}"`);
+        writeToLog(`[DEBUG] Configurazione cron: "${cronExpression}" per tipo `,type);
 
         cron.schedule(
             cronExpression,
             async () => {
-                console.log(`[DEBUG] Esecuzione pianificata per tipo: ${type} alle ${data.ora}:${data.minuti}`);
+                writeToLog(`[DEBUG] Esecuzione pianificata per tipo: ${type} alle ${data.ora}:`, data.minuti);
                 await this.executeApi(type);
             },
             {
@@ -115,7 +116,7 @@ class scheduleService {
             }
         );
 
-        console.log(`[DEBUG] Cron job creato con successo per tipo: ${type}`);
+        writeToLog(`[DEBUG] Cron job creato con successo per tipo: `, type);
     }
 
     async getScheduleByType(type: 'importLicenses' | 'importOrders' | 'importCustomers' | 'sendOrders'): Promise<ScheduleData[string]> {
@@ -166,7 +167,7 @@ class scheduleService {
 
         try {
             const response = await axios.get(apiUrl);
-            console.log(`[SUCCESS] Risposta dall'API ${type}:`, response.data);
+            writeToLog(`[SUCCESS] Risposta dall'API ${type}:`, response.data);
         } catch (error: any) {
             console.error(`[ERROR] Errore durante l'esecuzione dell'API ${type}:`, error.message);
         }

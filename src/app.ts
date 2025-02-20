@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import routes from './routes/routes';
+import { writeToLog } from './utils/writeLog';
 const dotenv = require('dotenv');
 const path = require('path');
 dotenv.config();
@@ -20,5 +21,5 @@ app.get('/', async (req: Request, res: Response) => {
 app.use('/', routes);
 
 app.listen(PORT, () => {
-    console.log(`App KNM è online nella porta: ${PORT} - ${__dirname}`);
+    writeToLog(`App KNM è online nella porta: ${PORT} - ${__dirname}`, __dirname);
 });

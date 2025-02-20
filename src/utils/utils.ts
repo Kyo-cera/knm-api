@@ -1,6 +1,7 @@
 import { User } from "models/user";
 // import { Sign } from "jsonwebtoken"
 import { APIResponse } from "models/APIResponse";
+import { writeToLog } from '../utils/writeLog';
 
 
 export async function checkFileSize(path: any, fs : any, filePath:string) {
@@ -20,7 +21,7 @@ export async function checkFileSize(path: any, fs : any, filePath:string) {
       await fs.writeFile(logFilePath, 'reset', 'utf8');
 
       // Log the event
-      console.log('File size exceeded 100MB, backup created and log file reset.');
+      writeToLog('File size exceeded 100MB, backup created and log file reset.', stats);
 
       // Delete the original log file
       await fs.unlink(filePath);
