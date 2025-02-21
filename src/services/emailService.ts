@@ -6,6 +6,7 @@ import path from "path";
 import { scheduleDataEmail } from "models/scheduleDataEmail";
 import cron from 'node-cron';
 import { writeToLog } from '../utils/writeLog';
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 require("dotenv").config();
 const envPath = path.join(process.cwd(), '.env');
 const SCHEDULE_DATA_PATH = path.join(__dirname, "../data/scheduleData/scheduleDataEmail.json");
@@ -96,6 +97,7 @@ class Services {
     };
 
     static async getAttachments(messageId: string): Promise<any> {
+        dotenv.config();
         try {
             const userId = process.env.MAIL_SENDER;
             const url = `https://graph.microsoft.com/v1.0/users/${userId}/messages/${messageId}/attachments`;
@@ -114,6 +116,7 @@ class Services {
     }
 
     static async downloadAttachments(messageId: string): Promise<any[]> {
+        dotenv.config();
         try {
             const attachments = await Services.getAttachments(messageId);
             let attachmentTrovati: any[] = [];
@@ -155,12 +158,13 @@ class Services {
     
 
     static async markEmailAsRead(messageId: string, isRead: boolean): Promise<void> {
+        dotenv.config();
         try {
             if (!messageId) {
                 throw new Error("❌ messageId non valido o undefined");
             }
     
-            const url = `https://graph.microsoft.com/v1.0/me/messages/${messageId}`;
+            const url = `https://graph.microsoft.com/v1.0/users/KNM-Licenses@dit.kyocera.com/messages/${messageId}`;
     
             const response = await axios.patch(
                 url,
@@ -183,10 +187,10 @@ class Services {
 
 
     static async checkAndDownload(): Promise<any> {
-        // await Services.handleTokenRefresh();
-        // writeToLog("nuovo token: : ", process.env.TOKENMSG);
-        // dotenv.config();
-        // writeToLog("nuovo token: : ", process.env.TOKENMSG);
+        await Services.handleTokenRefresh();
+        writeToLog("nuovo token: : ", process.env.TOKENMSG);
+        dotenv.config();
+        writeToLog("nuovo token: : ", process.env.TOKENMSG);
         try {
             let emails = await this.getEmails()
             for (let email of emails){
@@ -315,7 +319,7 @@ class Services {
             async () => {
                 try {
                     writeToLog(`⏳ Avvio richiesta API a ${ora}:${minuti}...`,`${ora}, ${minuti}`);
-                    const response = await axios.get("http://localhost:3005/emailMC/checkAndDownload");
+                    const response = await axios.get(`${apiUrl}/emailMC/checkAndDownload`);
                     writeToLog("✅ API eseguita con successo:", response.data);
                 } catch (error) {
                     writeToLog("❌ Errore nell'esecuzione dell'API:", error);

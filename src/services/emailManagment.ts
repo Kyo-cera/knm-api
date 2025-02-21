@@ -5,6 +5,7 @@ import { writeToLog } from '../utils/writeLog';
 import fs from 'fs';
 import path from 'path';
 import db from '../database/database';
+import dotenv from 'dotenv';
 const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 const filePath = path.resolve('./src/data/devMode/devMode.json');
 let devMode: boolean 
@@ -188,7 +189,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
         let emails:any[] = []
         await new Promise(resolve => setTimeout(resolve, 5000)); 
 
-        const response: any = await axios.get(`http://localhost:3005/emailMC/getEmails`, {
+        const response: any = await axios.get(`${apiUrl}/emailMC/getEmails`, {
             headers: {
                 'Accept': 'application/json',
             },
@@ -255,12 +256,13 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 }
 
 async function markEmailAsRead(messageId: string, isRead: boolean): Promise<void> {
+    dotenv.config();
     try {
         if (!messageId) {
             throw new Error("❌ messageId non valido o undefined");
         }
 
-        const url = `https://graph.microsoft.com/v1.0/me/messages/${messageId}`;
+        const url = `https://graph.microsoft.com/v1.0/users/KNM-Licenses@dit.kyocera.com/messages/${messageId}`;
 
         const response = await axios.patch(
             url,
