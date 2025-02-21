@@ -128,7 +128,7 @@ class Services {
                     let fileName = attachment.name;
                     let savePath = "C:\\files";
 
-                    console.log("📂 Nome originale:", fileName);
+                    writeToLog("📂 Nome originale:", fileName);
 
                     if (fileName.includes("Consips2")) {
                         fileName = "Consips2 licenses SO.xlsx"
