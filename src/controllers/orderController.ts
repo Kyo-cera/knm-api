@@ -37,7 +37,6 @@ class OrderController{
     async getOrdersList(req: Request, res: Response){
         try{
             const pack  = await cartService();
-            writeToLog('# di richieste: ',pack);
             sendSuccess(res, pack);
         }catch(error: any){
             writeToLog("error ",error.message);

@@ -21,7 +21,6 @@ class emailController{
     async getEmailByType(req: Request, res: Response){
         try{
             const tipo = String(req.params['tipo']);
-            writeToLog('tipo ' , tipo);
             const email = await mailService.getEmailByType(tipo);
             sendSuccess(res, email);
         }catch(error: any){
@@ -68,7 +67,6 @@ class emailController{
     async getEmails(req: Request, res: Response){
         try{
             const mails = await emailServices.getEmails();
-            writeToLog('Emails trovate:', mails);
             sendSuccess(res, mails);
         }catch(error: any){
             sendError(res, error.message);

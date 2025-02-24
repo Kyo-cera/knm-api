@@ -16,7 +16,7 @@ class userController{
     async getUserById(req: Request, res: Response){
         try{
             const id = Number(req.params['id']);
-            writeToLog('element: ->:  ',id);
+
             const user = await userService.getUserById(id);
             if(user){
                 sendSuccess(res, user);
@@ -32,7 +32,7 @@ class userController{
         try{
             const data = req.body;
             const user = await userService.postUser(data); 
-           writeToLog("user ",user); 
+
             if(user){
                 sendSuccess(res, user);
             }else{
@@ -47,7 +47,6 @@ class userController{
         try{
             const id = Number(req.params['id']);
             const user = await userService.deleteUser(id); 
-            writeToLog("user ",user); 
             if(user){
                 sendSuccess(res, user);
             }else{
@@ -63,7 +62,6 @@ class userController{
             const data = req.body;
             const id = Number(req.params['id']);
             const user = await userService.updateUser(id, data); 
-            writeToLog("user ",user);  
             if(user){
                 sendSuccess(res, user);
             }else{
@@ -79,7 +77,6 @@ class userController{
             const data = req.body;
             const id = Number(req.params['id']);
             const user = await userService.updateUserPassword(id, data); 
-            writeToLog("user ",user);  
             if(user){
                 sendSuccess(res, user);
             }else{
@@ -93,7 +90,6 @@ class userController{
     async getUsersByType(req: Request, res: Response){
         try{
             const type = String(req.params['type']);
-            writeToLog('element: ->:  ',type);
             const user = await userService.getUsersByType(type);
             if(user){
                 sendSuccess(res, user);
@@ -108,7 +104,6 @@ class userController{
     async getUsersByRole(req: Request, res: Response){
         try{
             const role = String(req.params['role']);
-            writeToLog('element: ->:  ',role);
             const user = await userService.getUsersByRole(role);
             if(user){
                 sendSuccess(res, user);
@@ -123,7 +118,6 @@ class userController{
     async getUsersByEmail(req: Request, res: Response){
         try{
             const email = String(req.params['email']);
-            writeToLog('element: ->:  ',email);
             const user = await userService.getUsersByEmail(email);
             if(user){
                 sendSuccess(res, user);

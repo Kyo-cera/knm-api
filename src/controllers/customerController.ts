@@ -50,7 +50,6 @@ class customerController{
     async getCustomerByItem(req: Request, res: Response){
         try{
             const id = Number(req.params['id']);
-            writeToLog('element: ->:  ',id);
             const customer = await customerService.getCustomerByItemOda(id);
             if(customer){
                 sendSuccess(res, customer);
@@ -66,7 +65,6 @@ class customerController{
         try{
             const data = req.body;
             const customer = await customerService.postCustomer(data); 
-           writeToLog("customer ", customer); 
             if(customer){
                 sendSuccess(res, customer);
             }else{

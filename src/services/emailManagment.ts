@@ -33,7 +33,6 @@ class EmailManagmentService {
 
         try {
             await fs.promises.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
-            writeToLog(`devMode aggiornato in ${filePath}:`, data);
             return data;
         } catch (error) {
             console.error('Errore durante il salvataggio di devMode:', error);
@@ -77,8 +76,6 @@ export const emailAdmin = async () => {
           for (const salesDoc of salesDocs) {
               const customerResponse = await axios.get(`${apiUrl}/customer/`);
               const customers = customerResponse.data.data;
-              writeToLog('customerResponse:', customerResponse);
-              writeToLog('customers:', customers);
           
               let customerWithSalesDoc = false;
               let customerWithoutEmail = false;
@@ -87,7 +84,6 @@ export const emailAdmin = async () => {
           
               if (customers && customers.length > 0) {
                   for (const customer of customers) {
-                    writeToLog(`Controllo cliente: ${customer.Sales_Doc} per Sales Doc:`, salesDoc);
                       if (customer.Sales_Doc === salesDoc) {
                           customerWithSalesDoc = true;
                           break; 
@@ -120,7 +116,6 @@ export const emailAdmin = async () => {
                   };
           
                   const sendSuccess = await sendEmail(emailData);
-                  writeToLog('Email inviata per Sales Doc:'+ salesDoc+ 'Risultato:', sendSuccess);
               } else {
                 writeToLog(`Nessuna email inviata per Sales Doc: ${salesDoc} perché è associato a un cliente.`, salesDoc);
               }
@@ -129,8 +124,6 @@ export const emailAdmin = async () => {
 
 export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<boolean> => {
     try {
-        writeToLog("Inizio funzione getEmailCustomer", salesDoc);
-
         const resp = await axios.get(`${apiUrl}/license/email/${salesDoc}`);
         const email = resp.data;
         const userEmail = email.data[0].email;
@@ -143,8 +136,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             console.error("Errore: `customer` o `customer.Email` non definito per `oda`:", oda);
             return false;
         }
-
-        writeToLog('Cliente:', customer);
 
         const EmailcustomersResp = await axios.get(`${apiUrl}/email/byType/Emailcustomers`);
         const Emailcustomers = EmailcustomersResp.data.data;
@@ -162,7 +153,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             return false;
         }
 
-        writeToLog('Emailcustomers su getEmailCustomer:', Emailcustomers);
 
         if(customer && Emailcustomers){
 
@@ -170,7 +160,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             let bodyCust = Emailcustomers.body || '';
             // let emailCust = Emailcustomers.email || '';
             let emailCust = customer.Email || '';
-            writeToLog('emailCust: ', emailCust);
 
             if (bodyCust.includes("cliente")) {
                 bodyCust = bodyCust.replace("cliente,", `${customer.Ordinante}<br>`);
@@ -184,7 +173,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             emailBody: `<p>${bodyCust}</p>`,
             attachment: fileExcel
         };
-        writeToLog('emailData: ', emailData);
         const sendsuccess = await sendEmail(emailData);
         let emails:any[] = []
         await new Promise(resolve => setTimeout(resolve, 5000)); 
@@ -197,7 +185,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
         
         if (response) {
-            writeToLog("Email data: ", response.data.data);
             emails = response.data.data
             let emailsFiltrate = []
             for (let emailFiltrate of  emails) {
@@ -205,10 +192,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                     emailsFiltrate.push(emailFiltrate)
                 }
             }
-            writeToLog("emailsFiltrate: ", emailsFiltrate);
-            writeToLog("emails[0]: ", emails[0]);
-            writeToLog("Emailadmin: ", Emailadmin);
-            writeToLog("Email filtrate trovate:", emailsFiltrate.length);
+
             await new Promise(resolve => setTimeout(resolve, 15000));
             if (emailsFiltrate[0]?.subject.includes("Non recapitabile")) {
                 const emailDataSbagliata: EmailData = {
@@ -221,7 +205,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                 };
                 await sendEmail(emailDataSbagliata);
                 await new Promise(resolve => setTimeout(resolve, 15000)); 
-                writeToLog("ID email da marcare come letta:", emailsFiltrate[0].id);
                 await markEmailAsRead(emailsFiltrate[0].id, true)
                 await new Promise(resolve => setTimeout(resolve, 5000)); 
                 try {
@@ -231,7 +214,6 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                         WHERE "Sales_Doc" = '${salesDoc}'
                     `);
             
-                    writeToLog(`Licenze aggiornate per Sales_Doc: `, salesDoc);
                 } catch (error) {
                     console.error("Errore durante l'aggiornamento del database:", error);
                 }

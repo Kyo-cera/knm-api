@@ -11,12 +11,10 @@ async function processSalesDoc(): Promise<void> {
           //   processCheckData(); // check data &  invio email con i clienti senza email
           const response = await axios.get(`${apiUrl}/orders/sales`);
           const items = response.data.data;
-          writeToLog("items: ",items)
 
           emailAdmin();
 
        if (items.length === 0) {
-        writeToLog('non ci sono ordini da spedire: ' , items.length);
             return items.length;
         }else{   
             
@@ -24,9 +22,6 @@ async function processSalesDoc(): Promise<void> {
                 const salesDoc = item.Sales_Doc;
                 const oda = item.ODA;
                 const cart = await callSalesDoc(salesDoc);
-                writeToLog('ORDINE PER :'+ salesDoc+' numero di licenze richieste: ',cart.length); // Test del documento di vendita
-                writeToLog('ODA PER :', oda);
-                writeToLog('item :', item);
     
           if (cart) {
                     const pack = await getPackLicense(salesDoc);
@@ -35,16 +30,12 @@ async function processSalesDoc(): Promise<void> {
                 if(pack.length > 0){
                    
                     const emailSend = await getEmailCustomer(salesDoc, oda);
-                    writeToLog('callSalesDoc: ordine da spedire:', pack.length); 
-                    writeToLog('la email spedita con :', emailSend); 
                     if(emailSend){
                      const updateLicense = await  sendedLicense(salesDoc);
                   
-                     writeToLog('updateLicense :', updateLicense); 
                     }
                     
                 }else{
-                   
                     writeToLog('non ci sono ordine da spedire ', pack.length);
                 }    
                 }
@@ -63,7 +54,6 @@ async function callSalesDoc(salesDoc: string): Promise<any> {
     try {
         const response = await axios.get(`${apiUrl}/orders/listSalesDoc/${salesDoc}`);
         const data = response.data.data;
-        writeToLog('licenze richieste da :'+salesDoc+' #', await data.length);
 let LicenseFound=0;
         for (const item of data) {
            writeToLog('callSalesDoc- License:', item.License);
@@ -86,9 +76,7 @@ async function getLicense(license: string, salesDoc: string, item: string): Prom
     try {
             const resp = await axios.get(`${apiUrl}/license/${license}`);
             const LIC_KEY = await resp.data.data.LICENSE_KEY;
-            writeToLog('ricerca: licenza di tipo: '+ license+" --> ",resp.data.data.length);
             if (LIC_KEY) {
-                writeToLog(" - Richiesta della licenza booked " + salesDoc + "--" + item + "--" + LIC_KEY + "--" , license);
                 const booked = await reserverdLicense(salesDoc, item, LIC_KEY);
             } else {
                 writeToLog("al momento non ci sono le licenze a disponibilità esaurita "+LIC_KEY+" tipo: " ,license);
@@ -107,7 +95,6 @@ async function reserverdLicense(salesDoc: string, item: string, key: string): Pr
     try {
         const resp = await axios.put(`${apiUrl}/license/booking/${salesDoc}/${item}/${key}/prenotato`);
         const reserve = await resp.data; 
-        writeToLog('reserverdLicense- prenotazione della licenza fatta :',salesDoc+'- '+item+'-'+ key+'-'+reserve);
        return reserve;
     } catch (error) {
         writeToLog("Errore durante prenotazione della licenza "+key+"--"+salesDoc+"--",error);
@@ -119,10 +106,8 @@ async function sendedLicense(salesDoc: string): Promise<any> {
     try {
         const keys: string[]=await readLicenseKeysFromExcel(salesDoc);
 
-        writeToLog('key: ',keys);
         processLicenseKeys(keys)
         .then((results) => {
-            writeToLog('agiornamento delle chiavi:', results);
             return results;
         })
         .catch((error) => {
@@ -141,11 +126,8 @@ async function getPackLicense(salesDoc: string): Promise<any> {
     try {
         const resp = await axios.get(`${apiUrl}/license/pack/${salesDoc}`);
         const pack = await resp.data.data; 
-        writeToLog('pack: ',pack);
         if (pack.length > 0) {
-            writeToLog("richiesta creazione file excel "+salesDoc+"--",pack.length);
             const fileExcel = await createExcelFileLicense(pack,salesDoc);
-            writeToLog('fileExcel resp: ',fileExcel);
         }
         
         

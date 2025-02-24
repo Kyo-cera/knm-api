@@ -69,6 +69,10 @@ class Services {
     };
 
     static getEmails = async (): Promise<any> => {
+        await Services.handleTokenRefresh();
+        writeToLog("nuovo token: : ", process.env.TOKENMSG);
+        dotenv.config();
+        writeToLog("nuovo token: : ", process.env.TOKENMSG);
         try {
             const accessToken = process.env.TOKENMSG;
             const userId = process.env.MAIL_SENDER; // Usa l'ID utente specificato
