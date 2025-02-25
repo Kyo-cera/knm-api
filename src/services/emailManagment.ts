@@ -131,6 +131,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
 
         const customerResp = await axios.get(`${apiUrl}/customer/${oda}`);
         const customer = customerResp.data.data;
+        let customerEmail = customer.Email
 
         if (!customer || !customer.Email) {
             console.error("Errore: `customer` o `customer.Email` non definito per `oda`:", oda);
@@ -143,9 +144,11 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
         const Emailadmin = EmailadminResp.data.data;
 
           let emailAdmin = '';
+          let bodyAdmin = '';
           
           if (Emailadmin && Emailadmin.email) {
               emailAdmin = Emailadmin.email;
+              bodyAdmin = Emailadmin.body || '';
           }
 
         if (!Emailcustomers) {
@@ -198,10 +201,8 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
                     subject: `Indirizzo email inesistente - Sales Doc: ${salesDoc}`,
-                    emailBody: `<p>Indirizzo email inesistente</p>`,
-                    ...(fs.existsSync(path.join(__dirname, '../attachment/SalesDoc-Without-email.xlsx')) && {
-                        attachment: "SalesDoc-Without-email.xlsx"
-                    })
+                    emailBody: `<p>${bodyAdmin} ${customerEmail}</p>`,
+                    attachment: fileExcel
                 };
                 await sendEmail(emailDataSbagliata);
                 await new Promise(resolve => setTimeout(resolve, 15000)); 
