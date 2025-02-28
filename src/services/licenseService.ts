@@ -83,6 +83,15 @@ class LicenseService {
         }
         return null;
     }
+
+    async getLicenseBySalesDoc(salesDoc: string): Promise<License | null> {
+        const license = await db.query(`SELECT * FROM dbo.licenze WHERE "Sales_Doc" = '${salesDoc}'`);
+        if (Array.isArray(license) && license.length > 0) {
+            return license[0] as License;
+        }
+        return null;
+    }
+
     async getLicensePack(salesDoc: string): Promise<License | null> {
         const licenses = await db.query(`
             SELECT "Element", "LICENSE_KEY", "Sales_Doc", "Item", "STATO" 

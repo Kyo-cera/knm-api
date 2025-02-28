@@ -10,6 +10,7 @@ licenseRouter.put('/sended/:key/:stato', licenseController.putLicenseSended);
 licenseRouter.get('/pack/:salesDoc', licenseController.getLicensePack);
 licenseRouter.get('/email/:salesDoc', licenseController.getEmailOrdering);
 licenseRouter.get('/import/licenses', licenseController.importLicenses);
+licenseRouter.get('/bySalesDoc/:salesDoc', licenseController.getLicenseBySalesDoc);
 /* sended
 licenseRouter.get('/', licenseController.getAlllicense);
 productRouter.post('/', productController.postProduct);

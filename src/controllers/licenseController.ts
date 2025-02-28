@@ -40,6 +40,21 @@ class LicenseController{
             sendError(res, error.message);
         }
     }
+
+    async getLicenseBySalesDoc(req: Request, res: Response){
+        try{
+            const salesDoc = String(req.params['salesDoc']);
+            const license = await licenseService.getLicenseBySalesDoc(salesDoc);
+            if(license){
+                sendSuccess(res, license);
+            }else{
+                sendError(res, `license not found`, 404);
+            }
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
     async getLicensePack(req: Request, res: Response){
         try{
             const salesDoc = String(req.params['salesDoc']);
