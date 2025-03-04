@@ -104,15 +104,13 @@ export const emailAdmin = async () => {
                     }
                 }
             }
-          
+            const fileExcel = `${salesDoc}.xlsx`;
               if (!customerWithSalesDoc || customerWithoutEmail) {
                   const emailData: EmailData = {
                       recipient: `${emailAdmin}`,
                       subject: `${customerWithApostrofo ? `Indirizzo email ${custEmail} non valido` : subjectAdmin} - Sales Doc: ${salesDoc}`,
                       emailBody: `<p>${bodyAdmin}<br>Sales Doc: ${salesDoc}</p>`,
-                      ...(fs.existsSync(path.join(__dirname, '../attachment/SalesDoc-Without-email.xlsx')) && {
-                          attachment: "SalesDoc-Without-email.xlsx"
-                      })
+                      attachment: fileExcel
                   };
           
                   const sendSuccess = await sendEmail(emailData);
