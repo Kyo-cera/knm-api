@@ -199,7 +199,8 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
                     subject: `Correzione Indirizzo Email Cliente - Sales Doc: ${salesDoc}`,
-                    emailBody: `<p>Abbiamo riscontrato che l'indirizzo email associato al cliente ${customerEmail} è errato.<br>
+                    emailBody: `<p> Gentile Customer Support,<br>
+                    Abbiamo riscontrato che l'indirizzo email associato al cliente ${customerEmail} è errato.<br>
                     Potresti gentilmente aggiornare l'email con quella corretta?<br>
                     Grazie per il supporto!<br>
                     Cordiali saluti,<br>
