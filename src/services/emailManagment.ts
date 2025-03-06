@@ -199,7 +199,7 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
                     subject: `Indirizzo email inesistente - Sales Doc: ${salesDoc}`,
-                    emailBody: `<p>${bodyAdmin} ${customerEmail}</p>`,
+                    emailBody: `<p>Non è stato possibile recapitare il messaggio a ${customerEmail}</p>`,
                     attachment: fileExcel
                 };
                 await sendEmail(emailDataSbagliata);
