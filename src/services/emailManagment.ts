@@ -198,8 +198,13 @@ export const getEmailCustomer = async (salesDoc: string, oda: string): Promise<b
             if (emailsFiltrate[0]?.subject.includes("Non recapitabile")) {
                 const emailDataSbagliata: EmailData = {
                     recipient: `${emailAdmin}`,
-                    subject: `Indirizzo email inesistente - Sales Doc: ${salesDoc}`,
-                    emailBody: `<p>Non è stato possibile recapitare il messaggio a ${customerEmail}</p>`,
+                    subject: `Correzione Indirizzo Email Cliente - Sales Doc: ${salesDoc}`,
+                    emailBody: `<p>Abbiamo riscontrato che l'indirizzo email associato al cliente ${customerEmail} è errato.<br>
+                    Potresti gentilmente aggiornare l'email con quella corretta?<br>
+                    Grazie per il supporto!<br>
+                    Cordiali saluti,<br>
+                    Customer Support
+                    </p>`,
                     attachment: fileExcel
                 };
                 await sendEmail(emailDataSbagliata);
