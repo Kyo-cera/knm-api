@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import userService from "../services/userService";
 import { sendError, sendSuccess } from '../utils/requestHandlers';
 import { writeToLog } from '../utils/writeLog';
@@ -119,6 +119,48 @@ class userController{
         try{
             const email = String(req.params['email']);
             const user = await userService.getUsersByEmail(email);
+            if(user){
+                sendSuccess(res, user);
+            }else{
+                sendError(res, `email not found`, 404);
+            }
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async verifyToken(req: Request, res: Response){
+        try{
+            const token = String(req.params['token']);
+            const user = await userService.verifyToken(token);
+            if(user){
+                sendSuccess(res, user);
+            }else{
+                sendError(res, `token not found`, 404);
+            }
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async authMiddleware(req: Request, res: Response, next: NextFunction){
+        try{
+            const token = String(req.params['token']);
+            const user = await userService.verifyToken(token);
+            if(user){
+                sendSuccess(res, user);
+            }else{
+                sendError(res, `token not found`, 404);
+            }
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+
+    async verifyUserByEmail(req: Request, res: Response){
+        try{
+            const email = String(req.params['email']);
+            const user = await userService.verifyUserByEmail(email);
             if(user){
                 sendSuccess(res, user);
             }else{

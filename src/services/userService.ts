@@ -1,6 +1,13 @@
 import { User } from 'models/user';
 import db from '../database/database';
 import { writeToLog } from '../utils/writeLog';
+import jsonwebtoken from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { Request, Response, NextFunction } from 'express';
+import { sendEmail } from '../utils/email';
+import { EmailData } from 'models/email';
+
+
 class userService {
 
     async getAllUsers(): Promise<User[]> {
@@ -8,14 +15,42 @@ class userService {
         return users as User[];
     }
 
-    async getUserById(ID:number): Promise<User[] | null | any> {
-        const user = await db.query(`SELECT * FROM dbo.users WHERE "id" = '${ID}' RETURNING *;`);
-        if (Array.isArray(user) && user.length > 0) {
-            return user[0] as User;
+    async getUserById(ID: number): Promise<any> {
+        try {
+            const user = await db.query(`SELECT * FROM dbo.users WHERE "id" = '${ID}'`);
+            
+            if (Array.isArray(user) && user.length > 0) {
+                const userData = user[0] as User;
+    
+                const token = generateToken(userData.email);
+                userData["token"] = token; // Aggiungo il token nell'oggetto
+    
+                return {
+                    success: true,
+                    data: userData,
+                    token: token, // 🔥 Token nel ritorno
+                    error: null
+                };
+            }
+    
+            writeToLog('user not found ', user);
+            return {
+                success: false,
+                data: null,
+                error: "Utente non trovato"
+            };
+    
+        } catch (error) {
+            console.error("Errore durante il recupero dell'utente per ID:", error);
+            return {
+                success: false,
+                data: null,
+                error: error
+            };
         }
-        writeToLog('user not found ',user);
-        return user;
     }
+    
+    
 
     async postUser(data: User): Promise<User[] | null> {
         try {
@@ -181,24 +216,162 @@ class userService {
         }
     }
     
-    async getUsersByEmail(email: string): Promise<User[] | null> {
+    async getUsersByEmail(email: string): Promise<any> {
         try {
-            const query = `SELECT * FROM dbo.users WHERE "email" = '${email}';`;
+            const user = await db.query(`SELECT * FROM dbo.users WHERE "email" = '${email}'`);
+            
+            if (Array.isArray(user) && user.length > 0) {
+                const userData = user[0] as User;
     
-            const result = await db.query(query);
+                const token = generateToken(userData.email);
+                userData["token"] = token; // Aggiungo il token nell'oggetto
     
-            if (Array.isArray(result) && result.length > 0) {
-                return result as User[]; 
+                return {
+                    success: true,
+                    data: userData,
+                    token: token, // 🔥 Token nel ritorno
+                    error: null
+                };
             }
     
-            writeToLog('Nessun utente trovato per il tipo: ' , email);
-            return null; 
+            writeToLog('user not found ', user);
+            return {
+                success: false,
+                data: null,
+                error: "Utente non trovato"
+            };
+    
         } catch (error) {
-            console.error('Errore durante il recupero degli utenti per tipo:', error);
-            throw error; 
+            console.error("Errore durante il recupero dell'utente per ID:", error);
+            return {
+                success: false,
+                data: null,
+                error: error
+            };
         }
     }
 
+    async verifyToken(token: string): Promise<any>{
+        try {
+            const decoded = jsonwebtoken.verify(token, secretKey);
+            return decoded;
+        } catch (error) {
+            console.error("Token non valido o scaduto:", error);
+            return null;
+        }
+    };
+
+    async authMiddleware (req: Request, res: Response, next: NextFunction): Promise<any>{
+        try {
+            const authHeader = req.headers.authorization;
+    
+            if (!authHeader) {
+                return res.status(401).json({ success: false, message: 'Token mancante' });
+            }
+
+            const token = authHeader.split(' ')[1];
+    
+            if (!token) {
+                return res.status(401).json({ success: false, message: 'Token non valido' });
+            }
+    
+            const decoded = verifyToken(token);
+    
+            if (!decoded) {
+                return res.status(401).json({ success: false, message: 'Token scaduto o non valido' });
+            }
+
+            (req as any).user = decoded;
+
+            next();
+    
+        } catch (error) {
+            console.error('Errore autenticazione:', error);
+            return res.status(401).json({ success: false, message: 'Token non valido' });
+        }
+    
+    };
+
+async verifyUserByEmail(email: string): Promise<any> {
+    try {
+        // Controllo che l'email non sia vuota
+        if (!email) {
+          return { success: false, error: "Email is required" };
+        }
+    
+        // Esegui la query per controllare se l'email esiste nel DB
+        const result = await db.query(
+          `SELECT email FROM dbo.users WHERE "email" = '${email}'`
+        );
+    
+        // Se la mail non è trovata, ritorna errore
+        if (!result || result.length === 0) {
+          console.log("Email non trovata:", email);
+          return { success: false, error: "Email not found in the database" };
+        }
+    
+        console.log("Email trovata:", email);
+    
+        // Creiamo i dati per la mail
+        const emailData: EmailData = {
+            recipient: `${email}`,
+            subject: `cambia password per la mail: ${email}`,
+            emailBody: `<p>cambia qui la tua password: </p>`
+        };
+    
+        // Usiamo la funzione già pronta per inviare la mail
+        const emailStatus = await sendEmail(emailData);
+    
+        // Se la mail non parte, ritorniamo errore
+        if (emailStatus !== "success") {
+          console.error("Errore nell'invio dell'email:", emailStatus);
+          return { success: false, error: "Failed to send email" };
+        }
+    
+        console.log(`Email di verifica inviata a: ${email}`);
+    
+        // Ritorna un risultato di successo
+        return {
+          success: true,
+          message: "Verification email sent successfully"
+        };
+      } catch (error) {
+        console.error("Errore nel service verifyUserByEmail:", error);
+        return { success: false, error: error || "Internal server error" };
+      }
+    }    
+
+
 }
+
+dotenv.config();
+
+const secretKey = process.env.JWT_SECRET || 'defaultSecretKey';
+
+export const generateToken = (email: string): string => {
+    try {
+        const payload = {
+            email: email,
+            exp: Math.floor(Date.now() / 1000) + (1 * 60)
+        };
+
+        const token = jsonwebtoken.sign(payload, secretKey);
+        return token;
+    } catch (error) {
+        console.error("Errore nella generazione del token:", error);
+        throw new Error('Errore nella generazione del token');
+    }
+};
+
+export const verifyToken = (token: string) => {
+    try {
+        const decoded = jsonwebtoken.verify(token, secretKey);
+        return decoded;
+    } catch (error) {
+        console.error("Token non valido o scaduto:", error);
+        return null;
+    }
+};
+
 
 export default new userService();

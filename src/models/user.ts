@@ -11,5 +11,5 @@ export interface User {
     locale?: string;
     password?: string;
     created_at?: string;
-  
+    token?: string;
     }

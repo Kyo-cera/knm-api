@@ -1,0 +1,10 @@
+{
+  "sendOrders": {
+    "ora": 0,
+    "minuti": 0,
+    "settimanale": false,
+    "giornoDellaSettimana": "",
+    "mensile": false,
+    "giornoDelMese": ""
+  }
+}

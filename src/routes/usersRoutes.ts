@@ -11,6 +11,8 @@ usersRouter.put('/updateUserPassword/:id', userController.updateUserPassword);
 usersRouter.get('/getUsersByType/:type', userController.getUsersByType);
 usersRouter.get('/getUsersByRole/:role', userController.getUsersByRole);
 usersRouter.get('/getUsersByEmail/:email', userController.getUsersByEmail);
-
+usersRouter.get('/verifyToken/:token', userController.verifyToken);
+usersRouter.get('/authMiddleware/:token', userController.authMiddleware);
+usersRouter.get('/verifyUserByEmail/:email', userController.verifyUserByEmail);
 
 export default usersRouter; 
