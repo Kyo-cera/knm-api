@@ -316,7 +316,8 @@ async verifyUserByEmail(email: string): Promise<any> {
         const emailData: EmailData = {
             recipient: `${email}`,
             subject: `cambia password per la mail: ${email}`,
-            emailBody: `<p>cambia qui la tua password: </p>`
+            emailBody: `<p>cambia qui la tua password: </p>`,
+            attachment: "resetPSW.txt"
         };
     
         // Usiamo la funzione già pronta per inviare la mail

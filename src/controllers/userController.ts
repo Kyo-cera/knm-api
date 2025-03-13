@@ -157,19 +157,23 @@ class userController{
         }
     }
 
-    async verifyUserByEmail(req: Request, res: Response){
-        try{
+    async verifyUserByEmail(req: Request, res: Response) {
+        console.log("✅ Rotta colpita con metodo:", req.method);
+        console.log("📩 Email ricevuta:", req.params['email']);
+        
+        try {
             const email = String(req.params['email']);
             const user = await userService.verifyUserByEmail(email);
-            if(user){
+            if (user) {
                 sendSuccess(res, user);
-            }else{
+            } else {
                 sendError(res, `email not found`, 404);
             }
-        }catch(error: any){
+        } catch (error: any) {
             sendError(res, error.message);
         }
     }
+    
 
 }
 export default new userController();
