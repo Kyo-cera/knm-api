@@ -306,11 +306,8 @@ async verifyUserByEmail(email: string): Promise<any> {
     
         // Se la mail non è trovata, ritorna errore
         if (!result || result.length === 0) {
-          console.log("Email non trovata:", email);
           return { success: false, error: "Email not found in the database" };
         }
-    
-        console.log("Email trovata:", email);
     
         // Creiamo i dati per la mail
         const emailData: EmailData = {
@@ -328,10 +325,6 @@ async verifyUserByEmail(email: string): Promise<any> {
           console.error("Errore nell'invio dell'email:", emailStatus);
           return { success: false, error: "Failed to send email" };
         }
-    
-        console.log(`Email di verifica inviata a: ${email}`);
-    
-        // Ritorna un risultato di successo
         return {
           success: true,
           message: "Verification email sent successfully"

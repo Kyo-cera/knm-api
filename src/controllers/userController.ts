@@ -158,9 +158,6 @@ class userController{
     }
 
     async verifyUserByEmail(req: Request, res: Response) {
-        console.log("✅ Rotta colpita con metodo:", req.method);
-        console.log("📩 Email ricevuta:", req.params['email']);
-        
         try {
             const email = String(req.params['email']);
             const user = await userService.verifyUserByEmail(email);
