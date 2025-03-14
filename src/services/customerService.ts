@@ -1,7 +1,11 @@
 import { Customer } from 'models/customer';
 import db from '../database/database';
+const axios = require('axios');
+import { EmailData } from '../models/email';
+import { sendEmail } from '../utils/email';
 import { createPDFList, processJsonFiles, readSalesDocuments, runAllProcessesPDF, updateStatusFromApi } from '../utils/pdf';
 import { writeToLog } from '../utils/writeLog';
+const apiUrl = `${process.env.ENDPOINT_API}${process.env.PORT}`;
 class customerService {
     async getAllCustomers(): Promise<Customer[]> {
         const customers = await db.query(`SELECT * FROM dbo.ordinante`);
@@ -111,6 +115,23 @@ class customerService {
 async getCustomerAllPdfProcess(): Promise<object> {
   try {           
       const results = await runAllProcessesPDF();
+      const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
+      const Emailadmin = EmailadminResp.data.data;
+
+    let emailAdmin = '';
+    
+    if (Emailadmin && Emailadmin.email) {
+        emailAdmin = Emailadmin.email;
+    }
+
+      const emailData: EmailData = {
+          recipient: `${emailAdmin}`,
+          subject: `Knm import customers`,
+          emailBody: `<p>${results?.success} customers imported</p>`,
+          attachment: `noTXT.txt`
+      };
+      const sendSuccess = await sendEmail(emailData);
+
     //  console.log("results:: ",results);
       return {results}
     } catch (error) {

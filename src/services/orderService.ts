@@ -1,5 +1,7 @@
 import { Order } from 'models/order';
 import db from '../database/database';
+import { EmailData } from '../models/email';
+import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
 const XLSX = require('xlsx');
 const axios = require('axios');
@@ -168,6 +170,23 @@ async getOrderListxDoc(salesDoc: string): Promise<Order | null> {
         } catch (error) {
             console.error('Errore nello spostamento del file:', error);
         }
+
+        const EmailadminResp = await axios.get(`${urlApi}/email/byType/Emailadmin`);
+            const Emailadmin = EmailadminResp.data.data;
+
+          let emailAdmin = '';
+          
+          if (Emailadmin && Emailadmin.email) {
+              emailAdmin = Emailadmin.email;
+          }
+
+            const emailData: EmailData = {
+                recipient: `${emailAdmin}`,
+                subject: `Knm import orders`,
+                emailBody: `<p>${newOrders.length} orders imported</p>`,
+                attachment: `noTXT.txt`
+            };
+            const sendSuccess = await sendEmail(emailData);
 
         return { 
             orders: newOrders,

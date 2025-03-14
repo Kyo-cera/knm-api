@@ -41,6 +41,24 @@ async function processSalesDoc(): Promise<void> {
                 }
                
             }
+
+            const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
+            const Emailadmin = EmailadminResp.data.data;
+
+          let emailAdmin = '';
+          
+          if (Emailadmin && Emailadmin.email) {
+              emailAdmin = Emailadmin.email;
+          }
+
+            const emailData: EmailData = {
+                recipient: `${emailAdmin}`,
+                subject: `Knm send licenses`,
+                emailBody: `<p>${items.length} licences have been sent</p>`,
+                attachment: `noTXT.txt`
+            };
+            const sendSuccess = await sendEmail(emailData);
+
             return items.length;
         }
      

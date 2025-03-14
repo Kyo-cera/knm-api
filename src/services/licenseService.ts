@@ -1,6 +1,8 @@
 import { License } from 'models/license';
 import db from '../database/database';
 import { IResult } from 'mssql';
+import { EmailData } from '../models/email';
+import { sendEmail } from '../utils/email';
 import { writeToLog } from '../utils/writeLog';
 const csv = require('csv-parser');
 
@@ -459,6 +461,23 @@ LIMIT 1;
                 console.error('Error processing licenses:', error);
             }
         }
+
+        const EmailadminResp = await axios.get(`${apiUrl}/email/byType/Emailadmin`);
+            const Emailadmin = EmailadminResp.data.data;
+
+          let emailAdmin = '';
+          
+          if (Emailadmin && Emailadmin.email) {
+              emailAdmin = Emailadmin.email;
+          }
+
+            const emailData: EmailData = {
+                recipient: `${emailAdmin}`,
+                subject: `Knm import licenses`,
+                emailBody: `<p>${totalNewLicenses.length} licenses imported</p>`,
+                attachment: `noTXT.txt`
+            };
+            const sendSuccess = await sendEmail(emailData);
     
         writeToLog(`Total new licenses: ${totalNewLicenses.length}, Total duplicates: `, totalDuplicates);
         return { 
