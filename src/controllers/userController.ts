@@ -117,7 +117,7 @@ class userController{
 
     async getUsersByEmail(req: Request, res: Response){
         try{
-            const email = String(req.params['email']);
+            const email = String(req.body['email']);
             const user = await userService.getUsersByEmail(email);
             if(user){
                 sendSuccess(res, user);
