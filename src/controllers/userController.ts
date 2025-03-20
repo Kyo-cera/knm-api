@@ -171,6 +171,19 @@ class userController{
         }
     }
     
+    async newToken(req: Request, res: Response) {
+        try {
+            const email = String(req.params['email']);
+            const token = await userService.newToken(email);
+            if (token) {
+                sendSuccess(res, token);
+            } else {
+                sendError(res, `token not found`, 404);
+            }
+        } catch (error: any) {
+            sendError(res, error.message);
+        }
+    }
 
 }
 export default new userController();

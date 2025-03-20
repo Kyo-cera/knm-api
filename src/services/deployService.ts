@@ -13,7 +13,6 @@ class DeployService {
             
             const { stdout, stderr } = await execAsync(command);
             writeToLog('Deploy output:', stdout);
-            // commento di prova
             if (stderr) {
                 console.error('Deploy errors:', stderr);
                 throw new Error(stderr);
@@ -27,6 +26,41 @@ class DeployService {
     public async deployFE(): Promise<void> {
         try {
             const scriptPath = path.resolve(__dirname, '../../../deploy/deployFE.ps1');
+            const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
+            
+            const { stdout, stderr } = await execAsync(command);
+            writeToLog('Deploy output:', stdout);
+            
+            if (stderr) {
+                console.error('Deploy errors:', stderr);
+                throw new Error(stderr);
+            }
+        } catch (error) {
+            console.error('Deploy failed:', error);
+            throw error;
+        }
+    }
+
+    public async deployBEPROD(): Promise<void> {
+        try {
+            const scriptPath = path.resolve(__dirname, '../../../deploy/deployBEPROD.ps1');
+            const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
+            
+            const { stdout, stderr } = await execAsync(command);
+            writeToLog('Deploy output:', stdout);
+            if (stderr) {
+                console.error('Deploy errors:', stderr);
+                throw new Error(stderr);
+            }
+        } catch (error) {
+            console.error('Deploy failed:', error);
+            throw error;
+        }
+    }
+
+    public async deployFEPROD(): Promise<void> {
+        try {
+            const scriptPath = path.resolve(__dirname, '../../../deploy/deployFEPROD.ps1');
             const command = `powershell.exe -ExecutionPolicy Bypass -File "${scriptPath}"`;
             
             const { stdout, stderr } = await execAsync(command);

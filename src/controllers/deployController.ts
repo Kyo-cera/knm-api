@@ -21,5 +21,21 @@ class deployController{
             sendError(res, error.message);
         }
     }
+    async deployBEPROD(req: Request, res: Response){
+        try{
+            const users = await deployService.deployBEPROD();
+            sendSuccess(res, users);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
+    async deployFEPROD(req: Request, res: Response){
+        try{
+            const users = await deployService.deployFEPROD();  
+            sendSuccess(res, users);
+        }catch(error: any){
+            sendError(res, error.message);
+        }
+    }
 }
 export default new deployController();

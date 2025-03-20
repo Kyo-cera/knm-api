@@ -335,6 +335,16 @@ async verifyUserByEmail(email: string): Promise<any> {
       }
     }    
 
+    async newToken(email: string): Promise<any>{
+        try {
+            const token = generateToken(email);
+            return token;
+        } catch (error) {
+            console.error("Token non valido o scaduto:", error);
+            return null;
+        }
+    };
+
 
 }
 
@@ -346,7 +356,7 @@ export const generateToken = (email: string): string => {
     try {
         const payload = {
             email: email,
-            exp: Math.floor(Date.now() / 1000) + (1 * 60)
+            exp: Math.floor(Date.now() / 1000) + (1440 * 60)
         };
 
         const token = jsonwebtoken.sign(payload, secretKey);

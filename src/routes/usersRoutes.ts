@@ -14,5 +14,6 @@ usersRouter.post('/getUsersByEmail', userController.getUsersByEmail);
 usersRouter.get('/verifyToken/:token', userController.verifyToken);
 usersRouter.get('/authMiddleware/:token', userController.authMiddleware);
 usersRouter.get('/verifyUserByEmail/:email', userController.verifyUserByEmail);
+usersRouter.get('/newToken/:email', userController.newToken);
 
 export default usersRouter; 
